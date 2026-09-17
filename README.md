@@ -19,7 +19,7 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本：`3.4.0`（S20 车位可视化专用；看点线请用 v3.3.0）。发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 和 `pyproject.toml` 的 `version`；窗口标题与打包 EXE 名会自动带上该版本号。
+当前软件版本：`3.4.1`（S20 车位可视化专用；看点线请用 v3.3.0）。发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 和 `pyproject.toml` 的 `version`；窗口标题与打包 EXE 名会自动带上该版本号。
 
 ---
 
@@ -58,7 +58,7 @@ uv run pytest -q
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v3.4.0.exe
+dist/COLIGEN_USS_UPPER_CAN_v3.4.1.exe
 ```
 
 ---

@@ -11,7 +11,7 @@
 运行：
 
 ```text
-dist\COLIGEN_USS_UPPER_CAN_v3.4.0.exe
+dist\COLIGEN_USS_UPPER_CAN_v3.4.1.exe
 ```
 
 顶部“方式”下拉框保留原来的“劳特巴赫”和“CS+”，并增加：
