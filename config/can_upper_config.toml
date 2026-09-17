@@ -1,0 +1,28 @@
+[can]
+# 周立功 USBCANFD-200U = 41，物理通道 0。
+device_type = 41
+device_index = 0
+channel = 0
+bitrate = 500000
+data_bitrate = 2000000
+resistance = true
+
+[canoe]
+# Vector XL channel index. CANoe's application name lets python-can use the
+# same channel mapping configured in CANoe.
+channel = 0
+app_name = "CANoe"
+bitrate = 500000
+data_bitrate = 2000000
+fd = true
+listen_only = false
+
+[replay]
+# GUI 选择 ASC/BLF 后会覆盖此路径；直接运行时以它作为默认文件。
+path = "../CAN_S20/0904_2.asc"
+# 0 = 最快，1 = 原始时序，2 = 两倍速。
+speed = 1.0
+# 标准 TOML 必须写小写 false；播完停在最后一帧，可用进度条拖动定位。
+loop = false
+# -1 表示不过滤通道；ASC 常见通道号从 1 开始，BLF/python-can 常从 0 开始。
+channel = -1

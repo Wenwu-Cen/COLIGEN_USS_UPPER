@@ -1,0 +1,30 @@
+[project]
+name = "coligen-uss-upper-can"
+version = "3.3.0"
+description = "COLIGEN USS UPPER with ZLG, CANoe/Vector, ASC and BLF sources"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "python-can==4.6.1",
+    "cantools==44.0.0",
+    "numpy==2.2.6",
+    "zlgcan==0.3.0",
+]
+
+[dependency-groups]
+dev = [
+    "pyinstaller==6.22.3",
+    "pytest==8.4.2",
+    "ruff==0.13.2",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100

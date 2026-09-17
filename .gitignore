@@ -1,0 +1,11 @@
+.venv/
+build/
+dist/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.learnings/
+more_panel_state.json
+*.log
