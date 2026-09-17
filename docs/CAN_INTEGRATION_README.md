@@ -1,5 +1,8 @@
 # COLIGEN USS UPPER CAN 集成说明
 
+**本版专门为 S20 车位可视化制作。** 新总线把 `0x6BA/0x6BB` 等改成车位报文，
+与 v3.3.0 的点云/PDC ID 冲突。看点线请用上一版 **v3.3.0**，否则显示会错乱。
+
 本版本把 `ASC/BLF/周立功 CAN → DBC 解码 → 可视化数据模型` 直接接入原界面，
 不再依赖 `USS_PC_replay.exe` 或 TCP 中转。
 
@@ -8,7 +11,7 @@
 运行：
 
 ```text
-dist\COLIGEN_USS_UPPER_CAN_v3.3.0.exe
+dist\COLIGEN_USS_UPPER_CAN_v3.4.0.exe
 ```
 
 顶部“方式”下拉框保留原来的“劳特巴赫”和“CS+”，并增加：
@@ -73,6 +76,11 @@ EXE 内置以下 DBC：
 
 同时支持当前 S20 ID 和第一版录制的 0x740、0x748~0x74A、0x76A~0x779、
 0x7E0~0x7F8 别名。点云按 120 点完整组帧。
+
+车位报文按固件 Rawdata 组映射到原 DBC：`0x6BA→0x6B6`、`0x6BB→0x6B7`、
+`0x6BC→0x743`、`0x6BD→0x6B8`、`0x6CE→0x6B9`、`0x6CF→0x746`。
+`recordings/车位.asc` 里左侧后两帧为 `0x6BE/0x6BF`，按同一 DBC 解析。
+可用 ASC/BLF 回放该文件验证 SLOT 画布。车位相对自车的前后位移来自 `0x640` CarInfo 的 `VehiclePosition_X/Y/Angle`。
 
 ASC/CAN 与 TXT 日志的坐标转换不同，详见 `docs/COORDINATE_SYSTEMS.md`。
 TXT（如 `recordings/泊车3.txt`）保持引入周立功之前的规则；ASC 按当前 DBC 规则显示。

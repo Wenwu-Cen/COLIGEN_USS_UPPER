@@ -1,6 +1,6 @@
 [project]
 name = "coligen-uss-upper-can"
-version = "3.3.0"
+version = "3.4.0"
 description = "COLIGEN USS UPPER with ZLG, CANoe/Vector, ASC and BLF sources"
 requires-python = ">=3.10,<3.13"
 dependencies = [
