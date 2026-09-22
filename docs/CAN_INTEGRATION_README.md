@@ -1,7 +1,8 @@
 # COLIGEN USS UPPER CAN 集成说明
 
 **本版专门为 S20 车位可视化制作。** 新总线把 `0x6BA/0x6BB` 等改成车位报文，
-与 v3.3.0 的点云/PDC ID 冲突。看点线请用上一版 **v3.3.0**，否则显示会错乱。
+与 v3.3.0 的点云/PDC ID 冲突。默认按车位显示；画布关掉 `[SLOT]` 后冲突 ID
+改按点云/PDC 解析，可在本版调试点线。
 
 本版本把 `ASC/BLF/周立功 CAN → DBC 解码 → 可视化数据模型` 直接接入原界面，
 不再依赖 `USS_PC_replay.exe` 或 TCP 中转。
@@ -11,7 +12,7 @@
 运行：
 
 ```text
-dist\COLIGEN_USS_UPPER_CAN_v3.4.1.exe
+dist\COLIGEN_USS_UPPER_CAN_v3.4.2.exe
 ```
 
 顶部“方式”下拉框保留原来的“劳特巴赫”和“CS+”，并增加：
@@ -76,6 +77,9 @@ EXE 内置以下 DBC：
 
 同时支持当前 S20 ID 和第一版录制的 0x740、0x748~0x74A、0x76A~0x779、
 0x7E0~0x7F8 别名。点云按 120 点完整组帧。
+
+默认识别冲突 ID 为车位。画布上关掉 `[SLOT]` 后，`0x6BA~0x6BF` 改按 v3.3.0
+点云/PDC 解析，可在同一条总线上调试点线；再打开 `[SLOT]` 则回到车位。
 
 车位报文按固件 Rawdata 组映射到原 DBC：`0x6BA→0x6B6`、`0x6BB→0x6B7`、
 `0x6BC→0x743`、`0x6BD→0x6B8`、`0x6CE→0x6B9`、`0x6CF→0x746`。
