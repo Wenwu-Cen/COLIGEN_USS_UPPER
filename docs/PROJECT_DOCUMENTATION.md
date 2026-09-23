@@ -404,7 +404,10 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 | `_draw_compass` | 指南针 |
 | `_draw_measurement` | 点击测量两点距离 |
 
-**交互**：滚轮缩放、左键拖拽平移、右键复位。
+**交互**：右键复位。滚轮缩放和左键拖拽在实时报文刷新时不再逐事件整帧重绘：
+
+- **左键拖拽**：拖动过程中只平移带 `world` 标签的图元（网格、车身、探头、障碍物、车位、测距）。按钮、图例、指南针和北京时间留在屏幕固定位置。实时帧先写入数据，松手后按最新数据重绘一次，补齐拖出视口的网格。
+- **滚轮缩放**：以鼠标位置为中心，连续滚动时按比例缩放 `world` 图元。停轮约 40ms 后整帧重绘，使线宽、文字和网格间距回到当前比例。界面按钮不跟着放大缩小。
 
 ### 8.3 Show More Data 面板 MoreDataPanel（ttk.Frame）
 
@@ -420,7 +423,7 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 
 ### 8.4 App 主窗口（tk.Tk）
 
-**窗口**：1300×850，深色主题（`#0B1026`），标题来自 `src/app_version.py`（当前为 "COLIGEN USS UPPER v3.4.2 (S20车位)"），ttk 主题 `clam`。
+**窗口**：1300×850，深色主题（`#0B1026`），标题来自 `src/app_version.py`（当前为 "COLIGEN USS UPPER v3.4.3"），ttk 主题 `clam`。
 
 **布局**：顶部工具栏 → 控制面板（帧滑块+播放控制）→ 主 PanedWindow（画布 | Show More Data 面板）→ 底部状态栏。
 

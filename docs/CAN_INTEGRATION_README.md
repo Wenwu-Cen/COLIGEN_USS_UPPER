@@ -12,7 +12,7 @@
 运行：
 
 ```text
-dist\COLIGEN_USS_UPPER_CAN_v3.4.2.exe
+dist\COLIGEN_USS_UPPER_CAN_v3.4.3.exe
 ```
 
 顶部“方式”下拉框保留原来的“劳特巴赫”和“CS+”，并增加：
@@ -39,6 +39,8 @@ dist\COLIGEN_USS_UPPER_CAN_v3.4.2.exe
 3. 关闭 ZXDoc、ZCANPRO 以及其他可能占用同一设备的 CAN 程序。
 4. “方式”选择 `周立功CAN`。
 5. 点击“在线连接”。
+
+在线看图时可以拖动画布、用滚轮缩放。拖动和连续滚动期间不逐事件整帧重绘，松手或停轮后再按最新报文刷新，避免和实时接收抢界面。
 
 如现场位速率或设备索引不同，修改 EXE 旁边的 `can_upper_config.toml` 后重启。
 
