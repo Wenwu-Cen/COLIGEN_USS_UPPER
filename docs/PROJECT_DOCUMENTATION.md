@@ -392,7 +392,7 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 
 | 方法 | 内容 |
 |---|---|
-| `_draw_grid/_draw_axes` | 网格（1000mm）、坐标轴 |
+| `_draw_grid/_draw_axes` | 网格随缩放加密（默认视距细格 500mm、主格 1000mm）、坐标轴 |
 | `_draw_vehicle_body` | 车身多边形、中心十字、**前/后同频小灯**（FLS/FRS 中点与 RLS/RRS 中点，`=1` 橙色亮/`=0` 灰暗）、车长/车宽文字 |
 | `_draw_probes` | 12 个探头点（`PDCFault=1` 变红） |
 | `_draw_probe_sectors` | 每个探头 120° 探测扇形（受 Show Sensor Info 开关控制） |
@@ -408,6 +408,8 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 
 - **左键拖拽**：拖动过程中只平移带 `world` 标签的图元（网格、车身、探头、障碍物、车位、测距）。按钮、图例、指南针和北京时间留在屏幕固定位置。实时帧先写入数据，松手后按最新数据重绘一次，补齐拖出视口的网格。
 - **滚轮缩放**：以鼠标位置为中心，连续滚动时按比例缩放 `world` 图元。停轮约 40ms 后整帧重绘，使线宽、文字和网格间距回到当前比例。界面按钮不跟着放大缩小。
+
+**参照网格**：细格取 100/200/500/1000/2000/5000/10000 mm 中、使相邻线不少于约 48 px 的最密一档。默认比例 0.15 px/mm 时细格为 500 mm（虚线），主格为 1000 mm（更深实线）。放大到能放下 200 mm 或 100 mm 时自动加密，缩小时加粗间距，避免缩成一片。
 
 ### 8.3 Show More Data 面板 MoreDataPanel（ttk.Frame）
 
@@ -431,7 +433,7 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 
 | 控件 | 功能 |
 |---|---|
-| Open Log... | 打开日志（`_open_log` → `LogParser` → 加载帧） |
+| Open Log... | 打开日志。TXT 走 `LogParser`；CAN 版同一个按钮还可打开 ASC/BLF，并按录制时间回放 |
 | 在线连接 + Port | 在线模式开关（`_toggle_online`，端口可编辑） |
 | 开始/停止录制 | `_toggle_record` / `_save_record` |
 | Show More Data | 开关右侧数据面板（`_on_toggle_more_panel`） |
