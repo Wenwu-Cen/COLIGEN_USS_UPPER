@@ -19,7 +19,7 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本：`3.4.3`（拖动和滚轮缩放在停手/停轮后再整帧重绘。ASC/BLF 用 Open Log 打开，不再走在线连接。参照网格默认细格 0.5 m、主格 1 m。S20 车位可视化不变：冲突 ID 默认按车位，关闭画布 SLOT 后按点云/PDC）。发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 和 `pyproject.toml` 的 `version`；窗口标题与打包 EXE 名会自动带上该版本号。
+当前软件版本：`3.4.4`（拖动按像素平移当前画面，松手后再整帧重绘；滚轮缩放在停轮后再整帧重绘。ASC/BLF 用 Open Log 打开，不再走在线连接。参照网格默认细格 0.5 m、主格 1 m。S20 车位可视化不变：冲突 ID 默认按车位，关闭画布 SLOT 后按点云/PDC）。发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 和 `pyproject.toml` 的 `version`；窗口标题与打包 EXE 名会自动带上该版本号。
 
 ---
 
@@ -58,7 +58,7 @@ uv run pytest -q
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v3.4.3.exe
+dist/COLIGEN_USS_UPPER_CAN_v3.4.4.exe
 ```
 
 ---

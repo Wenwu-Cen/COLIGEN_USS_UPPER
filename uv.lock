@@ -79,7 +79,7 @@ wheels = [
 
 [[package]]
 name = "coligen-uss-upper-can"
-version = "3.4.3"
+version = "3.4.4"
 source = { virtual = "." }
 dependencies = [
     { name = "cantools" },
