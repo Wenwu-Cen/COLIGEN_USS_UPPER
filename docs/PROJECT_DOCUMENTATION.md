@@ -425,7 +425,7 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 
 ### 8.4 App 主窗口（tk.Tk）
 
-**窗口**：1300×850，深色主题（`#0B1026`），标题来自 `src/app_version.py`（当前为 "COLIGEN USS UPPER v3.4.4"），ttk 主题 `clam`。
+**窗口**：1300×850，深色主题（`#0B1026`），标题来自 `src/app_version.py`（当前为 "COLIGEN USS UPPER v3.4.5"），ttk 主题 `clam`。
 
 **布局**：顶部工具栏 → 控制面板（帧滑块+播放控制）→ 主 PanedWindow（画布 | Show More Data 面板）→ 底部状态栏。
 
