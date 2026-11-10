@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import sys
+from PyInstaller.utils.hooks import collect_data_files
 
 sys.path.insert(0, str(Path("src").resolve()))
 from app_version import EXE_STEM
@@ -16,8 +17,10 @@ a = Analysis(
         ('library/zlgcan.dll', 'can_assets/library'),
         ('library/zlgcan.dll', 'can_assets/library/windows/x86_64'),
         ('library/vxlapi.dll', 'can_assets/library'),
+        ('library/vxlapi64.dll', 'can_assets/library'),
     ],
-    datas=[
+    # Include CTk themes and fonts in the single-file Windows release.
+    datas=collect_data_files("customtkinter") + [
         ('assets/car.ico', '.'),
         ('config/can_upper_config.toml', '.'),
         ('library/bitrate.cfg.yaml', 'can_assets/library'),
@@ -32,6 +35,7 @@ a = Analysis(
         'can', 'can.io.blf', 'can.interfaces.vector',
         'can.interfaces.vector.canlib', 'can.interfaces.vector.xldriver',
         'cantools', 'numpy', 'zlgcan', 'zlgcan_driver', 'app_version',
+        'lauterbach.trace32.rcl',
     ],
     hookspath=[],
     hooksconfig={},

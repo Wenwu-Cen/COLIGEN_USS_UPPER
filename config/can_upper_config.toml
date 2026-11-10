@@ -1,4 +1,5 @@
 [can]
+# 原有 CAN、调试器与回放功能属于 20 探头方案。
 # 周立功 USBCANFD-200U = 41，物理通道 0。
 device_type = 41
 device_index = 0
@@ -26,3 +27,18 @@ speed = 1.0
 loop = false
 # -1 表示不过滤通道；ASC 常见通道号从 1 开始，BLF/python-can 常从 0 开始。
 channel = -1
+
+[ethernet]
+# 新增以太网属于 17 探头方案，字段数量严格遵循底软外发结构。
+# RTE 回读 uss_vendor_sdk.h 中标识 1～5 的完整 512 字节数据包。
+# udp 为本机监听，tcp 为连接 RTE 服务端。IP 和端口需与 RTE 转发配置一致。
+transport = "udp"
+listen_host = "0.0.0.0"
+remote_host = "127.0.0.1"
+port = 50000
+byte_order = "little"
+# 默认 C 自然对齐。底软若使用 pragma pack，可改为 1、2 或 4。
+alignment = 8
+# 每个 UDP 数据报 / TCP 固定帧在 512 字节负载之前的前缀长度。
+payload_offset = 0
+timeout = 1.0

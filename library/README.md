@@ -41,3 +41,10 @@ uv run can-tcp-bridge --interface zlg
 
 `config.toml` 里把 `interface` 改为 `"zlg"`，用 `legacy_baud` 指定仲裁段速率(kbps)，
 数据段固定 1 Mbps（旧后端限制）。
+
+## CANoe / Vector XL
+
+64 位 Python 和打包后的 EXE 加载 `vxlapi64.dll`，32 位解释器加载 `vxlapi.dll`。
+两份都应放在本目录，版本保持一致。当前工程副本为 XL API 11.0.14，与 CANoe 12
+自带的 Vector XL 库一致。python-can 在导入 Vector 接口时按 `PATH` 查找动态库，
+程序会把本目录放到搜索路径最前面，避免用到系统目录里更旧的 `vxlapi64.dll`。

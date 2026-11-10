@@ -19,7 +19,13 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本：`3.5.0`（周立功在线时收包会让出界面线程，重复报文不再刷新画布；点云、扇形、PDC 和车位一批更新，像素没变就不挪图元。拖动按像素平移当前画面，松手后再整帧重绘；滚轮缩放在停轮后再整帧重绘。ASC/BLF 用 Open Log 打开，不再走在线连接。参照网格默认细格 0.5 m、主格 1 m。S20 车位可视化不变：冲突 ID 默认按车位，关闭画布 SLOT 后按点云/PDC）。发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 和 `pyproject.toml` 的 `version`；窗口标题与打包 EXE 名会自动带上该版本号。
+当前软件版本为 `3.8.1`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+
+PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口，可显示点云、PDC 和车位。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
+
+周立功在线收包会让出界面线程，重复报文跳过解码和画布刷新。点云、扇形、PDC 和车位批量更新，图元只在像素位置变化时移动。拖动时按像素平移，松手或停轮后重绘。ASC/BLF 从“打开日志”打开。参照网格默认细格 0.5 m、主格 1 m。S20 的冲突 ID 默认按车位解析，在「设备与显示」的「图层与测距」中关闭车位图层后，按点云和 PDC 解析。
+
+发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 与 `pyproject.toml` 的 `version`，并运行 `uv lock` 更新锁文件。窗口标题和 EXE 文件名会使用新版本号。
 
 ---
 
@@ -41,11 +47,31 @@ uv sync
 
 ---
 
+### 以太网接入
+
+打开「设备与显示」，在 Hardware 下拉框选择「TCP/IP」，点击「网络设置」匹配 RTE 端的 IP、端口与数据布局后连接。默认 UDP 监听 `0.0.0.0:50000`，接收 512 字节底软数据包。[17 探头以太网说明](docs/ETHERNET_INTERFACE.md)
+
+本机模拟可运行 `python scripts/test_ethernet_input.py`，发送 90 点、8 车位和三档 PDC。
+
+---
+
 ### 运行测试
 
 ```powershell
 uv run pytest -q
 ```
+
+---
+
+### 试听 PDC 告警
+
+在已安装 Python 3.10 或更高版本的 Windows 上，从项目根目录运行
+
+```powershell
+python .\scripts\test_pdc_alarm.py
+```
+
+脚本直接调用上位机音效，依次播放远档 2 Hz、中档 4 Hz 和近档长鸣。每档 3 秒，按 Ctrl+C 停止。
 
 ---
 
@@ -58,7 +84,7 @@ uv run pytest -q
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v3.5.0.exe
+dist/COLIGEN_USS_UPPER_CAN_v3.8.1.exe
 ```
 
 ---

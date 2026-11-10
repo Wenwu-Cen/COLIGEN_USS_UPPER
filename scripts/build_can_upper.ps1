@@ -11,6 +11,12 @@ function Assert-LastExitCode {
 
 & (Join-Path $PSScriptRoot 'prepare_zlgcan_runtime.ps1') -ProjectRoot (Get-Location).Path
 
+$vectorDllName = if ([Environment]::Is64BitProcess) { 'vxlapi64.dll' } else { 'vxlapi.dll' }
+$vectorDll = Join-Path (Get-Location) "library\$vectorDllName"
+if (-not (Test-Path -LiteralPath $vectorDll -PathType Leaf)) {
+    throw "CANoe/Vector runtime not found: $vectorDll"
+}
+
 uv sync
 Assert-LastExitCode 'uv sync'
 

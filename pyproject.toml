@@ -1,6 +1,6 @@
 [project]
 name = "coligen-uss-upper-can"
-version = "3.5.0"
+version = "3.8.1"
 description = "COLIGEN USS UPPER with ZLG, CANoe/Vector, ASC and BLF sources"
 requires-python = ">=3.10,<3.13"
 dependencies = [
@@ -8,6 +8,8 @@ dependencies = [
     "cantools==44.0.0",
     "numpy==2.2.6",
     "zlgcan==0.3.0",
+    "lauterbach-trace32-rcl==1.0.8",
+    "customtkinter==6.0.0",
 ]
 
 [dependency-groups]
