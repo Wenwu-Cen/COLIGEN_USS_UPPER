@@ -425,7 +425,7 @@ class LogParser         # 日志解析器：parse() 分帧 → _parse_frame() �
 
 ### 8.4 App 主窗口（tk.Tk）
 
-统一入口使用 CustomTkinter 深色界面，启动尺寸根据屏幕调整。窗口标题来自 `src/app_version.py`，当前版本为 3.8.1。顶部是单行工具栏，设备与显示侧栏按需展开，画布和数据详情共用中间区域，回放和状态放在底部。 [CustomTkinter 界面说明](UI_CUSTOMTKINTER.md)
+统一入口使用 CustomTkinter 深色界面，启动尺寸根据屏幕调整。窗口标题来自 `src/app_version.py`，当前版本为 3.8.2。顶部是单行工具栏，设备与显示侧栏按需展开，画布和数据详情共用中间区域，回放和状态放在底部。 [CustomTkinter 界面说明](UI_CUSTOMTKINTER.md)
 
 以下工具栏表保留早期 Tkinter 入口的控件说明。
 

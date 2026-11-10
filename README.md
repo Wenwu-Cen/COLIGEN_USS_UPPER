@@ -19,7 +19,7 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本为 `3.8.1`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+当前软件版本为 `3.8.2`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
 
 PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口，可显示点云、PDC 和车位。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
 
@@ -84,7 +84,7 @@ python .\scripts\test_pdc_alarm.py
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v3.8.1.exe
+dist/COLIGEN_USS_UPPER_CAN_v3.8.2.exe
 ```
 
 ---

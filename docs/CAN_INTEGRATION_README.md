@@ -14,7 +14,7 @@
 运行：
 
 ```text
-dist\COLIGEN_USS_UPPER_CAN_v3.8.1.exe
+dist\COLIGEN_USS_UPPER_CAN_v3.8.2.exe
 ```
 
 点击「设备与显示」展开 Hardware 下拉框。Port 输入框仅在选择 Lauterbach TRACE32 时显示。

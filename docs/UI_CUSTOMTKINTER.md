@@ -1,10 +1,10 @@
-# CustomTkinter 界面（3.8.1）
+# CustomTkinter 界面（3.8.2）
 
 当前 GUI 使用用户选择的 D 方案：CustomTkinter 6.0.0 与原有 Tkinter Canvas / ttk Treeview 结合。
 
 ## 使用
 
-运行 `scripts/run_can_upper.ps1`，或打开 `dist/COLIGEN_USS_UPPER_CAN_v3.8.1.exe`。
+运行 `scripts/run_can_upper.ps1`，或打开 `dist/COLIGEN_USS_UPPER_CAN_v3.8.2.exe`。
 
 - 顶部工具栏提供在线连接、打开日志、录制、数据详情和适应视图。
 - 点击「设备与显示」展开左侧栏，选择硬件、切换图层与标注、使用测距并查看文件与报文计数。再次点击可收起。
@@ -27,7 +27,7 @@
 共享控制器通过 `_create_main_pane()`、`_create_canvas()` 和 `_create_more_panel()` 创建视图。`WorkspaceCanvas` 复用画布渲染，在取景时包含可见图层的几何范围。
 CustomTkinter 控件提供 `.config()` 兼容入口；下拉框把原生选择回调桥接到已有的
 `<<ComboboxSelected>>` 事件，使硬件切换与 CAN 回放倍速继续使用统一控制器。
-界面缩放由 CustomTkinter 处理，不再在每个子控件的 Configure 事件中重置字体。
+界面缩放由 CustomTkinter 处理。Tkinter 主窗口实现 DPI 开始和结束回调，供 CustomTkinter 缩放检查调用，避免中断透明度恢复。
 
 ## 依赖与打包
 
