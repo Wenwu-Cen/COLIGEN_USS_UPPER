@@ -17,7 +17,7 @@ Git 验证运行了 diff --textconv 和 show --textconv；历史和当前源码�
 ## 验证结果
 
 - Ubuntu 最终完整回归：**122 passed, 1 skipped**（53.77 秒），跳过 Windows Vector DLL 专项。
-- Windows 版本、车型模型、计时、17 探头和连接生命周期核心回归：**33 passed**；编辑器保存、重启、取消、安装几何、导入导出、方案切换及 PDC cm 半径用例均完成验证。本机多次创建 Tk 根窗口时出现过 Tcl 文件读取 / 初始化异常，相关用例独立进程重跑通过。
+- Windows 版本、车型模型、计时、17 探头和连接生命周期核心回归：**34 passed**；编辑器保存、重启、取消、安装几何、导入导出、方案切换及 PDC cm 半径用例均完成验证。本机多次创建 Tk 根窗口时出现过 Tcl 文件读取 / 初始化异常，相关用例独立进程重跑通过。
 - Windows 最终单文件 EXE 自检通过：解析 105620 帧，加载 ZLG 与随包 Vector DLL，MouseWheel 缩放、车型编辑保存和安装几何通过。
 - Ubuntu 最终单文件程序自检通过：样例 2997 帧、120 个点，X11 Button-4/5 缩放、车型编辑保存和安装几何通过。
 - 两平台发行二进制均检查到 PDC cm 处理、设备时间显示和后台连接清理修复。
@@ -42,3 +42,7 @@ Git 验证运行了 diff --textconv 和 show --textconv；历史和当前源码�
 Ubuntu 已安装到 ~/Applications/COLIGEN_USS_UPPER_v3.10.0_Ubuntu_x86_64，桌面与应用菜单入口更新至本版。保留原 v3.9.1 的 can_upper_config.toml，字节对比一致；用户车型库和方案选择不变。安装目录再次执行单文件自检通过。旧版本目录与运行中的旧窗口均保留。
 
 Windows EXE 与 Ubuntu tar.gz 同时复制到 Windows 共享目录 D:\\Cenww_work\\share，发布时校验 SHA-256。
+
+## Windows CS+ 兼容补丁
+
+额外覆盖从 17 探头 TRACE32 切回 CS+ 的数组绑定和点位 / 线段出帧。Windows 核心回归增加至 34 项通过，更新后的 Windows EXE 自检再次通过。Ubuntu 界面不提供 CS+ 入口，Ubuntu 发行包保留此前实测构建，源提交为 7011f10d215b7b23ccb809617dd0c19ce910bbbd，见包内 SOURCE_COMMIT.txt。该构建包含车型与探头编辑器、17 / 20 选择、PDC cm、设备时间和线程清理修复。虚拟机连接中断前已完成安装与实机验证，后续未重新启动虚拟机或 TRACE32。
