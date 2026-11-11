@@ -1,0 +1,22 @@
+# Ubuntu native release. Keep this file beside the executable.
+[trace32]
+# Matches T32_Ubuntu_J6E/hs.t32 (RCL=NETTCP).
+host = "127.0.0.1"
+port = 20000
+probe_scheme = 17
+
+[ethernet]
+# 独立的 17 探头 TCP/IP 协议；TRACE32 由上方 probe_scheme 选择 17 / 20。
+transport = "udp"
+listen_host = "0.0.0.0"
+remote_host = "127.0.0.1"
+port = 50000
+byte_order = "little"
+alignment = 8
+payload_offset = 0
+timeout = 1.0
+
+[replay]
+speed = 1.0
+loop = false
+channel = -1

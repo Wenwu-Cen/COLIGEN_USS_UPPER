@@ -19,7 +19,7 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本为 `3.8.2`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+当前软件版本为 `3.10.0`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
 
 PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口，可显示点云、PDC 和车位。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
 
@@ -47,6 +47,22 @@ uv sync
 
 ---
 
+### Ubuntu 直接运行
+
+新增原生 Linux 单文件程序和桌面快捷方式，已在 Ubuntu 22.04.5 x86_64 验证。无需单独安装 Python，Linux 默认 TRACE32 TCP 端口为 20000。[下载包使用、依赖与 TRACE32 配置](docs/UBUNTU_RELEASE.md)
+
+构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v3.10.0_Ubuntu_x86_64.tar.gz`。
+
+### 车型与探头安装配置
+
+顶部「车型配置」可编辑车辆尺寸、轴距 / 悬长、每个探头的坐标、朝向、FOV 和启用状态；支持多车型保存、切换与 JSON 导入导出。两平台使用同一格式，录制 / 回放保存配置。[使用说明](docs/VEHICLE_PROFILES.md)
+
+TRACE32 的 Probe Scheme 可选 17 PROBE / 20 PROBE；17 探头没有线段输出，PDC 外发单位为 cm。
+
+### Git / VS Code 解密差异
+
+按提供文档使用 textconv，本机驱动已适配受保护文件。项目提供一键配置与验证脚本：[操作说明](docs/GIT_DECRYPT_DIFF.md)。
+
 ### 以太网接入
 
 打开「设备与显示」，在 Hardware 下拉框选择「TCP/IP」，点击「网络设置」匹配 RTE 端的 IP、端口与数据布局后连接。默认 UDP 监听 `0.0.0.0:50000`，接收 512 字节底软数据包。[17 探头以太网说明](docs/ETHERNET_INTERFACE.md)
@@ -65,7 +81,7 @@ uv run pytest -q
 
 ### 试听 PDC 告警
 
-在已安装 Python 3.10 或更高版本的 Windows 上，从项目根目录运行
+在已安装 Python 3.10 或更高版本的 Windows / Ubuntu 上，从项目根目录运行
 
 ```powershell
 python .\scripts\test_pdc_alarm.py
@@ -84,7 +100,7 @@ python .\scripts\test_pdc_alarm.py
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v3.8.2.exe
+dist/COLIGEN_USS_UPPER_CAN_v3.10.0.exe
 ```
 
 ---

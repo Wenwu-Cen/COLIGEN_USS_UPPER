@@ -1,0 +1,11 @@
+# Display protected text through the operator's locally configured decrypt driver.
+# Configure Windows once with scripts/configure_git_diff.ps1.
+# textconv affects review only; it does not change Git storage or encryption policy.
+*.c diff=decrypt
+*.h diff=decrypt
+*.py diff=decrypt
+*.pyi diff=decrypt
+*.spec diff=decrypt
+*.toml diff=decrypt
+*.ps1 diff=decrypt
+*.sh diff=decrypt eol=lf

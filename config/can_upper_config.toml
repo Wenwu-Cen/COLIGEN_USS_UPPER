@@ -1,5 +1,5 @@
 [can]
-# 原有 CAN、调试器与回放功能属于 20 探头方案。
+# 原有 CAN / CS+ 属于 20 探头方案；TRACE32 在界面独立选择 17 / 20。
 # 周立功 USBCANFD-200U = 41，物理通道 0。
 device_type = 41
 device_index = 0
