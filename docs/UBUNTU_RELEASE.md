@@ -1,4 +1,4 @@
-# Ubuntu 直接运行版本（v3.10.0）
+# Ubuntu 直接运行版本（v3.10.1）
 
 已在 Ubuntu 22.04.5 x86_64 桌面验证；Ubuntu 24.04 尚未实测。程序是原生 Linux 单文件可执行程序，已包含 Python、Tk、CustomTkinter、NumPy、DBC 和 TRACE32 PyRCL，运行时无需配置 Python 环境。保留点位、线段（原有数据源）、PDC、车位、日志录制/回放及 TCP/IP；Ubuntu 在线硬件选择为 Lauterbach TRACE32 和 TCP/IP。Renesas CS+、ZLG 和 CANoe/Vector 使用工程现有 Windows 驱动，在 Windows 版本中保留。
 
@@ -8,11 +8,11 @@
 
 ## 启动
 
-解压 `COLIGEN_USS_UPPER_v3.10.0_Ubuntu_x86_64.tar.gz`，运行其中的可执行文件。若执行权限丢失，右键属性允许执行，或执行：
+解压 `COLIGEN_USS_UPPER_v3.10.1_Ubuntu_x86_64.tar.gz`，运行其中的可执行文件。若执行权限丢失，右键属性允许执行，或执行：
 
 ```bash
-chmod +x COLIGEN_USS_UPPER_CAN_v3.10.0_Ubuntu_x86_64
-./COLIGEN_USS_UPPER_CAN_v3.10.0_Ubuntu_x86_64
+chmod +x COLIGEN_USS_UPPER_CAN_v3.10.1_Ubuntu_x86_64
+./COLIGEN_USS_UPPER_CAN_v3.10.1_Ubuntu_x86_64
 ```
 
 在发布目录运行 `bash install-desktop.sh` 会复制至当前用户的 `~/Applications` 并创建桌面和应用菜单快捷方式。已配置的虚拟机可直接双击桌面 **COLIGEN USS UPPER**。配置文件 `can_upper_config.toml` 保留在程序旁边，移动程序时请一起移动。
@@ -26,7 +26,7 @@ sudo apt-get install libx11-6 libxext6 libxrender1 libxft2 libfontconfig1 fonts-
 PDC 使用默认 PulseAudio / PipeWire 输出，缺少 pacat 时使用 ALSA aplay。远档 2 Hz、中档 4 Hz、近档长鸣，与 Windows 共用 WAV 波形。发行程序可直接试听：
 
 ```bash
-./COLIGEN_USS_UPPER_CAN_v3.10.0_Ubuntu_x86_64 --pdc-sound-test
+./COLIGEN_USS_UPPER_CAN_v3.10.1_Ubuntu_x86_64 --pdc-sound-test
 # 也可运行 bash test-pdc-sound.sh
 ```
 
@@ -70,7 +70,7 @@ Windows `D:\Cenww_work\share` 对应 Ubuntu `/mnt/hgfs/share`。建议将程序�
 发行程序自检会加载主题、字体、DBC、CAN 日志、TRACE32 RCL，并校验 17 探头协议：
 
 ```bash
-./COLIGEN_USS_UPPER_CAN_v3.10.0_Ubuntu_x86_64 --can-self-test sample-can.asc result.json
+./COLIGEN_USS_UPPER_CAN_v3.10.1_Ubuntu_x86_64 --can-self-test sample-can.asc result.json
 ```
 
 此自检与离线 TRACE32 模拟验证不能代替 PowerDebug 和目标板的实机读取。现场验证记录请查看发布目录中的 VALIDATION.md。
