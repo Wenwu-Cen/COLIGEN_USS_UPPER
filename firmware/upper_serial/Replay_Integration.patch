@@ -1,0 +1,70 @@
+diff --git a/src/CommonPara/sfType.h b/src/CommonPara/sfType.h
+index e0c76c6e..bd2ad30a 100644
+--- a/src/CommonPara/sfType.h
++++ b/src/CommonPara/sfType.h
+@@ -7,0 +8,15 @@
++
++/*
++ * Export the LAUTERBACH_UPPER_DEBUG variable family to the optional UART
++ * adapter (src/UpperSerialDebug.c). The adapter uses an injected write
++ * callback, so this macro does not select a particular MCU UART driver.
++ */
++#ifndef LAUTERBACH_UPPER_DEBUG
++#define LAUTERBACH_UPPER_DEBUG
++#endif
++#ifndef LAUTERBACH_UPPER_SERIAL_DEBUG
++#define LAUTERBACH_UPPER_SERIAL_DEBUG 1
++#endif
++#ifndef UPPER_SERIAL_PERIOD_US
++#define UPPER_SERIAL_PERIOD_US 100000u
++#endif
+diff --git a/src/VehicleProjects/S20/CommonPara/sfType.h b/src/VehicleProjects/S20/CommonPara/sfType.h
+index e0c76c6e..24e7cb94 100644
+--- a/src/VehicleProjects/S20/CommonPara/sfType.h
++++ b/src/VehicleProjects/S20/CommonPara/sfType.h
+@@ -7,0 +8,11 @@
++
++/* UART debug mirrors; no output until a writer callback is registered. */
++#ifndef LAUTERBACH_UPPER_DEBUG
++#define LAUTERBACH_UPPER_DEBUG
++#endif
++#ifndef LAUTERBACH_UPPER_SERIAL_DEBUG
++#define LAUTERBACH_UPPER_SERIAL_DEBUG 1
++#endif
++#ifndef UPPER_SERIAL_PERIOD_US
++#define UPPER_SERIAL_PERIOD_US 100000u
++#endif
+diff --git a/src/VehicleProjects/S20/dataReplay_main.c b/src/VehicleProjects/S20/dataReplay_main.c
+index 23e9e34c..734771c7 100644
+--- a/src/VehicleProjects/S20/dataReplay_main.c
++++ b/src/VehicleProjects/S20/dataReplay_main.c
+@@ -988,0 +989 @@ void APACore20ms_APATask(void)
++#include "UpperSerialReplay.h"
+@@ -1013,0 +1015 @@ void AppCore20msTask(void)
++    UpperSerialReplay_AfterOutput();
+diff --git a/src/dataReplay_main.c b/src/dataReplay_main.c
+index bf3cd9a2..008aaefc 100644
+--- a/src/dataReplay_main.c
++++ b/src/dataReplay_main.c
+@@ -993,0 +994 @@ void APACore20ms_APATask(void)
++#include "UpperSerialReplay.h"
+@@ -1018,0 +1020 @@ void AppCore20msTask(void)
++    UpperSerialReplay_AfterOutput();
+diff --git a/tools/build_s20_r77207_replay.py b/tools/build_s20_r77207_replay.py
+index 24d9a063..20543a38 100644
+--- a/tools/build_s20_r77207_replay.py
++++ b/tools/build_s20_r77207_replay.py
+@@ -49,0 +50,13 @@ def main():
++    # Shared UART debug adapter is staged with the vehicle profile so its
++    # includes resolve against the same sfType/geometry as the algorithm.
++    for name in ("UpperSerialDebug", "Lauterbach_Var", "UpperSerialReplay", "UpperSerialVariables"):
++        for extension in (".c", ".h"):
++            target = stage / "PlatformAdapter" / (name + extension)
++            shared_source = ROOT / "src" / (name + extension)
++            if not shared_source.exists():
++                continue
++            payload = source_bytes(shared_source)
++            target.write_bytes(payload)
++            hashes["PlatformAdapter/" + name + extension] = hashlib.sha256(payload).hexdigest()
++            if extension == ".c":
++                sources.append(target)

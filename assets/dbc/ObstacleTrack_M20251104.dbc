@@ -1,0 +1,1009 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: PAS CGW
+
+
+BO_ 1741 ObstacleTrack_7F8: 64 PAS
+ SG_ Rear_MapObj12_P2Y : 469|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj12_P2X : 451|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj12_P1Y : 433|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj12_P1X : 431|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj12_P1Type : 419|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj12_P1MinDis : 415|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj12_P1Height : 407|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj11_P2Y : 389|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj11_P2X : 371|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj11_P1Y : 353|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj11_P1X : 351|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj11_P1Type : 339|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj11_P1MinDis : 335|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj11_P1Height : 327|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj10_P2Y : 309|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj10_P2X : 291|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj10_P1Y : 273|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj10_P1X : 271|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj10_P1Type : 259|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj10_P1MinDis : 255|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj10_P1Height : 247|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj09_P2Y : 229|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj09_P2X : 211|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj09_P1Y : 193|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj09_P1X : 191|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj09_P1Type : 179|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj09_P1MinDis : 175|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj09_P1Height : 167|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj08_P2Y : 149|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj08_P2X : 131|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj08_P1Y : 113|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj08_P1X : 111|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj08_P1Type : 99|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj08_P1MinDis : 95|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj08_P1Height : 87|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj07_P2Y : 69|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj07_P2X : 51|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj07_P1Y : 33|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj07_P1X : 31|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj07_P1Type : 19|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj07_P1MinDis : 15|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj07_P1Height : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1740 ObstacleTrack_7F7: 64 PAS
+ SG_ sigAK2FuncSerialPortMask : 511|8@0+ (1,0) [1|255] "" Vector__XXX
+ SG_ sigAK2FuncModeMask : 503|8@0+ (1,0) [1|255] "" Vector__XXX
+ SG_ Rear_MapObj06_P2Y : 469|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj06_P2X : 451|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj06_P1Y : 433|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj06_P1X : 431|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj06_P1Type : 419|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj06_P1MinDis : 415|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj06_P1Height : 407|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj05_P2Y : 389|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj05_P2X : 371|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj05_P1Y : 353|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj05_P1X : 351|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj05_P1Type : 339|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj05_P1MinDis : 335|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj05_P1Height : 327|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj04_P2Y : 309|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj04_P2X : 291|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj04_P1Y : 273|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj04_P1X : 271|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj04_P1Type : 259|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj04_P1MinDis : 255|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj04_P1Height : 247|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj03_P2Y : 229|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj03_P2X : 211|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj03_P1Y : 193|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj03_P1X : 191|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj03_P1Type : 179|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj03_P1MinDis : 175|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj03_P1Height : 167|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj02_P2Y : 149|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj02_P2X : 131|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj02_P1Y : 113|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj02_P1X : 111|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj02_P1Type : 99|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj02_P1MinDis : 95|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj02_P1Height : 87|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rear_MapObj01_P2Y : 69|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj01_P2X : 51|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj01_P1Y : 33|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj01_P1X : 31|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Rear_MapObj01_P1Type : 19|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Rear_MapObj01_P1MinDis : 15|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Rear_MapObj01_P1Height : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1739 ObstacleTrack_7E8: 64 PAS
+ SG_ CarCenterPos_Yaw : 487|16@0+ (0.1,-180) [-180|180] "deg" Vector__XXX
+ SG_ Front_MapObj12_P2Y : 469|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj12_P2X : 451|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj12_P1Y : 433|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj12_P1X : 431|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj12_P1Type : 419|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj12_P1MinDis : 415|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj12_P1Height : 407|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj11_P2Y : 389|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj11_P2X : 371|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj11_P1Y : 353|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj11_P1X : 351|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj11_P1Type : 339|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj11_P1MinDis : 335|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj11_P1Height : 327|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj10_P2Y : 309|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj10_P2X : 291|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj10_P1Y : 273|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj10_P1X : 271|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj10_P1Type : 259|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj10_P1MinDis : 255|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj10_P1Height : 247|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj09_P2Y : 229|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj09_P2X : 211|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj09_P1Y : 193|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj09_P1X : 191|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj09_P1Type : 179|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj09_P1MinDis : 175|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj09_P1Height : 167|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj08_P2Y : 149|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj08_P2X : 131|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj08_P1Y : 113|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj08_P1X : 111|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj08_P1Type : 99|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj08_P1MinDis : 95|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj08_P1Height : 87|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj07_P2Y : 69|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj07_P2X : 51|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj07_P1Y : 33|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj07_P1X : 31|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj07_P1Type : 19|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj07_P1MinDis : 15|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj07_P1Height : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1738 ObstacleTrack_7E7: 64 PAS
+ SG_ CarCenterPos_CoordY : 503|16@0+ (1,-32768) [-32768|32767] "" Vector__XXX
+ SG_ CarCenterPos_CoordX : 487|16@0+ (1,-32768) [-32768|32767] "" Vector__XXX
+ SG_ Front_MapObj06_P2Y : 469|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj06_P2X : 451|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj06_P1Y : 433|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj06_P1X : 431|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj06_P1Type : 419|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj06_P1MinDis : 415|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj06_P1Height : 407|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj05_P2Y : 389|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj05_P2X : 371|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj05_P1Y : 353|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj05_P1X : 351|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj05_P1Type : 339|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj05_P1MinDis : 335|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj05_P1Height : 327|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj04_P2Y : 309|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj04_P2X : 291|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj04_P1Y : 273|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj04_P1X : 271|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj04_P1Type : 259|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj04_P1MinDis : 255|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj04_P1Height : 247|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj03_P2Y : 229|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj03_P2X : 211|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj03_P1Y : 193|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj03_P1X : 191|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj03_P1Type : 179|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj03_P1MinDis : 175|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj03_P1Height : 167|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj02_P2Y : 149|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj02_P2X : 131|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj02_P1Y : 113|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj02_P1X : 111|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj02_P1Type : 99|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj02_P1MinDis : 95|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj02_P1Height : 87|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Front_MapObj01_P2Y : 69|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj01_P2X : 51|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj01_P1Y : 33|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj01_P1X : 31|14@0+ (1,-3276) [-3276|3276] "" Vector__XXX
+ SG_ Front_MapObj01_P1Type : 19|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Front_MapObj01_P1MinDis : 15|12@0+ (1,0) [0|4095] "" Vector__XXX
+ SG_ Front_MapObj01_P1Height : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1733 PointCloud_Left_ObjCoordinate2: 64 PAS
+ SG_ LeftOBJ10CoordinateSTART_Ay : 487|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ10CoordinateSTART_Ax : 470|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ10CoordinateEND_By : 453|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ10CoordinateEND_Bx : 436|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ10_Type : 428|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ10_MinDis : 412|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ10_Height : 395|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ9CoordinateSTART_Ay : 378|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ9CoordinateSTART_Ax : 361|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ9CoordinateEND_By : 344|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ9CoordinateEND_Bx : 343|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ9_Type : 319|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ9_MinDis : 327|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ9_Height : 302|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ8CoordinateSTART_Ay : 285|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ8CoordinateSTART_Ax : 268|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ8CoordinateEND_By : 251|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ8CoordinateEND_Bx : 234|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ8_Type : 226|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ8_MinDis : 210|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ8_Height : 193|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ7CoordinateSTART_Ay : 176|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ7CoordinateSTART_Ax : 175|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ7CoordinateEND_By : 158|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ7CoordinateEND_Bx : 141|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ7_Type : 117|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ7_MinDis : 125|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ7_Height : 100|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ6CoordinateSTART_Ay : 83|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ6CoordinateSTART_Ax : 66|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ6CoordinateEND_By : 49|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ6CoordinateEND_Bx : 32|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ6_Type : 24|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ6_MinDis : 8|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ6_Height : 7|15@0+ (1,0) [0|32767] ""  CGW
+
+BO_ 1737 PointCloud_Right_ObjCoordinate3: 64 PAS
+ SG_ RightOBJ15CoordinateSTART_Ay : 487|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ15CoordinateSTART_Ax : 470|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ15CoordinateEND_By : 453|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ15CoordinateEND_Bx : 436|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ15_Type : 428|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ15_MinDis : 412|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ15_Height : 395|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ14CoordinateSTART_Ay : 378|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ14CoordinateSTART_Ax : 361|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ14CoordinateEND_By : 344|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ14CoordinateEND_Bx : 343|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ14_Type : 319|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ14_MinDis : 327|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ14_Height : 302|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ13CoordinateSTART_Ay : 285|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ13CoordinateSTART_Ax : 268|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ13CoordinateEND_By : 251|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ13CoordinateEND_Bx : 234|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ13_Type : 226|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ13_MinDis : 210|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ13_Height : 193|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ12CoordinateSTART_Ay : 176|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ12CoordinateSTART_Ax : 175|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ12CoordinateEND_By : 158|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ12CoordinateEND_Bx : 141|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ12_Type : 117|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ12_MinDis : 125|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ12_Height : 100|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ11CoordinateSTART_Ay : 83|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ11CoordinateSTART_Ax : 66|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ11CoordinateEND_By : 49|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ11CoordinateEND_Bx : 32|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ11_Type : 24|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ11_MinDis : 8|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ11_Height : 7|15@0+ (1,0) [0|32767] ""  CGW
+
+BO_ 1736 PointCloud_Right_ObjCoordinate2: 64 PAS
+ SG_ RightOBJ10CoordinateSTART_Ay : 487|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ10CoordinateSTART_Ax : 470|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ10CoordinateEND_By : 453|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ10CoordinateEND_Bx : 436|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ10_Type : 428|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ10_MinDis : 412|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ10_Height : 395|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ9CoordinateSTART_Ay : 378|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ9CoordinateSTART_Ax : 361|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ9CoordinateEND_By : 344|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ9CoordinateEND_Bx : 343|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ9_Type : 319|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ9_MinDis : 327|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ9_Height : 302|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ8CoordinateSTART_Ay : 285|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ8CoordinateSTART_Ax : 268|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ8CoordinateEND_By : 251|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ8CoordinateEND_Bx : 234|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ8_Type : 226|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ8_MinDis : 210|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ8_Height : 193|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ7CoordinateSTART_Ay : 176|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ7CoordinateSTART_Ax : 175|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ7CoordinateEND_By : 158|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ7CoordinateEND_Bx : 141|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ7_Type : 117|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ7_MinDis : 125|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ7_Height : 100|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ6CoordinateSTART_Ay : 83|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ6CoordinateSTART_Ax : 66|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ6CoordinateEND_By : 49|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ6CoordinateEND_Bx : 32|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ6_Type : 24|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ6_MinDis : 8|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ6_Height : 7|15@0+ (1,0) [0|32767] ""  CGW
+
+BO_ 1735 PointCloud_Right_ObjCoordinate1: 64 PAS
+ SG_ RightOBJ5CoordinateSTART_Ay : 487|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ5CoordinateSTART_Ax : 470|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ5CoordinateEND_By : 453|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ5CoordinateEND_Bx : 436|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ5_Type : 428|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ5_MinDis : 412|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ5_Height : 395|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ4CoordinateSTART_Ay : 378|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ4CoordinateSTART_Ax : 361|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ4CoordinateEND_By : 344|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ4CoordinateEND_Bx : 343|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ4_Type : 319|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ4_MinDis : 327|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ4_Height : 302|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ3CoordinateSTART_Ay : 285|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ3CoordinateSTART_Ax : 268|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ3CoordinateEND_By : 251|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ3CoordinateEND_Bx : 234|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ3_Type : 226|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ3_MinDis : 210|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ3_Height : 193|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ2CoordinateSTART_Ay : 176|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ2CoordinateSTART_Ax : 175|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ2CoordinateEND_By : 158|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ2CoordinateEND_Bx : 141|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ2_Type : 117|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ2_MinDis : 125|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ2_Height : 100|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ RightOBJ1CoordinateSTART_Ay : 83|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ1CoordinateSTART_Ax : 66|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ1CoordinateEND_By : 49|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ1CoordinateEND_Bx : 32|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ RightOBJ1_Type : 24|8@0+ (1,0) [0|255] ""  CGW
+ SG_ RightOBJ1_MinDis : 8|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ RightOBJ1_Height : 7|15@0+ (1,0) [0|32767] ""  CGW
+
+BO_ 1734 PointCloud_Left_ObjCoordinate3: 64 PAS
+ SG_ LeftOBJ15CoordinateSTART_Ay : 487|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ15CoordinateSTART_Ax : 470|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ15CoordinateEND_By : 453|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ15CoordinateEND_Bx : 436|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ15_Type : 428|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ15_MinDis : 412|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ15_Height : 395|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ14CoordinateSTART_Ay : 378|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ14CoordinateSTART_Ax : 361|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ14CoordinateEND_By : 344|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ14CoordinateEND_Bx : 343|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ14_Type : 319|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ14_MinDis : 327|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ14_Height : 302|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ13CoordinateSTART_Ay : 285|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ13CoordinateSTART_Ax : 268|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ13CoordinateEND_By : 251|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ13CoordinateEND_Bx : 234|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ13_Type : 226|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ13_MinDis : 210|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ13_Height : 193|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ12CoordinateSTART_Ay : 176|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ12CoordinateSTART_Ax : 175|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ12CoordinateEND_By : 158|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ12CoordinateEND_Bx : 141|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ12_Type : 117|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ12_MinDis : 125|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ12_Height : 100|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ11CoordinateSTART_Ay : 83|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ11CoordinateSTART_Ax : 66|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ11CoordinateEND_By : 49|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ11CoordinateEND_Bx : 32|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ11_Type : 24|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ11_MinDis : 8|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ11_Height : 7|15@0+ (1,0) [0|32767] ""  CGW
+
+BO_ 1732 PointCloud_Left_ObjCoordinate1: 64 PAS
+ SG_ LeftOBJ5CoordinateSTART_Ay : 487|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ5CoordinateSTART_Ax : 470|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ5CoordinateEND_By : 453|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ5CoordinateEND_Bx : 436|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ5_Type : 428|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ5_MinDis : 412|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ5_Height : 395|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ4CoordinateSTART_Ay : 378|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ4CoordinateSTART_Ax : 361|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ4CoordinateEND_By : 344|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ4CoordinateEND_Bx : 343|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ4_Type : 319|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ4_MinDis : 327|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ4_Height : 302|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ3CoordinateSTART_Ay : 285|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ3CoordinateSTART_Ax : 268|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ3CoordinateEND_By : 251|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ3CoordinateEND_Bx : 234|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ3_Type : 226|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ3_MinDis : 210|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ3_Height : 193|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ2CoordinateSTART_Ay : 176|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ2CoordinateSTART_Ax : 175|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ2CoordinateEND_By : 158|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ2CoordinateEND_Bx : 141|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ2_Type : 117|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ2_MinDis : 125|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ2_Height : 100|15@0+ (1,0) [0|32767] ""  CGW
+ SG_ LeftOBJ1CoordinateSTART_Ay : 83|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ1CoordinateSTART_Ax : 66|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ1CoordinateEND_By : 49|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ1CoordinateEND_Bx : 32|15@0+ (1,-3276) [-3276|3276] "cm"  CGW
+ SG_ LeftOBJ1_Type : 24|8@0+ (1,0) [0|255] ""  CGW
+ SG_ LeftOBJ1_MinDis : 8|16@0+ (1,0) [0|65535] "cm"  CGW
+ SG_ LeftOBJ1_Height : 7|15@0+ (1,0) [0|32767] ""  CGW
+
+
+
+BA_DEF_ BO_  "NmAsrMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "StartDelay" INT 0 0;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 0;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cycle","NoMsgSendType","IfActive","Event","CA","CE";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_  "NmAsrWaitBusSleepTime" INT 0 0;
+BA_DEF_  "NmAsrTimeoutTime" INT 0 0;
+BA_DEF_  "NmAsrRepeatMessageTime" INT 0 0;
+BA_DEF_  "NmAsrMessageCount" INT 1 128;
+BA_DEF_  "NmAsrCanMsgCycleTime" INT 0 0;
+BA_DEF_  "NmAsrBaseAddress" HEX 0 536870911;
+BA_DEF_  "GenNWMSleepTime" INT 0 1000000;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "VersionYear" INT 2010 2999;
+BA_DEF_  "VersionNumber" INT 0 99;
+BA_DEF_  "VersionMonth" INT 0 12;
+BA_DEF_  "VersionDay" INT 0 31;
+BA_DEF_  "ProtocolType" STRING ;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "ILTxTimeout" INT 0 100;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_ SG_  "GenSigInvalidValue" HEX 0 0;
+BA_DEF_ SG_  "GenSigStartValue" HEX 0 0;
+BA_DEF_ SG_  "GenSigInactiveValue" HEX 0 0;
+BA_DEF_ SG_  "NWM-WakeupAllowed" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigRoutingTimeoutValue" HEX 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cycle","OnChange","OnWrite","IfActive","OnChangeWithRepetition","OnWriteWithRepetition","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","CA","CE","Event";
+BA_DEF_ SG_  "SPN" INT 0 0;
+BA_DEF_ SG_  "E2EProfile" STRING ;
+BA_DEF_ SG_  "ASIL" STRING ;
+BA_DEF_ SG_  "GenSigDataID" STRING ;
+BA_DEF_ BU_  "NmAsrNode" ENUM  "No","Yse","vector_leerstring";
+BA_DEF_ BU_  "NmAsrNodeIdentifier" HEX 0 255;
+BA_DEF_ BU_  "NmAsrCanMsgReducedTime" INT 0 0;
+BA_DEF_ BU_  "NmAsrCanMsgCycleOffset" INT 0 0;
+BA_DEF_ BU_  "GenNodSleepTime" INT 0 1000000;
+BA_DEF_ BU_  "TerminalNode" ENUM  "No","Yes";
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 10;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANFD_CANFD_Gateway" ENUM  "Yes","No";
+BA_DEF_ BU_  "CAN_CANFD_Gateway" ENUM  "Yes","No";
+BA_DEF_ BU_  "CANFD_LIN_Gateway" ENUM  "Yes","No";
+BA_DEF_ BU_  "ECUDisplayName" STRING ;
+BA_DEF_ BU_  "CAN_LIN_Gateway" ENUM  "Yes","No";
+BA_DEF_ BU_  "CAN_CAN_Gateway" ENUM  "Yes","No";
+BA_DEF_ BU_  "BootloaderNode" ENUM  "No","Yes";
+BA_DEF_DEF_  "NmAsrMessage" "No";
+BA_DEF_DEF_  "StartDelay" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgSendType" "Cycle";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 100;
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "NmAsrWaitBusSleepTime" 1500;
+BA_DEF_DEF_  "NmAsrTimeoutTime" 2000;
+BA_DEF_DEF_  "NmAsrRepeatMessageTime" 3200;
+BA_DEF_DEF_  "NmAsrMessageCount" 64;
+BA_DEF_DEF_  "NmAsrCanMsgCycleTime" 640;
+BA_DEF_DEF_  "NmAsrBaseAddress" 1024;
+BA_DEF_DEF_  "GenNWMSleepTime" 0;
+BA_DEF_DEF_  "NmType" "NmAsr";
+BA_DEF_DEF_  "VersionYear" 2019;
+BA_DEF_DEF_  "VersionNumber" 0;
+BA_DEF_DEF_  "VersionMonth" 0;
+BA_DEF_DEF_  "VersionDay" 0;
+BA_DEF_DEF_  "ProtocolType" "CAN";
+BA_DEF_DEF_  "Manufacturer" "";
+BA_DEF_DEF_  "ILTxTimeout" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_DEF_DEF_  "GenSigInvalidValue" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "NWM-WakeupAllowed" "No";
+BA_DEF_DEF_  "GenSigRoutingTimeoutValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cycle";
+BA_DEF_DEF_  "SPN" 0;
+BA_DEF_DEF_  "E2EProfile" "";
+BA_DEF_DEF_  "ASIL" "";
+BA_DEF_DEF_  "GenSigDataID" "";
+BA_DEF_DEF_  "NmAsrNode" "No";
+BA_DEF_DEF_  "NmAsrNodeIdentifier" 0;
+BA_DEF_DEF_  "NmAsrCanMsgReducedTime" 6400;
+BA_DEF_DEF_  "NmAsrCanMsgCycleOffset" 0;
+BA_DEF_DEF_  "GenNodSleepTime" 0;
+BA_DEF_DEF_  "TerminalNode" "No";
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "ILUsed" "Yes";
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANFD_CANFD_Gateway" "No";
+BA_DEF_DEF_  "CAN_CANFD_Gateway" "No";
+BA_DEF_DEF_  "CANFD_LIN_Gateway" "No";
+BA_DEF_DEF_  "ECUDisplayName" "";
+BA_DEF_DEF_  "CAN_LIN_Gateway" "No";
+BA_DEF_DEF_  "CAN_CAN_Gateway" "No";
+BA_DEF_DEF_  "BootloaderNode" "No";
+BA_ "BusType" "CAN FD";
+BA_ "DBName" "PointCloud";
+BA_ "VFrameFormat" BO_ 1741 14;
+BA_ "VFrameFormat" BO_ 1740 14;
+BA_ "VFrameFormat" BO_ 1739 14;
+BA_ "VFrameFormat" BO_ 1738 14;
+BA_ "VFrameFormat" BO_ 1733 14;
+BA_ "VFrameFormat" BO_ 1737 14;
+BA_ "VFrameFormat" BO_ 1736 14;
+BA_ "VFrameFormat" BO_ 1735 14;
+BA_ "VFrameFormat" BO_ 1734 14;
+BA_ "VFrameFormat" BO_ 1732 14;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj12_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj12_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj12_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj12_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj11_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj11_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj11_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj11_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj10_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj10_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj10_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj10_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj09_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj09_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj09_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj09_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj08_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj08_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj08_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj08_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj07_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj07_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj07_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1741 Rear_MapObj07_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1740 sigAK2FuncSerialPortMask 1;
+BA_ "GenSigStartValue" SG_ 1740 sigAK2FuncModeMask 1;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj06_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj06_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj06_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj06_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj05_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj05_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj05_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj05_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj04_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj04_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj04_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj04_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj03_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj03_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj03_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj03_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj02_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj02_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj02_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj02_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj01_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj01_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj01_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1740 Rear_MapObj01_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1739 CarCenterPos_Yaw 1800;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj12_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj12_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj12_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj12_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj11_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj11_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj11_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj11_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj10_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj10_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj10_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj10_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj09_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj09_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj09_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj09_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj08_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj08_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj08_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj08_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj07_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj07_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj07_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1739 Front_MapObj07_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1738 CarCenterPos_CoordY 32768;
+BA_ "GenSigStartValue" SG_ 1738 CarCenterPos_CoordX 32768;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj06_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj06_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj06_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj06_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj05_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj05_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj05_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj05_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj04_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj04_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj04_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj04_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj03_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj03_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj03_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj03_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj02_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj02_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj02_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj02_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj01_P2Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj01_P2X 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj01_P1Y 3276;
+BA_ "GenSigStartValue" SG_ 1738 Front_MapObj01_P1X 3276;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ10CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ10CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ10CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ10CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ10_Height 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ9CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ9CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ9CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ9CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ9_Height 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ8CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ8CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ8CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ8CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ8_Height 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ7CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ7CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ7CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ7CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ7_Height 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ6CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ6CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ6CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1733 LeftOBJ6CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1733 LeftOBJ6_Height 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ15CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ15CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ15CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ15CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ15_Height 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ14CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ14CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ14CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ14CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ14_Height 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ13CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ13CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ13CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ13CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ13_Height 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ12CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ12CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ12CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ12CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ12_Height 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ11CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ11CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ11CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1737 RightOBJ11CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1737 RightOBJ11_Height 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ10CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ10CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ10CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ10CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ10_Height 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ9CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ9CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ9CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ9CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ9_Height 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ8CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ8CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ8CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ8CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ8_Height 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ7CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ7CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ7CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ7CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ7_Height 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ6CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ6CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ6CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1736 RightOBJ6CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1736 RightOBJ6_Height 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ5CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ5CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ5CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ5CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ5_Height 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ4CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ4CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ4CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ4CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ4_Height 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ3CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ3CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ3CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ3CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ3_Height 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ2CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ2CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ2CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ2CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ2_Height 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ1CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ1CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ1CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1735 RightOBJ1CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1735 RightOBJ1_Height 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ15CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ15CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ15CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ15CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ15_Height 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ14CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ14CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ14CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ14CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ14_Height 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ13CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ13CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ13CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ13CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ13_Height 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ12CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ12CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ12CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ12CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ12_Height 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ11CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ11CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ11CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1734 LeftOBJ11CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1734 LeftOBJ11_Height 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ5CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ5CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ5CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ5CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ5_Height 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ4CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ4CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ4CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ4CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ4_Height 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ3CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ3CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ3CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ3CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ3_Height 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ2CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2CoordinateSTART_Ay 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ2CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ2CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ2CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2CoordinateEND_Bx 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ2_Height 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ1CoordinateSTART_Ay 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1CoordinateSTART_Ay 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1CoordinateSTART_Ax 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ1CoordinateSTART_Ax 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1CoordinateEND_By 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ1CoordinateEND_By 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1CoordinateEND_Bx 511;
+BA_ "GenSigStartValue" SG_ 1732 LeftOBJ1CoordinateEND_Bx 3276;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1_Type 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1_MinDis 511;
+BA_ "GenSigInvalidValue" SG_ 1732 LeftOBJ1_Height 511;
+

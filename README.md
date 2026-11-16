@@ -1,177 +1,197 @@
-﻿# COLIGEN USS UPPER CAN
+# COLIGEN USS UPPER
 
-## 目录结构说明
+超声波上位机，当前版本 **4.4.2**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.4.2.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+
+## 1. 直接使用 Windows 程序
+
+1. 从 GitHub、Gitea 对应版本 Release，或 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 下载 EXE。
+2. 双击运行；展开「设备与显示」，选择数据源。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
+3. 在线采集先设置设备参数，再点击「在线连接」；离线 TXT / ASC / BLF 点击「打开日志」。
+4. 根据项目选择车型、探头方案和显示图层。默认车型仅作显示占位，实车使用前应确认安装参数。
+5. 需要检查字段时打开「数据详情」；需要世界地图或轨迹时展开「视角与轨迹」。
+
+支持 Windows x64。EXE 已包含 Python、界面资源、DBC、Vector XL 库和 ZLG SDK 用户态库；连接实体设备仍需安装对应厂商 USB/硬件驱动。单文件程序首次启动解压资源时可能稍慢。
+
+如需修改 TOML 参数，将源码包中的 `config/viewer.toml` 复制到 EXE 同目录，文件名保持 `viewer.toml`。未放置该文件时使用程序内置默认值。界面保存的用户硬件、串口和车型选择优先于初始默认值。
+
+## 2. 数据源与连接操作
+
+### LAUTERBACH TRACE32
+
+1. 启动 TRACE32，加载带调试符号的目标程序并连接目标。
+2. 在 TRACE32 配置中启用 NETTCP RCL；Windows 默认端口 `20001`，Ubuntu 默认 `20000`。远程目标通过 TOML 的 `[trace32] host` 配置。
+3. 选择 `LAUTERBACH TRACE32`，填写 RCL 端口，选择与固件一致的 `17 PROBE` 或 `20 PROBE`，再连接。
+4. 固件需提供对应的 `sf_Upper_*` 调试变量；符号不匹配时，按状态区错误检查 ELF、目标运行状态、端口和探头方案。
+
+17 探头接口没有线段输出，不能通过切换显示图层补出线段。17/20 是解码方案，与车型安装参数独立。
+
+### RENESAS CS+
+
+1. 在 Windows 上启动 CS+，打开目标工程并连接调试器，保留一个需要连接的 CS+ 实例。
+2. 选择 `RENESAS CS+` 后连接。上位机会自动启动 CS+ 远程服务和内存桥，端口输入框不用于该数据源。
+3. 首次使用若提示远程接口未启用，在 CS+ Python Console 的启动设置中启用远程连接后重试。CS+ 中的 `debugger` API 由 IDE 提供，不能把桥脚本当普通 CPython 程序执行。
+4. 状态栏显示完整采集频率、耗时和数据新鲜度；断点或读取变慢时观察等待/滞后提示。点、线、车位由一轮完整快照发布。
+
+### ZLG-USBCANFD
+
+安装 ZLG 驱动、连接硬件，选择 `ZLG-USBCANFD`，再设置型号、硬件索引和通道索引。
+
+- 支持 USBCANFD-100U / 200U / 400U / 800U，SDK 类型分别为 42 / 41 / 76 / 59。
+- 硬件索引 `0～99`，表示同型号设备的驱动枚举序号。
+- 通道索引可选 `0～7`；100U 实际为 0，200U 为 0～1，400U 为 0～3，800U 为 0～7。连接时核对设备实际通道数。
+- 仅初始化所选通道；默认仲裁速率 500000 bit/s、数据速率 2000000 bit/s、终端电阻开启，在 `[can]` 修改。
+
+详细操作见 [CAN 硬件说明](docs/CAN_HARDWARE.md)。设备占用、索引错误、驱动未装、波特率或终端不匹配都会导致无法连接或无有效报文。
+
+### CANOE/VECTOR
+
+安装 Vector 驱动并配置 Vector Hardware Configuration 的 `CANoe` 应用通道映射。选择 `CANOE/VECTOR`，再选择 `CAN1～CAN10`；CAN1 对应 SDK 应用通道索引 0，CAN10 对应 9。
+
+应用名、速率、FD 和监听模式在 `[canoe]` 配置。应用名必须与 Vector 通道映射一致；显示名称统一大写不会改动配置中的厂商应用名 `CANoe`。
+
+### TCP/IP
+
+这是独立的 **17 探头**底软以太网协议，不是任意 CAN 转 TCP 报文流。
+
+1. 选择 `TCP/IP`，点击网络设置。
+2. `UDP` 模式填写本机监听 IP 和端口；`TCP` 模式填写 RTE 服务端 IP 和端口。默认 UDP `0.0.0.0:50000`。
+3. 字节序默认 `LITTLE`、C 结构体对齐默认 8、负载前缀默认 0，必须匹配发送端。
+4. 发送端提供标识 1～5 的完整 512 字节包。必要时允许本机防火墙对应端口。
+
+字段布局、对齐和验证方法见 [以太网接口](docs/ETHERNET_INTERFACE.md)。
+
+### UDP（USSD / IPC DBC）
+
+选择 `UDP`，点击「UDP 设置」填写本机监听 IP、端口和接收来源设备 IP，保存后再在线连接。默认监听 `192.168.98.123:39001`，仅接收设备 `192.168.98.233` 主动发送的数据；监听 IP 可填 `0.0.0.0`，端口范围为 `1..65535`。不发送启动指令或心跳。
+
+未保存界面设置时，默认值取自 `config/viewer.toml`（Ubuntu 为 `config/ubuntu_config.toml`）的 `[udp]`。保存到用户配置目录后，重启继续使用；侧栏直接修改端口仅在本次运行保留。UDP 与 TRACE32 分别保留端口。
+
+使用内置 IPC DBC 和 USSD v1 协议（16 字节包头 + 64 字节 CAN FD 数据），收齐 27 包后更新 80 点、20 线、状态、里程计、12 路回波和 PDC。支持数据详情、点线快照、PDC 声音、TXT / CSV 录制和 TXT 回放，保留设备微秒时间戳、点 ID 和线段编号。无车位信号，车身与探头沿用当前车型配置；2 秒无完整周期时显示「等待数据」。
+
+此接口从 V3.5 移植，与 `TCP/IP` 的 17 探头 512 字节协议分别配置。[UDP 协议与配置](docs/UDP_INTERFACE.md)
+
+### SERIES（串口）
+
+1. 接好 UART 转 USB，关闭占用同一串口的其他工具。
+2. 选择 `SERIES`，点击串口配置，刷新或输入端口，如 `COM3`；Ubuntu 如 `/dev/ttyUSB0`。
+3. 推荐 `921600、8N1`，默认数据超时 1 秒。波特率、校验位和停止位需与底软一致。
+4. 输入坐标默认 X 前/Y 左；发送端明确使用 Y 右正时才选择相应转换。
+5. 连接后接收 **USSV / UPPER v1 二进制完整帧**。接收端校验长度、TLV 和 CRC32，普通串口打印文本不能直接解析成点云。
+
+配套 C 代码在 `firmware/upper_serial/`。实车已有 `Lauterbach_Var.*` 时沿用其变量定义，编译 `UpperSerialDebug.c`、`UpperSerialVariables.c`，在 `sfType.h` 开启 `LAUTERBACH_UPPER_DEBUG`，注册 `UpperSerialDebug_SetWriter(writer, context)`，在一轮 `OutputSignalRead_*` 完成后调用 `UpperSerialDebug_SendVariables()`。
+
+回调 `int writer(const uint8_t *data, uint16_t size, void *context)` 对接域控底软 UART/DMA 队列，成功返回 0；必须在返回前复制或接管整帧。`UpperSerialReplay.*` 仅用于 PC 回灌。详见 [串口协议及移植](docs/SERIAL_PROTOCOL.md)、[C 端说明](firmware/upper_serial/README.md)。
+
+### REPLAY DEBUG（PC 回灌单步）
+
+此模式读取回灌程序持续更新的 USSV/CRC32 最新快照，不是 ASC/BLF 文件播放。
+
+- 从配套回灌工程启动单步调试时，通过 `REPLAY_UPPER_SNAPSHOT` 指定快照文件并自动连接。
+- 手动使用时选择 `REPLAY DEBUG`，点击连接并选择 `.bin` 快照。
+- 断点停住时保留最后完整帧，显示「暂停 / 等待下一步」；继续运行后接收新完整帧。
+- 文件临时不存在、写入未完成或 CRC 错误时保留上一个有效画面并重试。此模式不播放实时 PDC 提示音。
+
+详见 [回灌单步说明](docs/REPLAY_DEBUG.md)。
+
+## 3. 日志回放、录制与时间
+
+「打开日志」支持 TXT、ASC、BLF。ASC/BLF 自动进入报文回放，可播放/暂停、调倍率和拖动进度；TXT 支持逐帧、首尾跳转和播放。日志采样时间优先保留；没有绝对日期时显示相对时间，不推测日期。
+
+「开始录制」记录显示的完整帧，停止后保存 TXT，并按保存流程导出前后探头 RAW CSV。TXT 包含点、线、车位、原始数据、车型/安装参数、可用位姿和采样时间，便于再次打开对照。切换源前先停止录制。
+
+顶部显示时间戳、挡位、车速和温度；在线显示电脑当前北京时间，回放显示采样时间。无数据或协议未提供的字段需结合数据详情确认。[时间说明](docs/TIME_DISPLAY.md)
+
+S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析；「图层与测距」关闭车位图层后切换到点云/PDC 解析。当前支持附带 DBC 和约定接口，其他项目协议需要适配。
+
+## 4. 视图、轨迹和测距
+
+- **跟随车辆**：默认视角，以后轴中心为视图参考，车辆方向固定。
+- **固定世界坐标**：首次有效后轴中心为地图原点，车辆随位姿移动/旋转，镜头和网格固定。TXT 回放会一次容纳整段车辆行程，播放时镜头保持不动。
+- **显示行车轨迹**：将后轴中心走过的世界位置连成轨迹。关闭开关仅隐藏；「清空行车轨迹」清除历史，后续继续记录。
+- 拖动画布平移，滚轮以鼠标位置为中心缩放；右键或「适应视图」重新取景。
+- 可分别开关扇区、PDC、点、线、车位和标注。开启测距后选择位置，「清除测距」清除标记。
+
+轨迹需要有效位置与航向，不通过车速积分伪造。缺后轴参数时沿用数据原点即后轴中心的约定，有车型参数时换算后轴中心。跳帧、回退、切换源或明显位姿跳变会按规则断开/重置轨迹。[世界坐标与轨迹](docs/WORLD_MAP.md)、[坐标转换](docs/COORDINATE_SYSTEMS.md)
+
+## 5. 点线高光与点击快照
+
+1. 打开「数据详情」，切换 `POINT` 或 `LINE`。
+2. 点击数组元素或其字段：黄色高光对应实时点/线，青色虚线保存点击时的几何位置。
+3. 「点击快照」并排显示点击值与实时值，变化字段着色，便于观察坐标、ObjID/cNum、收发探头等异常。
+4. 实时元素暂时消失时快照仍保留；再次点击或点击「更新」重新采样，「清除」删除快照。
+
+实时跟踪以数组下标为准，下一帧可能对应其他目标，需结合 ObjID/cNum 判断。世界视角中的冻结几何保留点击时世界位置；不会把所有历史障碍物累积成地图。
+
+## 6. 车型、探头和本机设置
+
+「车型配置」支持车长/车宽、轴距/悬长、数据原点、探头位置/角度/FOV/启用状态，多车型及 JSON 导入导出。「跟随在线 / 日志数据」使用源中的车型，手动选定车型用于指定安装参数。[车型说明](docs/VEHICLE_PROFILES.md)
+
+设置按用户保存：Windows `%APPDATA%/COLIGEN_USS_UPPER/`；Ubuntu `~/.config/coligen-uss-upper/`。`COLIGEN_CONFIG_DIR` 可隔离车型、探头方案、UDP、串口和硬件设置。数据详情另存显示布局。个人设置无需放入源码或 SVN。
+
+## 7. 源码运行与构建
+
+需要 Python 3.10～3.12（推荐 3.12 x64）和 `uv`。源码包含 DBC、静态资源和 Windows 用户态运行库，不依赖同级外部项目。
+
+在项目根目录打开 PowerShell：
+
+```powershell
+uv sync --locked
+.\scripts\run_viewer.ps1
+# 或直接运行，可选传入 TXT / ASC / BLF 路径
+uv run python src/app.py "D:\logs\sample.asc"
+```
+
+Windows 构建：
+
+```powershell
+.\scripts\check_runtime.ps1
+.\scripts\build_windows.ps1
+```
+
+输出 `dist/COLIGEN_USS_UPPER_v4.4.2.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+
+Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
+
+源码回归与 EXE 自检：
+
+```powershell
+uv run python -m pytest -q
+.\dist\COLIGEN_USS_UPPER_v4.4.2.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+```
+
+部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
+
+## 8. 维护与发布约定
 
 ```text
-src/         Python运行代码以及CAN/GUI适配模块
-tests/       Pytest测试用例以及旧版自测试程序
-scripts/     PowerShell运行和构建脚本，以及CS+桥接工具
-config/      运行时TOML配置文件
-database/    UDP 数据源使用的 IPC DBC
-assets/      应用程序图标以及打包所需静态资源
-docs/        集成文档、架构说明以及项目状态文档
-recordings/  ASC/TXT回放文件
-build/       PyInstaller构建中间文件（自动生成）
-dist/        打包后的EXE输出目录（自动生成）
-library/     第三方厂商运行库存放目录
+src/app.py                    唯一入口和数据源选择
+src/viewer_controller.py      采集生命周期、回放、录制
+src/viewer_models.py           独立数据模型
+src/log_parser.py              TXT 解析
+src/viewer_canvas.py           地图、轨迹、高光、冻结几何
+src/data_details.py            实时字段和点击快照
+src/modern_ui.py               统一界面
+src/*_source.py                各数据源适配
+src/*_transport.py             TRACE32 / CS+ 读取
+assets/dbc/                   项目内 DBC
+config/                       Windows / Ubuntu 默认配置
+firmware/upper_serial/        配套 C 发送和回灌适配
+library/                      Windows SDK 运行库
+scripts/                      启动、构建、桥接、诊断
+tests/                        回归和协议夹具
+docs/                         当前专题说明
+recordings/                   Git 示例日志（精简源码包不含）
+build/、dist/、.venv/          本机生成，不提交
 ```
 
-`CAN_S20/` 是项目外部的同级目录，用于存放 DBC 文件以及（可用时）报文回放源文件。
+详见 [维护说明](docs/PROJECT_DOCUMENTATION.md)。协议名称中的 CAN 保留实际含义，软件整体名称和入口统一为 COLIGEN USS UPPER。
 
-该目录不会被复制到当前项目中。
+发布时同步 `app_version.py`、`pyproject.toml`、`uv.lock` 和变更说明，创建 `v版本号` tag。GitHub、Gitea 保存源码提交、tag 和 Release。精简源码包包含构建资源和测试代码，省略历史采集日志；需要全部示例日志时使用完整 Git 仓库。
 
-当前软件版本为 `3.13.1`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、README.md、CHANGELOG.md、SHA256SUMS.txt**。不再重复铺开源码树、保存多套 EXE、缓存、虚拟环境或个人采集数据，版本标签位于 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`，固定发布目录保留最新版本。旧版通过标签、SVN 历史及 Release 查询。下载后按 `SHA256SUMS.txt` 校验。
 
-PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口，可显示点云、PDC 和车位。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
+[变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-周立功在线收包会让出界面线程，重复报文跳过解码和画布刷新。点云、扇形、PDC 和车位批量更新，图元只在像素位置变化时移动。拖动时按像素平移，松手或停轮后重绘。ASC/BLF 从“打开日志”打开。参照网格默认细格 0.5 m、主格 1 m。S20 的冲突 ID 默认按车位解析，在「设备与显示」的「图层与测距」中关闭车位图层后，按点云和 PDC 解析。
-
-CS+ 现在按 50 ms 起始周期采集，慢读时复用本轮批量缓存，界面每 33 ms 取最新完整帧。状态栏显示采集频率、完整读取耗时、最近 60 帧 P95 和距上次接收的时间；等待更新和数据滞后分别以黄、红色提示。原始数据表和动态图元增量更新，重复帧不再重复录制。[CS+ 优化与验证](docs/PROJECT_STATUS_CS_PLUS.md#2026-11-12软件侧优化v3110)
-
-CS+ / E2：先在 CS+ 打开目标工程并连接调试器，在上位机选择「Renesas CS+」后点击「在线连接」。程序会自动启动官方通信服务和无损内存桥，无需每次执行 `server.Start()`。请只保留一个目标 CS+ 实例；首次使用若提示远程接口关闭，按提示启用 CS+ Python Console 的远程连接启动选项。[自动连接说明](docs/PROJECT_STATUS_CS_PLUS.md#2026-11-12自动启动服务与内存桥v3120)
-
-E2 卡顿优化：内存桥 v6 在读取期间关闭 Console 数值输出并恢复原设置，消除大量文本刷新导致的秒级长尾；在线连接会自动更新旧桥。画布改为局部重绘，成功慢读通过状态栏显示。[实机测速与验证](docs/E2_PERFORMANCE_3.13.0.md)
-
-CS+ 车位跳变修复：按当前调试符号确认 4/44 或 8/48 布局，避免把时间戳解析成巨型车位坐标；左右数量为 0 时不再显示数组残留值。[车位排查与验证](docs/CSPLUS_SLOT_LAYOUT_3.13.1.md)
-
-发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 与 `pyproject.toml` 的 `version`，并运行 `uv lock` 更新锁文件。窗口标题和 EXE 文件名会使用新版本号。
-
----
-
-## 快速开始
-
-### 安装或更新 uv 环境
-
-```powershell
-uv sync
-```
-
----
-
-### 从源码运行GUI程序
-
-```powershell
-.\scripts\run_can_upper.ps1
-```
-
----
-
-### Ubuntu 直接运行
-
-新增原生 Linux 单文件程序和桌面快捷方式，已在 Ubuntu 22.04.5 x86_64 验证。无需单独安装 Python，Linux 默认 TRACE32 TCP 端口为 20000。[下载包使用、依赖与 TRACE32 配置](docs/UBUNTU_RELEASE.md)
-
-构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v3.13.1_Ubuntu_x86_64.tar.gz`。
-
-### 车型与探头安装配置
-
-顶部「车型配置」可编辑车辆尺寸、轴距 / 悬长、每个探头的坐标、朝向、FOV 和启用状态；支持多车型保存、切换与 JSON 导入导出。两平台使用同一格式，录制 / 回放保存配置。[使用说明](docs/VEHICLE_PROFILES.md)
-
-TRACE32 的 Probe Scheme 可选 17 PROBE / 20 PROBE；17 探头没有线段输出，PDC 外发单位为 cm。
-
-### Git / VS Code 解密差异
-
-按提供文档使用 textconv，本机驱动已适配受保护文件。项目提供一键配置与验证脚本：[操作说明](docs/GIT_DECRYPT_DIFF.md)。
-
-### 以太网接入
-
-打开「设备与显示」，在 Hardware 下拉框选择「TCP/IP」，点击「网络设置」匹配 RTE 端的 IP、端口与数据布局后连接。默认 UDP 监听 `0.0.0.0:50000`，接收 512 字节底软数据包。[17 探头以太网说明](docs/ETHERNET_INTERFACE.md)
-
-本机模拟可运行 `python scripts/test_ethernet_input.py`，发送 90 点、8 车位和三档 PDC。
-
----
-
-### V3.5 UDP 数据源
-
-打开「设备与显示」，在 Hardware 中选择「UDP」，点击「UDP 设置」可自定义本机监听 IP、监听端口和接收来源设备 IP。点击「保存设置」后再「在线连接」，设置会在重启后保留。监听 IP 可填 `0.0.0.0` 以监听所有本机网卡；端口范围为 `1..65535`。默认监听 `192.168.98.123:39001`，只接收设备 `192.168.98.233` 主动发送的数据，不发送启动指令或心跳。
-
-未保存过界面设置时，默认值取自 `config/can_upper_config.toml` 的 `[udp]`；Ubuntu 发布配置同样提供 `[udp]`。UDP 与 TRACE32 分别保留各自的端口输入；侧栏直接修改端口只在本次软件运行期间保留，需要重启后保留时请在「UDP 设置」中保存。
-
-该数据源从 V3.5 移植，使用工程内置 IPC DBC 和 USSD v1 协议（16 字节包头 + 64 字节 CAN FD 数据）。完整收到 27 包后更新 80 点、20 线、状态、里程计、12 路回波和 PDC，支持数据详情、PDC 声音、TXT / CSV 录制及 TXT 回放。设备微秒时间戳、点 ID 和线段编号保留；无车位信号，车身与探头沿用当前车型配置。2 秒未收到完整周期时显示「等待数据」。
-
-「UDP」和「TCP/IP」分别处理 USSD / IPC DBC 和 17 探头 512 字节协议。[UDP 协议与配置](docs/UDP_INTERFACE.md)
-
----
-
-### 运行测试
-
-```powershell
-uv run pytest -q
-```
-
----
-
-### 试听 PDC 告警
-
-在已安装 Python 3.10 或更高版本的 Windows / Ubuntu 上，从项目根目录运行
-
-```powershell
-python .\scripts\test_pdc_alarm.py
-```
-
-脚本直接调用上位机音效，依次播放远档 2 Hz、中档 4 Hz 和近档长鸣。每档 3 秒，按 Ctrl+C 停止。
-
----
-
-### 构建Windows可执行程序
-
-```powershell
-.\scripts\build_can_upper.ps1
-```
-
-生成的可执行文件路径：
-
-```text
-dist/COLIGEN_USS_UPPER_CAN_v3.13.0.exe
-```
-
----
-
-## 推荐优先阅读文件
-
-1. `docs/CAN_INTEGRATION_README.md`
-
-   用于了解：
-
-   - CAN通信集成
-   - ASC/BLF报文回放
-   - 软件部署方式
-2. `docs/COORDINATE_SYSTEMS.md`
-
-   画布 / TXT（泊车3.txt）/ ASC 的点和线坐标系对照。
-3. `src/VehUpperDemo_CAN.py`
-
-   应用程序入口文件。
-4. `src/CanOnlinePort.py`
-
-   主要负责：
-
-   - ASC文件解析
-   - DBC报文解析
-   - CAN Frame组装
-5. `src/VehUpperDemo.py`
-
-   GUI界面以及画布渲染相关代码。
-6. `config/can_upper_config.toml`
-
-   CAN设备以及回放参数配置文件。
-
----
-
-## 注意事项
-
-以下目录不要手动修改：
-
-```text
-build/
-dist/
-.venv/
-__pycache__/
-```
-
-这些目录属于：
-
-- 自动生成文件
-- 编译输出文件
-- Python环境缓存文件
-
-修改可能导致构建或运行异常。
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。Ubuntu 原生发布包与 Windows 同步为 4.4.2，解压目录为 `COLIGEN_USS_UPPER`；验证环境为 Ubuntu 22.04 x86_64。

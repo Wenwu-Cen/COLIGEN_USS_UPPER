@@ -1,6 +1,6 @@
 # 可视化坐标系说明
 
-画布只认一种坐标：**demo 坐标系**。所有数据源必须先转成 demo，再调用 `world_to_canvas()`。
+画布输入只认一种坐标：**车体局部 demo 坐标系**。所有数据源必须先转成 demo，再调用 `world_to_canvas()`；「固定世界坐标」视角再使用当前车辆位姿转换到地图坐标。
 
 TXT 日志（`recordings/泊车3.txt`，引入周立功之前）和 ASC/CAN 的**源坐标系不同**，转换规则分开维护，互不套用。
 
@@ -36,10 +36,10 @@ More Data / 线段标签里的 `(sx,sy)`、点标签里的 `(x,y)` 都是 **demo
 
 | 数据源 | 入口 | 源单位 | 点 → demo | 线 → demo |
 |---|---|---|---|---|
-| **TXT 新格式**（泊车3.txt 的 `[sf_Upper_PointOutSignal]` / `[sf_Upper_LineOutSignal]`） | `VehUpperDemo.LogParser` | mm | **原样** `wx=x, wy=y` | **原样** `wx=wStartx, wy=wStarty` |
+| **TXT 新格式**（泊车3.txt 的 `[sf_Upper_PointOutSignal]` / `[sf_Upper_LineOutSignal]`） | `log_parser.LogParser` | mm | **原样** `wx=x, wy=y` | **原样** `wx=wStartx, wy=wStarty` |
 | **TXT 旧格式**（`stPointOut_Upper` / `stOneOutSi_Upper`） | 同上 | mm | `wx=Y, wy=-X` | `wx=Y, wy=-X` |
-| **劳特巴赫 / CS+** | `OnlinePort.build_frame` | mm | `wx=X, wy=-Y` | `wx=X, wy=-Y` |
-| **ASC / 周立功 / CANoe** | `CanOnlinePort.VisualizationModel` | DBC 原始 cm（offset −3276）→ mm | `wx=X_mm, wy=Y_mm`（不互换、不取反） | `wx=Ay_mm, wy=Ax_mm`（只互换，不再取反） |
+| **劳特巴赫 / CS+** | `debugger_source.build_frame` | mm | `wx=X, wy=-Y` | `wx=X, wy=-Y` |
+| **ASC / 周立功 / CANoe** | `can_source.VisualizationModel` | DBC 原始 cm（offset −3276）→ mm | `wx=X_mm, wy=Y_mm`（不互换、不取反） | `wx=Ay_mm, wy=Ax_mm`（只互换，不再取反） |
 
 引入周立功之后：**只新增了 ASC/CAN 这一列**。泊车3.txt 仍走 TXT 列，坐标规则没有改。
 
@@ -71,7 +71,7 @@ Point[0] ObjID = 0 x = 5315 y = 1290 cHight = 0 SNS_Txindex = 10 SNS_Rxindex = 9
 Line[0]  wStartx = 5281 wStarty = 1221 wEndx = 5281 wEndy = 1221
 ```
 
-这两行在录制时已经是 **demo 坐标**（在线路径 `OnlinePort` 转完再写入 TXT）。回放时：
+这两行在录制时已经是 **demo 坐标**（在线路径 `debugger_source` 转完再写入 TXT）。回放时：
 
 ```text
 点:  wx = x = 5315,  wy = y = 1290
@@ -151,7 +151,7 @@ X = +前, Y = +右
 demo: wx = X, wy = -Y
 ```
 
-实现：`OnlinePort.build_frame`。录成 TXT 之后，新格式点和线已经是 demo，回放不再转一次。
+实现：`debugger_source.build_frame`。录成 TXT 之后，新格式点和线已经是 demo，回放不再转一次。
 
 ---
 
@@ -174,7 +174,7 @@ demo: wx = X, wy = -Y
 ## 7. 可视化不做几何补偿
 
 画布**没有**再对点、线做安装位置、轴距、后轴/车中心之类的补偿。  
-`world_to_canvas()` 只做 demo→屏幕；ASC 仅有 DBC 单位换算 `(raw − 3276) × 10`（cm→mm），点和线用同一公式。
+「跟随车辆」时 `world_to_canvas()` 只做 demo→屏幕；「固定世界坐标」时增加整车刚体位姿变换。ASC 点云仍仅有 DBC 单位换算 `(raw − 3276) × 10`（cm→mm），点和线用同一公式。
 
 因此同一障碍的点和线可以差几厘米到一两分米：线是 ECU 拟合段，点是点云，GUI 不会把点吸到线上。  
 用 `S20test.asc` 量过：当前映射下点到最近线段约 **11 cm**；若把点也按线那样 XY 互换，偏差反而到约 **30 cm**。
@@ -187,9 +187,13 @@ demo: wx = X, wy = -Y
 
 | 路径 | 文件 | 函数 |
 |---|---|---|
-| 画布 | `src/VehUpperDemo.py` | `VehicleCanvas.world_to_canvas` |
-| TXT | `src/VehUpperDemo.py` | `LogParser._parse_frame` / `_parse_header` |
-| 调试器 | `src/OnlinePort.py` | `build_frame` |
-| ASC/CAN | `src/CanOnlinePort.py` | `VisualizationModel._coord` / `_store_segment` / `frame` |
+| 画布 | `src/viewer_canvas.py` | `VehicleCanvas.world_to_canvas` |
+| TXT | `src/log_parser.py` | `LogParser._parse_frame` / `_parse_header` |
+| 调试器 | `src/debugger_source.py` | `build_frame` |
+| ASC/CAN | `src/can_source.py` | `VisualizationModel._coord` / `_store_segment` / `frame` |
 
 相关测试：`tests/test_coordinate_systems.py`、`tests/test_can_online_port.py`。
+
+## 9. 固定地图与行车轨迹
+
+新增视角的位姿来源、局部到地图的变换、绘图位姿录制字段及轨迹断开规则见 [WORLD_MAP.md](WORLD_MAP.md)。原有各数据源的点、线、车位转 demo 规则保持独立。

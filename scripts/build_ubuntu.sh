@@ -12,26 +12,23 @@ subprocess.check_call([sys.executable, "-m", "pip", "install",
     *project["project"]["dependencies"], *project["dependency-groups"]["dev"]])
 PY
 "$python" -m PyInstaller --clean --noconfirm \
-    --workpath build/ubuntu/work --distpath build/ubuntu/dist VehUpperDemo_Linux.spec
+    --workpath build/ubuntu/work --distpath build/ubuntu/dist viewer_linux.spec
 version=$("$python" -c 'import sys; sys.path.insert(0,"src"); from app_version import APP_VERSION; print(APP_VERSION)')
 release="COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
-package="dist/$release"
+package="dist/ubuntu/COLIGEN_USS_UPPER"
 mkdir -p "$package"
 # Replace the executable atomically even if an earlier build is running.
-install -m 755 "build/ubuntu/dist/COLIGEN_USS_UPPER_CAN_v${version}_Ubuntu_x86_64" "$package/.application.new"
-mv -f "$package/.application.new" "$package/COLIGEN_USS_UPPER_CAN_v${version}_Ubuntu_x86_64"
-cp config/ubuntu_config.toml "$package/can_upper_config.toml"
+install -m 755 "build/ubuntu/dist/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64" "$package/.application.new"
+mv -f "$package/.application.new" "$package/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
+cp config/ubuntu_config.toml "$package/viewer.toml"
 cp docs/UBUNTU_RELEASE.md "$package/README.md"
-cp "docs/UBUNTU_VALIDATION_${version}.md" "$package/VALIDATION.md"
 cp CHANGELOG.md "$package/"
 cp docs/VEHICLE_PROFILES.md "$package/"
 cp docs/GIT_DECRYPT_DIFF.md "$package/"
 cp assets/car.png "$package/"
 cp scripts/install_ubuntu.sh "$package/install-desktop.sh"
 cp scripts/test_pdc_ubuntu.sh "$package/test-pdc-sound.sh"
-cp "recordings/泊车3.txt" "$package/sample-recording.txt"
-head -n 3000 ../CAN_S20/0904_2.asc > "$package/sample-can.asc"
 chmod +x "$package/"*Ubuntu_x86_64 "$package/"*.sh
-tar -C dist -czf "dist/$release.tar.gz" "$release"
+tar -C dist/ubuntu -czf "dist/$release.tar.gz" COLIGEN_USS_UPPER
 (cd dist && sha256sum "$release.tar.gz") > "dist/$release.tar.gz.sha256"
 printf 'Ubuntu release: %s\n' "$package"

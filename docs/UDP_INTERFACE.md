@@ -1,10 +1,10 @@
 # V3.5 UDP 接入
 
-在「设备与显示」的 Hardware 下拉框选择「UDP」，点击「UDP 设置」编辑本机监听 IP、监听端口和接收来源设备 IP，保存后点击「在线连接」。当前工程的统一入口仍为 `src/VehUpperDemo_CAN.py`，可运行 `scripts/run_can_upper.ps1` 启动。
+在「设备与显示」的 Hardware 下拉框选择「UDP」，点击「UDP 设置」编辑本机监听 IP、监听端口和接收来源设备 IP，保存后点击「在线连接」。当前工程的统一入口仍为 `src/app.py`，可运行 `scripts/run_viewer.ps1` 启动。
 
 ## 网络配置
 
-`config/can_upper_config.toml` 和 `config/ubuntu_config.toml` 提供：
+`config/viewer.toml` 和 `config/ubuntu_config.toml` 提供：
 
 ```toml
 [udp]
@@ -19,7 +19,7 @@ sender_address = "192.168.98.233"
 
 连接期间不能编辑设置，先断开再修改。取消或保存失败不会修改正在使用的参数。侧栏直接填写端口可临时覆盖本次连接，切换数据源时分别保留 UDP 与 TRACE32 的端口；需要重启后保留时请在「UDP 设置」中保存。
 
-未保存过界面设置时使用 `[udp]` 默认值。发布程序也支持在 EXE 同级放置 `can_upper_config.toml` 覆盖内置 TOML 默认值。
+未保存过界面设置时使用 `[udp]` 默认值。发布程序也支持在 EXE 同级放置 `viewer.toml` 覆盖内置 TOML 默认值。
 
 「TCP/IP」仍使用 `[ethernet]` 的独立 512 字节接口，相关设置不作用于这里的 USSD 协议。
 
@@ -37,7 +37,7 @@ sender_address = "192.168.98.233"
 | 12 | 4 | 包头毫秒时间戳，小端 |
 | 16 | 64 | CAN FD 数据，按 IPC DBC 解码 |
 
-DBC 为 `database/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc`。Windows 和 Ubuntu 打包配置均包含该文件；运行时支持从程序同级 `database/` 加载。
+DBC 为 `assets/dbc/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc`。Windows 和 Ubuntu 打包配置均包含该文件；运行时支持从程序同级 `assets/dbc/` 加载。
 
 接收 ID 为 `0x10000768..0x10000782`，共 27 种。以首 ID `0x10000768` 开始、末 ID `0x10000782` 结束，仅发布包含全部消息的完整周期。包头时间戳允许跨毫秒边界，支持 32 位回绕；缺包、重复 ID 或中途接入时等下一完整周期，晚到的旧周期不回退画面。
 
