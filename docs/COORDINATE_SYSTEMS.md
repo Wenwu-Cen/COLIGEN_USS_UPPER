@@ -36,10 +36,10 @@ More Data / 线段标签里的 `(sx,sy)`、点标签里的 `(x,y)` 都是 **demo
 
 | 数据源 | 入口 | 源单位 | 点 → demo | 线 → demo |
 |---|---|---|---|---|
-| **TXT 新格式**（泊车3.txt 的 `[sf_Upper_PointOutSignal]` / `[sf_Upper_LineOutSignal]`） | `VehUpperDemo.LogParser` | mm | **原样** `wx=x, wy=y` | **原样** `wx=wStartx, wy=wStarty` |
+| **TXT 新格式**（泊车3.txt 的 `[sf_Upper_PointOutSignal]` / `[sf_Upper_LineOutSignal]`） | `log_parser.LogParser` | mm | **原样** `wx=x, wy=y` | **原样** `wx=wStartx, wy=wStarty` |
 | **TXT 旧格式**（`stPointOut_Upper` / `stOneOutSi_Upper`） | 同上 | mm | `wx=Y, wy=-X` | `wx=Y, wy=-X` |
-| **劳特巴赫 / CS+** | `OnlinePort.build_frame` | mm | `wx=X, wy=-Y` | `wx=X, wy=-Y` |
-| **ASC / 周立功 / CANoe** | `CanOnlinePort.VisualizationModel` | DBC 原始 cm（offset −3276）→ mm | `wx=X_mm, wy=Y_mm`（不互换、不取反） | `wx=Ay_mm, wy=Ax_mm`（只互换，不再取反） |
+| **劳特巴赫 / CS+** | `debugger_source.build_frame` | mm | `wx=X, wy=-Y` | `wx=X, wy=-Y` |
+| **ASC / 周立功 / CANoe** | `can_source.VisualizationModel` | DBC 原始 cm（offset −3276）→ mm | `wx=X_mm, wy=Y_mm`（不互换、不取反） | `wx=Ay_mm, wy=Ax_mm`（只互换，不再取反） |
 
 引入周立功之后：**只新增了 ASC/CAN 这一列**。泊车3.txt 仍走 TXT 列，坐标规则没有改。
 
@@ -71,7 +71,7 @@ Point[0] ObjID = 0 x = 5315 y = 1290 cHight = 0 SNS_Txindex = 10 SNS_Rxindex = 9
 Line[0]  wStartx = 5281 wStarty = 1221 wEndx = 5281 wEndy = 1221
 ```
 
-这两行在录制时已经是 **demo 坐标**（在线路径 `OnlinePort` 转完再写入 TXT）。回放时：
+这两行在录制时已经是 **demo 坐标**（在线路径 `debugger_source` 转完再写入 TXT）。回放时：
 
 ```text
 点:  wx = x = 5315,  wy = y = 1290
@@ -151,7 +151,7 @@ X = +前, Y = +右
 demo: wx = X, wy = -Y
 ```
 
-实现：`OnlinePort.build_frame`。录成 TXT 之后，新格式点和线已经是 demo，回放不再转一次。
+实现：`debugger_source.build_frame`。录成 TXT 之后，新格式点和线已经是 demo，回放不再转一次。
 
 ---
 
@@ -187,10 +187,10 @@ demo: wx = X, wy = -Y
 
 | 路径 | 文件 | 函数 |
 |---|---|---|
-| 画布 | `src/VehUpperDemo.py` | `VehicleCanvas.world_to_canvas` |
-| TXT | `src/VehUpperDemo.py` | `LogParser._parse_frame` / `_parse_header` |
-| 调试器 | `src/OnlinePort.py` | `build_frame` |
-| ASC/CAN | `src/CanOnlinePort.py` | `VisualizationModel._coord` / `_store_segment` / `frame` |
+| 画布 | `src/viewer_canvas.py` | `VehicleCanvas.world_to_canvas` |
+| TXT | `src/log_parser.py` | `LogParser._parse_frame` / `_parse_header` |
+| 调试器 | `src/debugger_source.py` | `build_frame` |
+| ASC/CAN | `src/can_source.py` | `VisualizationModel._coord` / `_store_segment` / `frame` |
 
 相关测试：`tests/test_coordinate_systems.py`、`tests/test_can_online_port.py`。
 

@@ -31,7 +31,7 @@ TXT 录制保存完整车型和探头参数；录制过程中切换车型也会�
 
 ## 17 / 20 探头数据方案
 
-在「设备与显示」选择 Lauterbach TRACE32，离线时使用「Probe Scheme」切换 17 PROBE / 20 PROBE；连接和录制期间锁定此项。选择记入同目录的 `probe_scheme.json`。
+在「设备与显示」选择 LAUTERBACH TRACE32，离线时使用「Probe Scheme」切换 17 PROBE / 20 PROBE；连接和录制期间锁定此项。选择记入同目录的 `probe_scheme.json`。
 
 - 17 PROBE：90 点、PDC、回波和 6 个车位槽位；没有线段变量，线段开关禁用。点与车位从导出的右向 X / 前向 Y 转为画布前向 X / 左向 Y。
 - 20 PROBE：保留原有 80 点及线段读取路径。

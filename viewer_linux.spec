@@ -9,20 +9,21 @@ sys.path.insert(0, str(Path("src").resolve()))
 from app_version import EXE_STEM
 
 a = Analysis(
-    ["src/VehUpperDemo_CAN.py"],
+    ["src/app.py"],
     pathex=["src"],
     binaries=[],
     datas=collect_data_files("customtkinter") + [
         ("assets/car.png", "."),
         ("config/ubuntu_config.toml", "linux_defaults"),
-        ("../CAN_S20/Database/M18_Upper_Interface_241113.dbc", "can_assets/Database"),
-        ("../CAN_S20/Database/ObstacleTrack_M20251104.dbc", "can_assets/Database"),
+        ("assets/dbc/M18_Upper_Interface_241113.dbc", "runtime_assets/Database"),
+        ("assets/dbc/ObstacleTrack_M20251104.dbc", "runtime_assets/Database"),
     ],
     hiddenimports=[
         "can", "can.io.blf", "cantools", "numpy", "app_version",
         "lauterbach.trace32.rcl",
+        "serial", "serial.tools.list_ports", "serial.tools.list_ports_linux",
     ],
-    excludes=["zlgcan", "zlgcan_driver", "can.interfaces.vector"],
+    excludes=["can.interfaces.vector"],
     hookspath=[], hooksconfig={}, runtime_hooks=[], noarchive=False, optimize=0,
 )
 pyz = PYZ(a.pure)

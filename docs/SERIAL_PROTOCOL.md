@@ -1,8 +1,10 @@
 # UPPER 串口接入与实车移植
 
-上位机 4.2.0 新增「串口 Serial」，默认 921600、8N1。接收完整的 `LAUTERBACH_UPPER_DEBUG` 变量快照，可显示车辆、RAW、PDC、80 点、20 线及车位；位姿同时供固定世界坐标和后轴中心轨迹使用。
+上位机的数据源「SERIES」，默认 921600、8N1。接收完整的 `LAUTERBACH_UPPER_DEBUG` 变量快照，可显示车辆、RAW、PDC、80 点、20 线及车位；位姿同时供固定世界坐标和后轴中心轨迹使用。
 
-## 工程中已合入的代码
+## 配套代码与回灌工程
+
+本仓库的配套代码位于 `firmware/upper_serial/`；下列 `src/`、`tools/` 和 `tests/replay/` 路径属于已合入的 Replay_SourceFile 回灌工程，不是上位机 Python 目录。
 
 - `src/UpperSerialDebug.c/.h`：独立的 USSV v1 编码器、CRC32 和发送回调，使用静态缓冲区。
 - `src/UpperSerialVariables.c`：逐字段读取 `sf_Upper_*` 变量，序列化全部数组，保留下标、ObjID 和 cNum。

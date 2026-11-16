@@ -1,4 +1,4 @@
-﻿# -*- mode: python ; coding: utf-8 -*-
+# -*- mode: python ; coding: utf-8 -*-
 
 from pathlib import Path
 import base64
@@ -20,32 +20,27 @@ bridge_payload = base64.b85encode(zlib.compress(bridge_source.encode("ascii"))).
 
 
 a = Analysis(
-    ['src/VehUpperDemo_CAN.py'],
+    ['src/app.py'],
     pathex=['src', str(bridge_payload_dir)],
     binaries=[
-        # CanOnlinePort locates the root copy, while zlgcan-driver 0.3.0
-        # appends windows/x86_64/zlgcan.dll to the supplied library root.
-        ('library/zlgcan.dll', 'can_assets/library'),
-        ('library/zlgcan.dll', 'can_assets/library/windows/x86_64'),
-        ('library/vxlapi.dll', 'can_assets/library'),
-        ('library/vxlapi64.dll', 'can_assets/library'),
+        ('library/windows/x86_64/zlgcan.dll', 'runtime_assets/library/windows/x86_64'),
+        ('library/vxlapi64.dll', 'runtime_assets/library'),
     ],
     # Include CTk themes and fonts in the single-file Windows release.
     datas=collect_data_files("customtkinter") + [
         ('assets/car.ico', '.'),
-        ('config/can_upper_config.toml', '.'),
-        ('library/bitrate.cfg.yaml', 'can_assets/library'),
+        ('config/viewer.toml', '.'),
         (
             'library/windows/x86_64/kerneldlls',
-            'can_assets/library/windows/x86_64/kerneldlls',
+            'runtime_assets/library/windows/x86_64/kerneldlls',
         ),
-        ('../CAN_S20/Database/M18_Upper_Interface_241113.dbc', 'can_assets/Database'),
-        ('../CAN_S20/Database/ObstacleTrack_M20251104.dbc', 'can_assets/Database'),
+        ('assets/dbc/M18_Upper_Interface_241113.dbc', 'runtime_assets/Database'),
+        ('assets/dbc/ObstacleTrack_M20251104.dbc', 'runtime_assets/Database'),
     ],
     hiddenimports=[
         'csplus_bridge_payload', 'can', 'can.io.blf', 'can.interfaces.vector',
         'can.interfaces.vector.canlib', 'can.interfaces.vector.xldriver',
-        'cantools', 'numpy', 'zlgcan', 'zlgcan_driver', 'app_version',
+        'cantools', 'numpy', 'app_version',
         'serial', 'serial.tools.list_ports', 'serial.tools.list_ports_windows',
         'lauterbach.trace32.rcl',
     ],

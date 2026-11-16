@@ -6,7 +6,7 @@
 
 接收端直接调用工程附带的 ZLG `zlgcan.dll`，仅初始化所选的一个物理通道。Windows 64 位 SDK 的句柄按指针传递；经典 CAN 和 CAN FD 都保留原始报文 ID、数据、微秒时间戳和实际通道号。程序使用现有 `library/windows/x86_64/kerneldlls/USBCANFD800U.dll` 支持 800U。
 
-`CANoe/Vector` 显示 CAN1～CAN10，分别传入 Vector XL 应用通道索引 0～9。它们对应 Vector Hardware Configuration 中 `CANoe` 应用的通道分配；例如选择 CAN10 时打开应用通道索引 9。波特率、CAN FD 数据波特率及应用名称继续沿用 `config/can_upper_config.toml`。
+`CANOE/VECTOR` 显示 CAN1～CAN10，分别传入 Vector XL 应用通道索引 0～9。它们对应 Vector HARDWARE Configuration 中 `CANoe` 应用的通道分配；例如选择 CAN10 时打开应用通道索引 9。波特率、CAN FD 数据波特率及应用名称继续沿用 `config/viewer.toml`。
 
 用户选择保存在 `%APPDATA%/COLIGEN_USS_UPPER/can_hardware.json`；设置了 `COLIGEN_CONFIG_DIR` 时使用该目录。首次启动没有用户配置时沿用 TOML 默认值：200U、硬件 0、通道 0，以及 Vector CAN1。
 

@@ -1,6 +1,6 @@
 [project]
-name = "coligen-uss-upper-can"
-version = "4.3.0"
+name = "coligen-uss-upper"
+version = "4.4.0"
 description = "COLIGEN USS UPPER with CAN, Ethernet, UART and replay sources"
 requires-python = ">=3.10,<3.13"
 dependencies = [
@@ -8,7 +8,6 @@ dependencies = [
     "pyserial==3.5",
     "cantools==44.0.0",
     "numpy==2.2.6",
-    "zlgcan==0.3.0; sys_platform == 'win32'",
     "lauterbach-trace32-rcl==1.0.8",
     "customtkinter==6.0.0",
 ]

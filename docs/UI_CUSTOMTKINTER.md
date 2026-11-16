@@ -4,7 +4,7 @@
 
 ## 使用
 
-运行 `scripts/run_can_upper.ps1`，或打开 `dist/COLIGEN_USS_UPPER_CAN_v4.3.0.exe`。
+运行 `scripts/run_viewer.ps1`，或打开 `dist/COLIGEN_USS_UPPER_v4.4.0.exe`。
 
 - 顶部工具栏提供在线连接、打开日志、录制、数据详情和适应视图。
 - 时间戳、挡位、车速、温度等帧状态显示在顶部中间，窗口变窄时自动换行。
@@ -18,16 +18,16 @@
 - 高亮随当前帧更新，缩放、平移和固定地图视角均适用。保留快照时，切换数据页仍跟踪原下标；空数组元素、无效数据及关闭的点/线图层不显示实时高亮，已保存的快照保持不变。
 - 底部集中回放时间轴、帧导航和倍速。
 - 画布左下角在线显示“北京时间(电脑)”，回放显示帧的采样时间；相对计时不会冒充日期。[时间来源](TIME_DISPLAY.md)
-- ZLG-USBCANFD 显示型号、硬件索引和通道；CANoe/Vector 显示 CAN1～CAN10 选择，断开后可修改。[硬件配置说明](CAN_HARDWARE.md)
+- ZLG-USBCANFD 显示型号、硬件索引和通道；CANOE/VECTOR 显示 CAN1～CAN10 选择，断开后可修改。[硬件配置说明](CAN_HARDWARE.md)
 - TCP/IP 使用“网络设置”配置 UDP 监听或 TCP 客户端、IP、端口、字节序和对齐。
-- Port 输入框仅用于 Lauterbach TRACE32；ZLG-USBCANFD、CANoe/Vector、Renesas CS+ 和串口 Serial 使用各自的配置入口。串口配置页支持 COM 口扫描、波特率、8N1、Y 轴方向和数据超时。
+- Port 输入框仅用于 LAUTERBACH TRACE32；ZLG-USBCANFD、CANOE/VECTOR、RENESAS CS+ 和SERIES 使用各自的配置入口。串口配置页支持 COM 口扫描、波特率、8N1、Y 轴方向和数据超时。
 
 ## 维护边界
 
 `src/modern_ui.py` 集中维护颜色、控件适配、布局和数据详情面板。颜色统一从 `COLORS` 读取。
 
-`src/VehUpperDemo.py` 保留共享控制器、Canvas 坐标计算、数据模型、TXT 回放及录制。
-`src/VehUpperDemo_CAN.py` 组合 CustomTkinter 界面，负责硬件选择、CAN/ASC/BLF/TCP/IP/串口接入与 PDC 音频。
+`viewer_controller.py` 负责回放与录制；`viewer_canvas.py` 负责 Canvas；`viewer_models.py` 和 `log_parser.py` 为独立模型和 TXT 解析。
+`src/app.py` 组合 CustomTkinter 界面，负责硬件选择、CAN/ASC/BLF/TCP/IP/串口接入与 PDC 音频。
 
 原有 CAN、TRACE32、CS+ 和日志功能基于 20 探头方案；TCP/IP 解析属于 17 探头方案，不提供线段数据。
 顶栏的 17 PROBE / 20 PROBE 显示所选在线数据源对应的方案，不表示报文中每种字段的元素数量。
@@ -43,7 +43,7 @@ CustomTkinter 控件提供 `.config()` 兼容入口；下拉框把原生选择�
 
 `pyproject.toml` 和 `uv.lock` 固定 CustomTkinter 版本。更新依赖后执行 `uv sync`。
 
-`VehUpperDemo.spec` 使用 `collect_data_files("customtkinter")` 收集主题和字体，
+`viewer.spec` 使用 `collect_data_files("customtkinter")` 收集主题和字体，
 保证单文件 EXE 在未安装 Python 的电脑上也具备界面资源。
 应用自己的图标继续由 `assets/car.ico` 提供。
 

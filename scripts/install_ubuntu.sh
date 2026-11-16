@@ -2,7 +2,7 @@
 # Installs only this application for the current user; no sudo is required.
 set -euo pipefail
 source_dir="$(dirname "$(readlink -f "$0")")"
-exe="$(find "$source_dir" -maxdepth 1 -type f -name 'COLIGEN_USS_UPPER_CAN_v*_Ubuntu_x86_64' -printf '%f\n' | sort -V | tail -n 1)"
+exe="$(find "$source_dir" -maxdepth 1 -type f -name 'COLIGEN_USS_UPPER_v*_Ubuntu_x86_64' -printf '%f\n' | sort -V | tail -n 1)"
 test -n "$exe" || { printf 'Executable not found beside installer\n' >&2; exit 1; }
 install_dir="$HOME/Applications/$(basename "$source_dir")"
 if [ "$source_dir" != "$install_dir" ]; then
