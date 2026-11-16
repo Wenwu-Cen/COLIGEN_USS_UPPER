@@ -1,4 +1,4 @@
-﻿# COLIGEN USS UPPER CAN
+# COLIGEN USS UPPER CAN
 
 ## 目录结构说明
 
@@ -19,7 +19,9 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本为 `4.2.0`。CustomTkinter 界面使用顶部工具栏和默认收起的侧栏；时间戳、挡位、车速、温度显示在顶部，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+CAN 硬件配置：ZLG 可选择设备型号、硬件索引 0～99 和通道索引 0～7；Vector 可选择 CAN1～CAN10。[硬件配置说明](docs/CAN_HARDWARE.md)
+
+当前软件版本为 `4.3.0`。CustomTkinter 界面使用顶部工具栏和默认收起的侧栏；时间戳、挡位、车速、温度显示在顶部，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
 
 在「数据详情」中点击 POINT / LINE 数组或其字段，黄色高亮跟踪实时点/线，青色虚线保留点击时的位置。「点击快照」表并排显示点击值与实时值，变化行着色；再次点击或点「更新」可重新取样，「清除」移除快照。数据暂时消失时仍保留快照，便于对照异常。
 
@@ -65,7 +67,7 @@ uv sync
 
 新增原生 Linux 单文件程序和桌面快捷方式，已在 Ubuntu 22.04.5 x86_64 验证。无需单独安装 Python，Linux 默认 TRACE32 TCP 端口为 20000。[下载包使用、依赖与 TRACE32 配置](docs/UBUNTU_RELEASE.md)
 
-构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v4.2.0_Ubuntu_x86_64.tar.gz`。
+构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v4.3.0_Ubuntu_x86_64.tar.gz`。
 
 ### 车型与探头安装配置
 
@@ -114,7 +116,7 @@ python .\scripts\test_pdc_alarm.py
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v4.2.0.exe
+dist/COLIGEN_USS_UPPER_CAN_v4.3.0.exe
 ```
 
 ---

@@ -1,6 +1,7 @@
 [can]
 # 原有 CAN / CS+ 属于 20 探头方案；TRACE32 在界面独立选择 17 / 20。
-# 周立功 USBCANFD-200U = 41，物理通道 0。
+# ZLG 型号：100U=42、200U=41、400U=76、800U=59。
+# 界面可选硬件索引 0..99、通道索引 0..7，实际通道数取决于设备型号。
 device_type = 41
 device_index = 0
 channel = 0
@@ -9,8 +10,8 @@ data_bitrate = 2000000
 resistance = true
 
 [canoe]
-# Vector XL channel index. CANoe's application name lets python-can use the
-# same channel mapping configured in CANoe.
+# 界面 CAN1..CAN10 对应此处 Vector 应用通道索引 0..9。
+# app_name 使用 Vector Hardware Configuration 中 CANoe 应用的通道映射。
 channel = 0
 app_name = "CANoe"
 bitrate = 500000
