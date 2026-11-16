@@ -1,8 +1,8 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **4.4.0**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **4.4.1**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.4.0.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.4.1.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
 
 ## 1. 直接使用 Windows 程序
 
@@ -98,7 +98,7 @@ S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析
 ## 4. 视图、轨迹和测距
 
 - **跟随车辆**：默认视角，以后轴中心为视图参考，车辆方向固定。
-- **固定世界坐标**：首次有效后轴中心为地图原点，车辆随位姿移动/旋转，镜头和网格固定。
+- **固定世界坐标**：首次有效后轴中心为地图原点，车辆随位姿移动/旋转，镜头和网格固定。TXT 回放会一次容纳整段车辆行程，播放时镜头保持不动。
 - **显示行车轨迹**：将后轴中心走过的世界位置连成轨迹。关闭开关仅隐藏；「清空行车轨迹」清除历史，后续继续记录。
 - 拖动画布平移，滚轮以鼠标位置为中心缩放；右键或「适应视图」重新取景。
 - 可分别开关扇区、PDC、点、线、车位和标注。开启测距后选择位置，「清除测距」清除标记。
@@ -140,7 +140,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v4.4.0.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v4.4.1.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -148,7 +148,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 
 ```powershell
 uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v4.4.0.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+.\dist\COLIGEN_USS_UPPER_v4.4.1.exe --self-test .\recordings\S20test.asc .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
@@ -180,6 +180,8 @@ build/、dist/、.venv/          本机生成，不提交
 
 发布时同步 `app_version.py`、`pyproject.toml`、`uv.lock` 和变更说明，创建 `v版本号` tag。GitHub、Gitea 保存源码提交、tag 和 Release。精简源码包包含构建资源和测试代码，省略历史采集日志；需要全部示例日志时使用完整 Git 仓库。
 
-SVN 固定目录只放当前版 **EXE、源码 ZIP、README.md、CHANGELOG.md、SHA256SUMS.txt**。不再重复铺开源码树、保存多套 EXE、缓存、虚拟环境或个人采集数据，旧版通过 SVN 历史及 Git tag/Release 查询。下载后按 `SHA256SUMS.txt` 校验。
+SVN 固定目录只放当前版 **EXE、源码 ZIP、README.md、CHANGELOG.md、SHA256SUMS.txt**。不再重复铺开源码树、保存多套 EXE、缓存、虚拟环境或个人采集数据，版本标签位于 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`，固定发布目录保留最新版本。旧版通过标签、SVN 历史及 Release 查询。下载后按 `SHA256SUMS.txt` 校验。
 
 [变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
+
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。Ubuntu 本版二进制暂缓构建。

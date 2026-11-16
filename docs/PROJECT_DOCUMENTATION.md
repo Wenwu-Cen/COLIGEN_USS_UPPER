@@ -38,3 +38,5 @@ Windows：`viewer.spec` / `scripts/build_windows.ps1`；Ubuntu：`viewer_linux.s
 Git 保留源码和示例日志，精简源码 ZIP 省略历史日志。SVN 当前树仅放当前 EXE、源码 ZIP、README、CHANGELOG 和校验文件，历史版通过版本控制查询。
 
 受保护文件沿用现有存储策略，差异查看使用 [textconv](GIT_DECRYPT_DIFF.md)。`build/`、`dist/`、`.venv/` 和个人设置不提交。
+
+SVN 版本标签使用服务器端目录复制，路径为 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`。提交说明只描述本次软件变更、发布物和验证结果，不写 Git 仓库同步或 Git 提交信息。
