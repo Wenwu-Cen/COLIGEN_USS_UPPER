@@ -35,7 +35,7 @@ Windows：`viewer.spec` / `scripts/build_windows.ps1`；Ubuntu：`viewer_linux.s
 
 版本在 `app_version.py`，依赖在 `pyproject.toml`、`uv.lock`。发布需版本一致、适当回归、EXE 自检、源码包可独立构建和 SHA256 校验。实体硬件及实车效果须另行验证。
 
-Git 保留源码和示例日志，精简源码 ZIP 省略历史日志。SVN 当前树仅放当前 EXE、源码 ZIP、README、CHANGELOG 和校验文件，历史版通过版本控制查询。
+Git 保留源码和示例日志，精简源码 ZIP 省略历史日志。SVN 当前树仅放当前 Windows EXE、Ubuntu TAR.GZ、源码 ZIP、README、CHANGELOG 和校验文件，历史版通过版本控制查询。
 
 受保护文件沿用现有存储策略，差异查看使用 [textconv](GIT_DECRYPT_DIFF.md)。`build/`、`dist/`、`.venv/` 和个人设置不提交。
 

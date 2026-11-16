@@ -15,7 +15,7 @@ PY
     --workpath build/ubuntu/work --distpath build/ubuntu/dist viewer_linux.spec
 version=$("$python" -c 'import sys; sys.path.insert(0,"src"); from app_version import APP_VERSION; print(APP_VERSION)')
 release="COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
-package="dist/$release"
+package="dist/ubuntu/COLIGEN_USS_UPPER"
 mkdir -p "$package"
 # Replace the executable atomically even if an earlier build is running.
 install -m 755 "build/ubuntu/dist/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64" "$package/.application.new"
@@ -29,6 +29,6 @@ cp assets/car.png "$package/"
 cp scripts/install_ubuntu.sh "$package/install-desktop.sh"
 cp scripts/test_pdc_ubuntu.sh "$package/test-pdc-sound.sh"
 chmod +x "$package/"*Ubuntu_x86_64 "$package/"*.sh
-tar -C dist -czf "dist/$release.tar.gz" "$release"
+tar -C dist/ubuntu -czf "dist/$release.tar.gz" COLIGEN_USS_UPPER
 (cd dist && sha256sum "$release.tar.gz") > "dist/$release.tar.gz.sha256"
 printf 'Ubuntu release: %s\n' "$package"
