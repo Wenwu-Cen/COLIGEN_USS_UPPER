@@ -1,16 +1,21 @@
-# CustomTkinter 界面（3.8.2）
+﻿# CustomTkinter 界面（4.0.0）
 
 当前 GUI 使用用户选择的 D 方案：CustomTkinter 6.0.0 与原有 Tkinter Canvas / ttk Treeview 结合。
 
 ## 使用
 
-运行 `scripts/run_can_upper.ps1`，或打开 `dist/COLIGEN_USS_UPPER_CAN_v3.8.2.exe`。
+运行 `scripts/run_can_upper.ps1`，或打开 `dist/COLIGEN_USS_UPPER_CAN_v4.0.0.exe`。
 
 - 顶部工具栏提供在线连接、打开日志、录制、数据详情和适应视图。
+- 时间戳、挡位、车速、温度等帧状态显示在顶部中间，窗口变窄时自动换行。
 - 点击「设备与显示」展开左侧栏，选择硬件、切换图层与标注、使用测距并查看文件与报文计数。再次点击可收起。
+- 「视角与轨迹」可选择「跟随车辆」或「固定世界坐标」，开关「显示行车轨迹」或清空轨迹。固定地图按里程计显示车辆运动，镜头保持固定；车辆走出画面后可拖动、缩放或点击「适应视图」。[位姿来源与回放规则](WORLD_MAP.md)
 - 点击「适应视图」或在画布上右键，按当前显示的数据调整车辆和周边区域。滚轮可缩放，左键可拖动。窗口或面板尺寸变化后，适应模式会重新取景，手动模式保持缩放比例。
 - 点击「数据详情」展开右侧 RAW、PDC、POINT、LINE、SLOT，拖动分隔条可调整宽度。
-- 底部集中回放时间轴、帧导航、倍速和帧信息。
+- 点击 POINT / LINE 的数组行或任意成员字段，高亮对应的画布点或线，并标出下标；点使用亮黄色圆环，线加粗并标出两端。下标显示在数组行首。
+- 高亮随当前帧更新，缩放、平移和固定地图视角均适用。切换数据页清除高亮；空数组元素、无效数据及关闭的点/线图层不显示高亮。
+- 底部集中回放时间轴、帧导航和倍速。
+- 画布左下角在线显示“北京时间(电脑)”，回放显示帧的采样时间；相对计时不会冒充日期。[时间来源](TIME_DISPLAY.md)
 - TCP/IP 使用“网络设置”配置 UDP 监听或 TCP 客户端、IP、端口、字节序和对齐。
 - Port 输入框仅用于 Lauterbach TRACE32；ZLG-USBCANFD-200U、CANoe/Vector、Renesas CS+ 均不显示该输入框。
 
@@ -25,6 +30,7 @@
 顶栏的 17 PROBE / 20 PROBE 显示所选在线数据源对应的方案，不表示报文中每种字段的元素数量。
 
 共享控制器通过 `_create_main_pane()`、`_create_canvas()` 和 `_create_more_panel()` 创建视图。`WorkspaceCanvas` 复用画布渲染，在取景时包含可见图层的几何范围。
+`MoreDataPanel` 通过 `<<TreeviewSelect>>` 把数组或字段所属的协议下标传给画布。树节点 iid 保持稳定，点/线在当前帧按下标查找；高亮作为增量图层绘制，保留原图元、颜色和固定地图镜头。
 CustomTkinter 控件提供 `.config()` 兼容入口；下拉框把原生选择回调桥接到已有的
 `<<ComboboxSelected>>` 事件，使硬件切换与 CAN 回放倍速继续使用统一控制器。
 界面缩放由 CustomTkinter 处理。Tkinter 主窗口实现 DPI 开始和结束回调，供 CustomTkinter 缩放检查调用，避免中断透明度恢复。

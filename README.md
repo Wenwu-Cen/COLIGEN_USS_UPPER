@@ -19,7 +19,11 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本为 `3.13.1`。CustomTkinter 界面使用单行工具栏和默认收起的侧栏，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+当前软件版本为 `4.0.0`。CustomTkinter 界面使用顶部工具栏和默认收起的侧栏；时间戳、挡位、车速、温度显示在顶部，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+
+在「数据详情」中点击 POINT / LINE 数组或其字段，画布会高亮对应点或线，并显示下标。高亮跟随实时帧、回放和视角变化；数组为空或数据无效时不标记。
+
+点击「设备与显示 → 视角与轨迹」，选择「固定世界坐标」可观察车辆在固定世界地图内移动和转向；勾选「显示行车轨迹」记录后轴中心走过的路径，并保留在地图上，也可随时清空。地图以首次有效后轴中心位置为原点，默认视角为「跟随车辆」。[固定地图与轨迹说明](docs/WORLD_MAP.md)
 
 PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口，可显示点云、PDC 和车位。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
 
@@ -32,6 +36,8 @@ CS+ / E2：先在 CS+ 打开目标工程并连接调试器，在上位机选择�
 E2 卡顿优化：内存桥 v6 在读取期间关闭 Console 数值输出并恢复原设置，消除大量文本刷新导致的秒级长尾；在线连接会自动更新旧桥。画布改为局部重绘，成功慢读通过状态栏显示。[实机测速与验证](docs/E2_PERFORMANCE_3.13.0.md)
 
 CS+ 车位跳变修复：按当前调试符号确认 4/44 或 8/48 布局，避免把时间戳解析成巨型车位坐标；左右数量为 0 时不再显示数组残留值。[车位排查与验证](docs/CSPLUS_SLOT_LAYOUT_3.13.1.md)
+
+时间显示：在线模式使用电脑当前北京时间（UTC+8），独立刷新；回放显示原始采样时间。新录制保存采集时的 UTC 时间及设备时间单位，设备原始时间戳继续保留。旧日志缺少日期时显示相对采样时间。[时间来源与兼容说明](docs/TIME_DISPLAY.md)
 
 发版时同步修改 `src/app_version.py` 的 `APP_VERSION` 与 `pyproject.toml` 的 `version`，并运行 `uv lock` 更新锁文件。窗口标题和 EXE 文件名会使用新版本号。
 
@@ -59,7 +65,7 @@ uv sync
 
 新增原生 Linux 单文件程序和桌面快捷方式，已在 Ubuntu 22.04.5 x86_64 验证。无需单独安装 Python，Linux 默认 TRACE32 TCP 端口为 20000。[下载包使用、依赖与 TRACE32 配置](docs/UBUNTU_RELEASE.md)
 
-构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v3.13.1_Ubuntu_x86_64.tar.gz`。
+构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v4.0.0_Ubuntu_x86_64.tar.gz`。
 
 ### 车型与探头安装配置
 
@@ -108,7 +114,7 @@ python .\scripts\test_pdc_alarm.py
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v3.13.0.exe
+dist/COLIGEN_USS_UPPER_CAN_v4.0.0.exe
 ```
 
 ---

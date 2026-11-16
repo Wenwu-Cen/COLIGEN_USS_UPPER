@@ -1,6 +1,6 @@
 # 可视化坐标系说明
 
-画布只认一种坐标：**demo 坐标系**。所有数据源必须先转成 demo，再调用 `world_to_canvas()`。
+画布输入只认一种坐标：**车体局部 demo 坐标系**。所有数据源必须先转成 demo，再调用 `world_to_canvas()`；「固定世界坐标」视角再使用当前车辆位姿转换到地图坐标。
 
 TXT 日志（`recordings/泊车3.txt`，引入周立功之前）和 ASC/CAN 的**源坐标系不同**，转换规则分开维护，互不套用。
 
@@ -174,7 +174,7 @@ demo: wx = X, wy = -Y
 ## 7. 可视化不做几何补偿
 
 画布**没有**再对点、线做安装位置、轴距、后轴/车中心之类的补偿。  
-`world_to_canvas()` 只做 demo→屏幕；ASC 仅有 DBC 单位换算 `(raw − 3276) × 10`（cm→mm），点和线用同一公式。
+「跟随车辆」时 `world_to_canvas()` 只做 demo→屏幕；「固定世界坐标」时增加整车刚体位姿变换。ASC 点云仍仅有 DBC 单位换算 `(raw − 3276) × 10`（cm→mm），点和线用同一公式。
 
 因此同一障碍的点和线可以差几厘米到一两分米：线是 ECU 拟合段，点是点云，GUI 不会把点吸到线上。  
 用 `S20test.asc` 量过：当前映射下点到最近线段约 **11 cm**；若把点也按线那样 XY 互换，偏差反而到约 **30 cm**。
@@ -193,3 +193,7 @@ demo: wx = X, wy = -Y
 | ASC/CAN | `src/CanOnlinePort.py` | `VisualizationModel._coord` / `_store_segment` / `frame` |
 
 相关测试：`tests/test_coordinate_systems.py`、`tests/test_can_online_port.py`。
+
+## 9. 固定地图与行车轨迹
+
+新增视角的位姿来源、局部到地图的变换、绘图位姿录制字段及轨迹断开规则见 [WORLD_MAP.md](WORLD_MAP.md)。原有各数据源的点、线、车位转 demo 规则保持独立。
