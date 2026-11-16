@@ -15,6 +15,7 @@ a = Analysis(
     datas=collect_data_files("customtkinter") + [
         ("assets/car.png", "."),
         ("config/ubuntu_config.toml", "linux_defaults"),
+        ("database/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc", "can_assets/Database"),
         ("../CAN_S20/Database/M18_Upper_Interface_241113.dbc", "can_assets/Database"),
         ("../CAN_S20/Database/ObstacleTrack_M20251104.dbc", "can_assets/Database"),
     ],

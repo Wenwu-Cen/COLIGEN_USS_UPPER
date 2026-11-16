@@ -34,6 +34,7 @@ a = Analysis(
     datas=collect_data_files("customtkinter") + [
         ('assets/car.ico', '.'),
         ('config/can_upper_config.toml', '.'),
+        ('database/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc', 'can_assets/Database'),
         ('library/bitrate.cfg.yaml', 'can_assets/library'),
         (
             'library/windows/x86_64/kerneldlls',

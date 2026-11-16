@@ -7,6 +7,7 @@ src/         Python运行代码以及CAN/GUI适配模块
 tests/       Pytest测试用例以及旧版自测试程序
 scripts/     PowerShell运行和构建脚本，以及CS+桥接工具
 config/      运行时TOML配置文件
+database/    UDP 数据源使用的 IPC DBC
 assets/      应用程序图标以及打包所需静态资源
 docs/        集成文档、架构说明以及项目状态文档
 recordings/  ASC/TXT回放文件
@@ -76,6 +77,18 @@ TRACE32 的 Probe Scheme 可选 17 PROBE / 20 PROBE；17 探头没有线段输�
 打开「设备与显示」，在 Hardware 下拉框选择「TCP/IP」，点击「网络设置」匹配 RTE 端的 IP、端口与数据布局后连接。默认 UDP 监听 `0.0.0.0:50000`，接收 512 字节底软数据包。[17 探头以太网说明](docs/ETHERNET_INTERFACE.md)
 
 本机模拟可运行 `python scripts/test_ethernet_input.py`，发送 90 点、8 车位和三档 PDC。
+
+---
+
+### V3.5 UDP 数据源
+
+打开「设备与显示」，在 Hardware 中选择「UDP」，点击「UDP 设置」可自定义本机监听 IP、监听端口和接收来源设备 IP。点击「保存设置」后再「在线连接」，设置会在重启后保留。监听 IP 可填 `0.0.0.0` 以监听所有本机网卡；端口范围为 `1..65535`。默认监听 `192.168.98.123:39001`，只接收设备 `192.168.98.233` 主动发送的数据，不发送启动指令或心跳。
+
+未保存过界面设置时，默认值取自 `config/can_upper_config.toml` 的 `[udp]`；Ubuntu 发布配置同样提供 `[udp]`。UDP 与 TRACE32 分别保留各自的端口输入；侧栏直接修改端口只在本次软件运行期间保留，需要重启后保留时请在「UDP 设置」中保存。
+
+该数据源从 V3.5 移植，使用工程内置 IPC DBC 和 USSD v1 协议（16 字节包头 + 64 字节 CAN FD 数据）。完整收到 27 包后更新 80 点、20 线、状态、里程计、12 路回波和 PDC，支持数据详情、PDC 声音、TXT / CSV 录制及 TXT 回放。设备微秒时间戳、点 ID 和线段编号保留；无车位信号，车身与探头沿用当前车型配置。2 秒未收到完整周期时显示「等待数据」。
+
+「UDP」和「TCP/IP」分别处理 USSD / IPC DBC 和 17 探头 512 字节协议。[UDP 协议与配置](docs/UDP_INTERFACE.md)
 
 ---
 
