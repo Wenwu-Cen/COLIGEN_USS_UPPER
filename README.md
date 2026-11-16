@@ -19,13 +19,13 @@ library/     第三方厂商运行库存放目录
 
 该目录不会被复制到当前项目中。
 
-当前软件版本为 `4.0.0`。CustomTkinter 界面使用顶部工具栏和默认收起的侧栏；时间戳、挡位、车速、温度显示在顶部，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
+当前软件版本为 `4.2.0`。CustomTkinter 界面使用顶部工具栏和默认收起的侧栏；时间戳、挡位、车速、温度显示在顶部，点击「适应视图」可将当前数据完整收入画布。 [界面使用与维护](docs/UI_CUSTOMTKINTER.md)
 
-在「数据详情」中点击 POINT / LINE 数组或其字段，画布会高亮对应点或线，并显示下标。高亮跟随实时帧、回放和视角变化；数组为空或数据无效时不标记。
+在「数据详情」中点击 POINT / LINE 数组或其字段，黄色高亮跟踪实时点/线，青色虚线保留点击时的位置。「点击快照」表并排显示点击值与实时值，变化行着色；再次点击或点「更新」可重新取样，「清除」移除快照。数据暂时消失时仍保留快照，便于对照异常。
 
 点击「设备与显示 → 视角与轨迹」，选择「固定世界坐标」可观察车辆在固定世界地图内移动和转向；勾选「显示行车轨迹」记录后轴中心走过的路径，并保留在地图上，也可随时清空。地图以首次有效后轴中心位置为原点，默认视角为「跟随车辆」。[固定地图与轨迹说明](docs/WORLD_MAP.md)
 
-PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口，可显示点云、PDC 和车位。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
+PDC 支持远档 2 Hz、中档 4 Hz 和近档长鸣。新增 17 探头方案以太网接口和「串口 Serial」UPPER 调试变量输入，可显示点云、PDC 和车位；串口协议及下位机发送适配见 [串口协议说明](docs/SERIAL_PROTOCOL.md)。原有功能基于 20 探头方案。[变更日志](CHANGELOG.md)
 
 周立功在线收包会让出界面线程，重复报文跳过解码和画布刷新。点云、扇形、PDC 和车位批量更新，图元只在像素位置变化时移动。拖动时按像素平移，松手或停轮后重绘。ASC/BLF 从“打开日志”打开。参照网格默认细格 0.5 m、主格 1 m。S20 的冲突 ID 默认按车位解析，在「设备与显示」的「图层与测距」中关闭车位图层后，按点云和 PDC 解析。
 
@@ -65,7 +65,7 @@ uv sync
 
 新增原生 Linux 单文件程序和桌面快捷方式，已在 Ubuntu 22.04.5 x86_64 验证。无需单独安装 Python，Linux 默认 TRACE32 TCP 端口为 20000。[下载包使用、依赖与 TRACE32 配置](docs/UBUNTU_RELEASE.md)
 
-构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v4.0.0_Ubuntu_x86_64.tar.gz`。
+构建：在 Ubuntu 源码目录运行 `bash scripts/build_ubuntu.sh`。产物为 `dist/COLIGEN_USS_UPPER_v4.2.0_Ubuntu_x86_64.tar.gz`。
 
 ### 车型与探头安装配置
 
@@ -114,7 +114,7 @@ python .\scripts\test_pdc_alarm.py
 生成的可执行文件路径：
 
 ```text
-dist/COLIGEN_USS_UPPER_CAN_v4.0.0.exe
+dist/COLIGEN_USS_UPPER_CAN_v4.2.0.exe
 ```
 
 ---

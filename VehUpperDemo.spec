@@ -46,6 +46,7 @@ a = Analysis(
         'csplus_bridge_payload', 'can', 'can.io.blf', 'can.interfaces.vector',
         'can.interfaces.vector.canlib', 'can.interfaces.vector.xldriver',
         'cantools', 'numpy', 'zlgcan', 'zlgcan_driver', 'app_version',
+        'serial', 'serial.tools.list_ports', 'serial.tools.list_ports_windows',
         'lauterbach.trace32.rcl',
     ],
     hookspath=[],
