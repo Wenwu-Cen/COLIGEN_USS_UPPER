@@ -16,6 +16,9 @@ data_bitrate = 2000000
 resistance = true
 
 [canoe]
+# 兼容已有应用映射；选择具体型号时按所选型号的 CAN 接口顺序直接连接。
+model = "CANoe 应用映射"
+serial = ""
 # 界面 CAN1..CAN10 对应此处 Vector 应用通道索引 0..9。
 # app_name 使用 Vector Hardware Configuration 中 CANoe 应用的通道映射。
 channel = 0
@@ -26,6 +29,7 @@ fd = true
 listen_only = false
 
 [tosun]
+model = "自动识别"
 # TC1018 物理 CAN1..CAN12 对应 SDK 通道 0..11，独立于 Vector CANoe 映射。
 channel = 0
 # 留空连接首个可用设备；多设备时填写序列号。
