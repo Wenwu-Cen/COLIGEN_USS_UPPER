@@ -13,3 +13,15 @@
 验证涵盖硬件/通道边界、型号通道数、配置恢复、选择到驱动参数的传递、只初始化指定通道、CAN/CAN FD 接收、初始化失败释放和断开中止。800U 及 Vector CAN10 的实体设备收包仍需现场验证。
 
 接口依据：[ZLG 产品通道说明](https://www.zlg.com/can/can/product/id/223.html)、[python-can Vector 配置](https://python-can.readthedocs.io/en/stable/interfaces/vector.html)、现有 zlgcan 包上游所带的 [Windows SDK 头文件](https://github.com/jesses2025smith/zlgcan-driver/blob/dev/zlgcan/windows/x86_64/zlgcan/zlgcan.h)。
+
+## TOSUN（同星 TC1018）
+
+数据源选择 `TOSUN`，选择物理 CAN1～CAN12，直接传给同星 SDK 的通道索引 0～11；与 Vector CANoe 应用通道映射独立。通道选择按用户保存，连接期间禁止修改，断开后恢复。
+
+`config/viewer.toml` 的 `[tosun]` 独立配置仲裁/数据波特率（默认 500K/2M）、CAN FD、120Ω 终端电阻、监听模式与设备序列号。序列号为空时打开首个可用设备，多设备时填写指定序列号。选择设备不支持的通道时 SDK 返回错误，不会改为其他通道。
+
+Windows x64 包自带 `library/windows/x86_64/tosun/libTSCAN.dll` 和匹配的 `libTSH.dll`。源码运行也可通过 `TOSUN_LIBRARY_DIR` 指定含 DLL 的目录，或使用本机 TSMaster 的 bin64。当前 Ubuntu 菜单不提供 TOSUN 在线接口。
+
+接收端仅配置所选通道，使用 RX FIFO 接收经典 CAN/CAN FD，保留 ID、FD/BRS/ESI 标志、物理通道与微秒硬件时间戳；连接失败释放资源，断开可中止等待。所有接收报文进入已有 DBC / [S20 UC 完整快照解析](S20_UPPER_CAN_V1.md)。
+
+依据：[同星官方 SDK 头文件](https://github.com/TOSUN-Shanghai/libTSCANDemos/blob/main/include/windwos/libTSCAN.h)、[TC1018 12 通道说明](https://www.tosunai.com/wp-content/uploads/2024/01/TC1018_Datasheet_EN.pdf)。已验证模拟 SDK 和打包 ABI，实体设备及实车效果需现场验证。

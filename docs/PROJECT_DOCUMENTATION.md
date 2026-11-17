@@ -27,7 +27,7 @@
 
 POINT/LINE 高光跟随选定下标；点击快照存点击时字段与几何，不得每帧覆盖。世界视角冻结位置和轨迹使用世界坐标，不能直接累积局部坐标。
 
-数据源英文显示选项统一大写，内部键保持 `lauterbach/csplus/zlgcan/canoe/ethernet/serial/replay_debug`，界面串口名称为 `SERIES`。厂商应用名、用户车型名、串口路径和协议变量保留原有大小写。
+数据源英文显示选项统一大写，内部键保持 `lauterbach/csplus/zlgcan/canoe/tosun/ethernet/serial/replay_debug`，界面串口名称为 `SERIES`。厂商应用名、用户车型名、串口路径和协议变量保留原有大小写。
 
 ## 构建与发布
 

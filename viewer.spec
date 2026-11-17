@@ -25,6 +25,8 @@ a = Analysis(
     binaries=[
         ('library/windows/x86_64/zlgcan.dll', 'runtime_assets/library/windows/x86_64'),
         ('library/vxlapi64.dll', 'runtime_assets/library'),
+        ('library/windows/x86_64/tosun/libTSCAN.dll', 'runtime_assets/library/windows/x86_64/tosun'),
+        ('library/windows/x86_64/tosun/libTSH.dll', 'runtime_assets/library/windows/x86_64/tosun'),
     ],
     # Include CTk themes and fonts in the single-file Windows release.
     datas=collect_data_files("customtkinter") + [

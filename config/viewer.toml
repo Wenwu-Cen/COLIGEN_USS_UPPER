@@ -19,6 +19,17 @@ data_bitrate = 2000000
 fd = true
 listen_only = false
 
+[tosun]
+# TC1018 物理 CAN1..CAN12 对应 SDK 通道 0..11，独立于 Vector CANoe 映射。
+channel = 0
+# 留空连接首个可用设备；多设备时填写序列号。
+serial = ""
+bitrate = 500000
+data_bitrate = 2000000
+fd = true
+resistance = true
+listen_only = false
+
 [replay]
 # GUI 选择 ASC/BLF 后会覆盖此路径；直接运行时以它作为默认文件。
 path = ""

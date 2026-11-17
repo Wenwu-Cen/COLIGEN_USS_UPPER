@@ -2,6 +2,8 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $required = @(
     'library\vxlapi64.dll',
+    'library\windows\x86_64\tosun\libTSCAN.dll',
+    'library\windows\x86_64\tosun\libTSH.dll',
     'library\windows\x86_64\zlgcan.dll',
     'library\windows\x86_64\kerneldlls\USBCANFD.dll',
     'library\windows\x86_64\kerneldlls\USBCANFD800U.dll',
