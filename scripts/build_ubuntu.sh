@@ -17,6 +17,12 @@ version=$("$python" -c 'import sys; sys.path.insert(0,"src"); from app_version i
 release="COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
 package="dist/ubuntu/COLIGEN_USS_UPPER"
 mkdir -p "$package"
+# The stable package folder must contain only the current version's program.
+for previous in "$package"/COLIGEN_USS_UPPER_v*_Ubuntu_x86_64; do
+    if [ -f "$previous" ] && [ "$(basename "$previous")" != "$release" ]; then
+        rm -- "$previous"
+    fi
+done
 # Replace the executable atomically even if an earlier build is running.
 install -m 755 "build/ubuntu/dist/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64" "$package/.application.new"
 mv -f "$package/.application.new" "$package/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
