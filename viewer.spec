@@ -29,6 +29,7 @@ a = Analysis(
     # Include CTk themes and fonts in the single-file Windows release.
     datas=collect_data_files("customtkinter") + [
         ('assets/car.ico', '.'),
+        ('assets/car.png', '.'),
         ('config/viewer.toml', '.'),
         (
             'library/windows/x86_64/kerneldlls',
