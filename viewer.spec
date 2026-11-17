@@ -19,6 +19,13 @@ bridge_payload = base64.b85encode(zlib.compress(bridge_source.encode("ascii"))).
     "BRIDGE_SOURCE_B85 = " + repr(bridge_payload) + "\n", encoding="ascii")
 
 
+replay_worker_dir = Path("build/s20-stream/bin")
+replay_worker_assets = [
+    (str(replay_worker_dir / name), "runtime_assets/replay/S20")
+    for name in ("dataReplay_main.exe", "replay_s20_build_manifest.json")
+    if (replay_worker_dir / name).is_file()
+]
+
 a = Analysis(
     ['src/app.py'],
     pathex=['src', str(bridge_payload_dir)],
@@ -29,7 +36,7 @@ a = Analysis(
         ('library/windows/x86_64/tosun/libTSH.dll', 'runtime_assets/library/windows/x86_64/tosun'),
     ],
     # Include CTk themes and fonts in the single-file Windows release.
-    datas=collect_data_files("customtkinter") + [
+    datas=collect_data_files("customtkinter") + replay_worker_assets + [
         ('assets/car.ico', '.'),
         ('assets/car.png', '.'),
         ('config/viewer.toml', '.'),
@@ -40,6 +47,8 @@ a = Analysis(
         ('assets/dbc/M18_Upper_Interface_241113.dbc', 'runtime_assets/Database'),
         ('assets/dbc/ObstacleTrack_M20251104.dbc', 'runtime_assets/Database'),
         ('assets/dbc/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc', 'runtime_assets/Database'),
+        ('assets/dbc/E541_PAS_20260609_FS21.dbc', 'runtime_assets/Database'),
+        ('assets/dbc/S20_Replay_Capture_v1.dbc', 'runtime_assets/Database'),
     ],
     hiddenimports=[
         'csplus_bridge_payload', 'can', 'can.io.blf', 'can.interfaces.vector',

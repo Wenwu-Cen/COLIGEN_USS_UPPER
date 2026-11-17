@@ -1,8 +1,8 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **4.6.1**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **4.7.0**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.6.1.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.7.0.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
 
 ## 1. 直接使用 Windows 程序
 
@@ -150,7 +150,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v4.6.1.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v4.7.0.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -158,7 +158,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 
 ```powershell
 uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v4.6.1.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+.\dist\COLIGEN_USS_UPPER_v4.7.0.exe --self-test .\recordings\S20test.asc .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
@@ -194,7 +194,7 @@ SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、REA
 
 [变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.6.1；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.7.0；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
 
 4.5.2 进一步优化“设备与显示”：展开/收起时复用原生控件，保留滚动位置和输入值，收起时跳过隐藏控件的键盘焦点。此前的弹窗与串口响应优化一并保留。改动与回归说明见 [界面响应说明](docs/UI_RESPONSIVENESS.md)。
 
@@ -205,3 +205,7 @@ S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧�
 TOSUN（同星 TC1018）支持 CAN1～CAN12 选择，使用同星原生 SDK；S20 新增 UC CAN FD 报文解析详见 [协议说明](docs/S20_UPPER_CAN_V1.md) 与 [硬件配置](docs/CAN_HARDWARE.md)。
 
 TOSUN 和 VECTOR 可选择常见设备型号并联动可用 CAN 通道。ZLG 型号显示对应通道数量，硬件索引由后台检测实际接入设备后提供，可点击「刷新设备」更新。
+
+## S20 同步录制与回灌
+
+主界面“录制设置”可配置 CANFD / UDP 依赖输入。开始录制后自动存储实车快照和原始依赖，支持 S20 PC 实时回灌、同周期对比和新版本重跑。配置及固件要求见 [S20 录制与回灌说明](docs/S20_REPLAY_RECORDING.md)。

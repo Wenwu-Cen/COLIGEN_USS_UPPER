@@ -1,0 +1,105 @@
+--- a/Headfile/sfType.h
++++ b/Headfile/sfType.h
+@@ -44,6 +44,8 @@
+ #define SUPPROT_AUTO_DRV_POINT_CLOUD_FUNCTION //lch20230705
+ #define FCR_CAN//For Data Repaly DEBUG
+ // #define OBJ_DEBUGCAN//For Data Repaly DEBUG
++/* Raw CAN + CS+ frozen compare packets; observational debug only. */
++#define SUPPORT_REPLAY_COMPARE
+ #define LAUTERBACH_UPPER_DEBUG // For Lauterbach Upper debug
+ #define SUPPROT_TRACK_POINT_CLOUD_SIDE
+ // For CAN DEBUG
+--- a/Libfile/Uss_Drv/uss_sensor/LauterbachUpper/Lauterbach_Var.c
++++ b/Libfile/Uss_Drv/uss_sensor/LauterbachUpper/Lauterbach_Var.c
+@@ -336,7 +336,13 @@
+  * At 80 points/20 lines/6 slots a snapshot is 1634 bytes (30 fragments),
+  * hence two 40-ms batches. Unused slots in the last batch are explicit idle.
+  * Keep the buffer unchanged until every fragment has been handed to RTE. */
+-#if defined(OBJ_DEBUGCAN) && !defined(SUPPORT_RAWDATA_DEBUGCAN)
++#if (defined(OBJ_DEBUGCAN) && !defined(SUPPORT_RAWDATA_DEBUGCAN)) || defined(SUPPORT_REPLAY_COMPARE)
++#ifdef SUPPORT_REPLAY_COMPARE
++#ifdef OBJ_DEBUGCAN
++#error SUPPORT_REPLAY_COMPARE requires raw CAN mode (OBJ_DEBUGCAN disabled)
++#endif
++#include "ReplayCompareCapture.inc"
++#endif
+ #define UPPER_CAN_PACKET_SIZE (1634u)
+ #define UPPER_CAN_DATA_SIZE (56u)
+ #define CtCdUSS_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
+--- a/Libfile/Uss_Drv/uss_sensor/LauterbachUpper/Lauterbach_Var.c
++++ b/Libfile/Uss_Drv/uss_sensor/LauterbachUpper/Lauterbach_Var.c
+@@ -469,6 +469,13 @@
+     }
+     if(slot==19u) UpperCanBatchFirst=(UpperCanBatchFirst==0u)?20u:0u;
+ }
++#ifdef SUPPORT_REPLAY_COMPARE
++void OutputSignalCompare_Publish(uint64_t task_us)
++{
++    UpperCanCapture(task_us);
++    ReplayCompare_Publish(UpperCanPacket, UPPER_CAN_PACKET_SIZE, (task_us/1000u)*1000u);
++}
++#endif
+ #define CtCdUSS_STOP_SEC_CODE
+ #include "CtCdUSS_MemMap.h"
+ #endif
+--- a/Libfile/Uss_Drv/System/Module/CANMatrix/PrivateCAN.c
++++ b/Libfile/Uss_Drv/System/Module/CANMatrix/PrivateCAN.c
+@@ -2538,6 +2538,34 @@
+ {
+ 	USS_DebugData_pst_Info_tx_20ms();
+     SG_PAS_Rawdata_Group_txdeal();
++#ifdef SUPPORT_REPLAY_COMPARE
++    {
++        extern void ReplayCompare_StampRaw(uint8_t *frames[20], uint32_t tick_ms, uint32_t boot_seed);
++        uint8_t *frames[20] = {
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x640,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6B6,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6B7,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6B8,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6B9,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6BA,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6BB,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6BC,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6BD,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6BE,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6BF,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C0,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C1,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C2,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C3,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C4,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C5,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C6,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C7,
++        (uint8_t *)&SG_PAS_Rawdata18_Group_0x6C8};
++        uint64_t now = USS_HWA_Get_Systime();
++        ReplayCompare_StampRaw(frames, (uint32_t)(now/1000u), (uint32_t)now);
++    }
++#endif
+ 	Rte_Write_Ctcd_USS_SG_PAS_Rawdata_Group();
+ }
+ #endif
+--- a/Libfile/Uss_Drv/App/AppCore.c
++++ b/Libfile/Uss_Drv/App/AppCore.c
+@@ -275,6 +275,11 @@
+ 
+ void AppCore20msTask (void)
+ {
++#ifdef SUPPORT_REPLAY_COMPARE
++    extern void ReplayCompare_Latch(void);
++    extern void OutputSignalCompare_Publish(uint64_t task_us);
++    ReplayCompare_Latch();
++#endif
+     extern void PDC_Line_CANOut(void);
+     extern void APASlotResetOutPutSlotInfo(uchar resetFlag);
+     extern void APASlotUpdateUltrasonicSlotInfo(void);
+@@ -302,6 +307,9 @@
+ 	#endif
+ 	//CX1E_Bodysignal_20MS_Diag();
+     VehicleCalPara_init();
++#ifdef SUPPORT_REPLAY_COMPARE
++    OutputSignalCompare_Publish(USS_HWA_Get_Systime());
++#endif
+ 
+ #ifdef OBJ_DEBUGCAN
+ #ifndef SUPPORT_RAWDATA_DEBUGCAN
