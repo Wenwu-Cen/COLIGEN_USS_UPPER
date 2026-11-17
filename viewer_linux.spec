@@ -17,6 +17,7 @@ a = Analysis(
         ("config/ubuntu_config.toml", "linux_defaults"),
         ("assets/dbc/M18_Upper_Interface_241113.dbc", "runtime_assets/Database"),
         ("assets/dbc/ObstacleTrack_M20251104.dbc", "runtime_assets/Database"),
+        ("assets/dbc/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc", "runtime_assets/Database"),
     ],
     hiddenimports=[
         "can", "can.io.blf", "cantools", "numpy", "app_version",

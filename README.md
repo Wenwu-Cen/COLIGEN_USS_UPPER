@@ -7,12 +7,12 @@
 ## 1. 直接使用 Windows 程序
 
 1. 从 GitHub、Gitea 对应版本 Release，或 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 下载 EXE。
-2. 双击运行；展开「设备与显示」，选择数据源。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
+2. 双击运行；展开「设备与显示」，选择数据源；CAN 设备先选 **CAN**，再选 **ZLG / TOSUN / VECTOR** 及对应通道。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
 3. 在线采集先设置设备参数，再点击「在线连接」；离线 TXT / ASC / BLF 点击「打开日志」。
 4. 根据项目选择车型、探头方案和显示图层。默认车型仅作显示占位，实车使用前应确认安装参数。
 5. 需要检查字段时打开「数据详情」；需要世界地图或轨迹时展开「视角与轨迹」。
 
-支持 Windows x64。EXE 已包含 Python、界面资源、DBC、Vector XL 库和 ZLG SDK 用户态库；连接实体设备仍需安装对应厂商 USB/硬件驱动。单文件程序首次启动解压资源时可能稍慢。
+支持 Windows x64。EXE 已包含 Python、界面资源、DBC、Vector XL、ZLG SDK 和同星 libTSCAN 用户态库；连接实体设备仍需安装对应厂商 USB/硬件驱动。单文件程序首次启动解压资源时可能稍慢。
 
 如需修改 TOML 参数，将源码包中的 `config/viewer.toml` 复制到 EXE 同目录，文件名保持 `viewer.toml`。未放置该文件时使用程序内置默认值。界面保存的用户硬件、串口和车型选择优先于初始默认值。
 
@@ -36,7 +36,7 @@
 
 ### ZLG-USBCANFD
 
-安装 ZLG 驱动、连接硬件，选择 `ZLG-USBCANFD`，再设置型号、硬件索引和通道索引。
+安装 ZLG 驱动、连接硬件，选择 `CAN → ZLG`，再设置型号、硬件索引和通道索引。
 
 - 支持 USBCANFD-100U / 200U / 400U / 800U，SDK 类型分别为 42 / 41 / 76 / 59。
 - 硬件索引 `0～99`，表示同型号设备的驱动枚举序号。
@@ -47,7 +47,7 @@
 
 ### CANOE/VECTOR
 
-安装 Vector 驱动并配置 Vector Hardware Configuration 的 `CANoe` 应用通道映射。选择 `CANOE/VECTOR`，再选择 `CAN1～CAN10`；CAN1 对应 SDK 应用通道索引 0，CAN10 对应 9。
+安装 Vector 驱动并配置 Vector Hardware Configuration 的 `CANoe` 应用通道映射。选择 `CAN → VECTOR`，再选择 `CAN1～CAN10`；CAN1 对应 SDK 应用通道索引 0，CAN10 对应 9。
 
 应用名、速率、FD 和监听模式在 `[canoe]` 配置。应用名必须与 Vector 通道映射一致；显示名称统一大写不会改动配置中的厂商应用名 `CANoe`。
 
@@ -61,6 +61,16 @@
 4. 发送端提供标识 1～5 的完整 512 字节包。必要时允许本机防火墙对应端口。
 
 字段布局、对齐和验证方法见 [以太网接口](docs/ETHERNET_INTERFACE.md)。
+
+### UDP（USSD / IPC DBC）
+
+选择 `UDP`，点击「UDP 设置」填写本机监听 IP、端口和接收来源设备 IP，保存后再在线连接。默认监听 `192.168.98.123:39001`，仅接收设备 `192.168.98.233` 主动发送的数据；监听 IP 可填 `0.0.0.0`，端口范围为 `1..65535`。不发送启动指令或心跳。
+
+未保存界面设置时，默认值取自 `config/viewer.toml`（Ubuntu 为 `config/ubuntu_config.toml`）的 `[udp]`。保存到用户配置目录后，重启继续使用；侧栏直接修改端口仅在本次运行保留。UDP 与 TRACE32 分别保留端口。
+
+使用内置 IPC DBC 和 USSD v1 协议（16 字节包头 + 64 字节 CAN FD 数据），收齐 27 包后更新 80 点、20 线、状态、里程计、12 路回波和 PDC。支持数据详情、点线快照、PDC 声音、TXT / CSV 录制和 TXT 回放，保留设备微秒时间戳、点 ID 和线段编号。无车位信号，车身与探头沿用当前车型配置；2 秒无完整周期时显示「等待数据」。
+
+此接口从 V3.5 移植，与 `TCP/IP` 的 17 探头 512 字节协议分别配置。[UDP 协议与配置](docs/UDP_INTERFACE.md)
 
 ### SERIES（串口）
 
@@ -91,7 +101,7 @@
 
 「开始录制」记录显示的完整帧，停止后保存 TXT，并按保存流程导出前后探头 RAW CSV。TXT 包含点、线、车位、原始数据、车型/安装参数、可用位姿和采样时间，便于再次打开对照。切换源前先停止录制。
 
-顶部显示时间戳、挡位、车速和温度；在线显示电脑当前北京时间，回放显示采样时间。无数据或协议未提供的字段需结合数据详情确认。[时间说明](docs/TIME_DISPLAY.md)
+顶部显示时间戳、挡位、车速和温度；在线显示电脑当前北京时间，回放显示采样时间。温度原始值编码为 `(℃ + 40) × 2`，在线和回放均按 `原始值 / 2.0 - 40` 显示，保留一位小数；TXT 录制保留原始编码值。无数据或协议未提供的字段需结合数据详情确认。[时间说明](docs/TIME_DISPLAY.md)
 
 S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析；「图层与测距」关闭车位图层后切换到点云/PDC 解析。当前支持附带 DBC 和约定接口，其他项目协议需要适配。
 
@@ -118,7 +128,7 @@ S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析
 
 「车型配置」支持车长/车宽、轴距/悬长、数据原点、探头位置/角度/FOV/启用状态，多车型及 JSON 导入导出。「跟随在线 / 日志数据」使用源中的车型，手动选定车型用于指定安装参数。[车型说明](docs/VEHICLE_PROFILES.md)
 
-设置按用户保存：Windows `%APPDATA%/COLIGEN_USS_UPPER/`；Ubuntu `~/.config/coligen-uss-upper/`。`COLIGEN_CONFIG_DIR` 可隔离车型、探头方案、串口和硬件设置。数据详情另存显示布局。个人设置无需放入源码或 SVN。
+设置按用户保存：Windows `%APPDATA%/COLIGEN_USS_UPPER/`；Ubuntu `~/.config/coligen-uss-upper/`。`COLIGEN_CONFIG_DIR` 可隔离车型、探头方案、UDP、串口和硬件设置。数据详情另存显示布局。个人设置无需放入源码或 SVN。
 
 ## 7. 源码运行与构建
 
@@ -142,7 +152,7 @@ Windows 构建：
 
 输出 `dist/COLIGEN_USS_UPPER_v4.6.0.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
-Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
+Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
 源码回归与 EXE 自检：
 

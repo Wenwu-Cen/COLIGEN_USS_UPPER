@@ -1,10 +1,10 @@
-# CustomTkinter 界面（4.5.4）
+# CustomTkinter 界面（4.6.0）
 
 当前 GUI 使用用户选择的 D 方案：CustomTkinter 6.0.0 与原有 Tkinter Canvas / ttk Treeview 结合。
 
 ## 使用
 
-运行 `scripts/run_viewer.ps1`，或打开 `dist/COLIGEN_USS_UPPER_v4.5.4.exe`。
+运行 `scripts/run_viewer.ps1`，或打开 `dist/COLIGEN_USS_UPPER_v4.6.0.exe`。
 
 - 顶部工具栏提供在线连接、打开日志、录制、数据详情和适应视图。
 - 时间戳、挡位、车速、温度等帧状态显示在顶部中间，窗口变窄时自动换行。
@@ -18,7 +18,7 @@
 - 高亮随当前帧更新，缩放、平移和固定地图视角均适用。保留快照时，切换数据页仍跟踪原下标；空数组元素、无效数据及关闭的点/线图层不显示实时高亮，已保存的快照保持不变。
 - 底部集中回放时间轴、帧导航和倍速。
 - 画布左下角在线显示“北京时间(电脑)”，回放显示帧的采样时间；相对计时不会冒充日期。[时间来源](TIME_DISPLAY.md)
-- ZLG-USBCANFD 显示型号、硬件索引和通道；CANOE/VECTOR 显示 CAN1～CAN10 选择，断开后可修改。[硬件配置说明](CAN_HARDWARE.md)
+- 先选 CAN，再选 ZLG、TOSUN 或 VECTOR：ZLG 显示型号、硬件索引和通道；TOSUN 显示 CAN1～CAN12，VECTOR 显示 CAN1～CAN10 选择，断开后可修改。[硬件配置说明](CAN_HARDWARE.md)
 - TCP/IP 使用“网络设置”配置 UDP 监听或 TCP 客户端、IP、端口、字节序和对齐。
 - Port 输入框仅用于 LAUTERBACH TRACE32；ZLG-USBCANFD、CANOE/VECTOR、RENESAS CS+ 和SERIES 使用各自的配置入口。串口配置页支持 COM 口扫描、波特率、8N1、Y 轴方向和数据超时。
 

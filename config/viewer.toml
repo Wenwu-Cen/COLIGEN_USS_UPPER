@@ -1,3 +1,9 @@
+[udp]
+# V3.5 USSD / IPC DBC; independent of the 512-byte [ethernet] protocol.
+bind_address = "192.168.98.123"
+port = 39001
+sender_address = "192.168.98.233"
+
 [can]
 # 原有 CAN / CS+ 属于 20 探头方案；TRACE32 在界面独立选择 17 / 20。
 # ZLG 型号：100U=42、200U=41、400U=76、800U=59。
