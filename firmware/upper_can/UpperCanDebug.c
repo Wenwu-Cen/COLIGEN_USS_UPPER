@@ -2,11 +2,11 @@
 #include <string.h>
 /* UPPER CAN v1: one frozen USSV snapshot, transported in 56-byte pieces.
  * The existing 20 RTE PDUs are reused; no C padding/bitfields go on the wire.
- * At 80 points/20 lines/6 slots a snapshot is 1634 bytes (30 fragments),
+ * At 80 points/20 lines/6 slots a snapshot is 1657 bytes (30 fragments),
  * hence two 40-ms batches. Unused slots in the last batch are explicit idle.
  * Keep the buffer unchanged until every fragment has been handed to RTE. */
 #if defined(OBJ_DEBUGCAN) && !defined(SUPPORT_RAWDATA_DEBUGCAN)
-#define UPPER_CAN_PACKET_SIZE (1634u)
+#define UPPER_CAN_PACKET_SIZE (1657u)
 #define UPPER_CAN_DATA_SIZE (56u)
 #define CtCdUSS_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #include "CtCdUSS_MemMap.h"
@@ -111,6 +111,9 @@ static void UpperCanCapture(uint64_t timestamp_us)
     p[3]=3u; p+=4u;
     for(i=0u;i<3u;i++,p+=40u) UpperCanSlot(p,&sf_Upper_SlotOutSignal.left_slot_info[i]);
     for(i=0u;i<3u;i++,p+=40u) UpperCanSlot(p,&sf_Upper_SlotOutSignal.right_slot_info[i]);
+    /* Optional USSV v1 extension: one direction byte per line, same array order. */
+    p=UpperCanTlv(p,9u,20u);
+    for(i=0u;i<20u;i++) *p++=sf_Upper_LineOutSignal[i].cDirect;
     UpperCanPut32(p,UpperCanCrc(UpperCanPacket,UPPER_CAN_PACKET_SIZE-4u));
 }
 void OutputSignalCan_BeginBatch(uint64_t timestamp_us)

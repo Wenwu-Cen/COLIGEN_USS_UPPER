@@ -21,6 +21,7 @@ typedef struct
     uint8_t cNum;
     uint8_t cHight;
     uint8_t cObjType;
+    uint8_t cDirect; /* IlPutTx_ObjPt_Direct: 0 vehicle left, 1 vehicle right. */
     int16_t wStartx;
     int16_t wStarty;
     int16_t wEndx;

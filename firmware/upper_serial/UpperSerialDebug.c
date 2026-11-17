@@ -17,6 +17,7 @@
 #define UPPER_SERIAL_TAG_POINT 6u
 #define UPPER_SERIAL_TAG_LINE 7u
 #define UPPER_SERIAL_TAG_SLOT 8u
+#define UPPER_SERIAL_TAG_LINE_DIRECT 9u
 #define UPPER_SERIAL_BLOCK_LIMIT 1024u
 #define UPPER_SERIAL_PACKET_LIMIT 2048u
 
@@ -302,6 +303,19 @@ int UpperSerialDebug_SendFrame(const UpperSerialFrame *frame)
     result = append_tlv(packet + UPPER_SERIAL_HEADER_SIZE, &payload_size,
                          UPPER_SERIAL_TAG_SLOT, body, body_size);
     if (result != UPPER_SERIAL_OK) return result;
+    {
+        uint16_t i;
+        uint8_t has_direction = 0u;
+        for (i = 0u; i < frame->line_count; ++i) {
+            body[i] = frame->lines[i].direction;
+            has_direction |= body[i];
+        }
+        if (has_direction != 0u) {
+            result = append_tlv(packet + UPPER_SERIAL_HEADER_SIZE, &payload_size,
+                                UPPER_SERIAL_TAG_LINE_DIRECT, body, frame->line_count);
+            if (result != UPPER_SERIAL_OK) return result;
+        }
+    }
     sequence = frame->sequence != 0u ? frame->sequence : UpperSerialDebug_NextSequence();
     packet[0] = UPPER_SERIAL_MAGIC_0;
     packet[1] = UPPER_SERIAL_MAGIC_1;

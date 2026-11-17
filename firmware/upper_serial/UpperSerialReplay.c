@@ -127,6 +127,7 @@ static void capture_replay(void)
         line->cNum = stOneOutSi_Upper[i].cNum;
         line->cHight = stOneOutSi_Upper[i].cHight;
         line->cObjType = stOneOutSi_Upper[i].cObjType;
+        line->cDirect = 0; /* This replay profile does not export direction. */
         line->wStartx = stOneOutSi_Upper[i].wStartx;
         line->wStarty = stOneOutSi_Upper[i].wStarty;
         line->wEndx = stOneOutSi_Upper[i].wEndx;

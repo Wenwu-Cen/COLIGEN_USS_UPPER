@@ -60,3 +60,13 @@ int writer(const uint8_t *data, uint16_t size, void *context);
 PC 可设置 `UPPER_SERIAL_OUTPUT` 为文件路径，将发送回调接到二进制文件；未设置时不会创建文件。该方式只用于协议验证，不能替代实车 UART/域控验证。
 
 全套 `main.py test` 的 82 项检查中，79 项通过；其余 3 项要求旧 `S20_R77207_TEST_STAGE`/历史未合并源文件，而当前工程默认使用已合并的日常 S20 源码阶段。串口新增检查不依赖这些旧阶段。
+
+
+### 可选线段方向扩展（2026-11-17）
+
+USSV v1 保留 tag 7 的 13 字节线段记录，新增可选 tag 9：每个字节是对应
+线段的 `cDirect`，长度必须等于 tag 7 的线段数量。无扩展时默认 0。
+`UpperSerialVariables.c` 从 `Upper_LineOutSignal.cDirect` 复制到 `UpperSerialLine.direction`；
+串口编码器在至少一个方向非零时发送此块，全零时省略，接收端每帧重新赋值，避免残留。
+S20 CAN 编码器始终发送完整 20 字节方向块。方向来自 `IlPutTx_ObjPt_Direct` 的原始枚举，
+0 为车辆在线段左侧，1 为右侧；画布箭头始终为起点 → 终点。

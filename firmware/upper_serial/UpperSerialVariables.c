@@ -93,6 +93,7 @@ int UpperSerialDebug_SendVariables(void)
         frame.lines[i].number = line->cNum;
         frame.lines[i].height = line->cHight;
         frame.lines[i].object_type = line->cObjType;
+        frame.lines[i].direction = line->cDirect;
         frame.lines[i].start_x = line->wStartx;
         frame.lines[i].start_y = line->wStarty;
         frame.lines[i].end_x = line->wEndx;

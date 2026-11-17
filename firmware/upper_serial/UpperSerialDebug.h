@@ -76,6 +76,7 @@ typedef struct {
     uint8_t number;
     uint8_t height;
     uint8_t object_type;
+    uint8_t direction; /* cDirect / IlPutTx_ObjPt_Direct */
     int16_t start_x;
     int16_t start_y;
     int16_t end_x;
