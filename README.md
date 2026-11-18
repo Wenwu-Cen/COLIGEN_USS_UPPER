@@ -1,8 +1,8 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **4.7.2**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **4.8.0**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.7.2.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.8.0.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
 
 ## 1. 直接使用 Windows 程序
 
@@ -144,6 +144,7 @@ S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析
 - **显示行车轨迹**：将后轴中心走过的世界位置连成轨迹。关闭开关仅隐藏；「清空行车轨迹」清除历史，后续继续记录。
 - 拖动画布平移，滚轮以鼠标位置为中心缩放；右键或「适应视图」重新取景。
 - 可分别开关扇区、PDC、点、线、车位和标注。开启测距后选择位置，「清除测距」清除标记。
+- 顶部「PDC 静音」可立即关闭警报声，静音时显示「PDC 已静音」，再次点击恢复。在线采集与日志播放共用开关，切换数据源时保持当前选择；每次启动默认开启声音。静音期间 PDC 图形、数据和录制继续更新。
 
 轨迹需要有效位置与航向，不通过车速积分伪造。缺后轴参数时沿用数据原点即后轴中心的约定，有车型参数时换算后轴中心。跳帧、回退、切换源或明显位姿跳变会按规则断开/重置轨迹。[世界坐标与轨迹](docs/WORLD_MAP.md)、[坐标转换](docs/COORDINATE_SYSTEMS.md)
 
@@ -182,7 +183,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v4.7.2.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v4.8.0.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -190,7 +191,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 
 ```powershell
 uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v4.7.2.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+.\dist\COLIGEN_USS_UPPER_v4.8.0.exe --self-test .\recordings\S20test.asc .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
@@ -226,7 +227,7 @@ SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、REA
 
 [变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.7.2；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.8.0；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
 
 4.5.2 进一步优化“设备与显示”：展开/收起时复用原生控件，保留滚动位置和输入值，收起时跳过隐藏控件的键盘焦点。此前的弹窗与串口响应优化一并保留。改动与回归说明见 [界面响应说明](docs/UI_RESPONSIVENESS.md)。
 
