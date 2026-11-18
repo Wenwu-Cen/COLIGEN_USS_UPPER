@@ -1,8 +1,8 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **4.7.1**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **4.7.2**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.7.1.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.7.2.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
 
 ## 1. 直接使用 Windows 程序
 
@@ -105,6 +105,38 @@
 
 S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析；「图层与测距」关闭车位图层后切换到点云/PDC 解析。当前支持附带 DBC 和约定接口，其他项目协议需要适配。
 
+### S20 实车与回灌同周期对比
+
+实车画面由 **RENESAS CS+** 读取。S20 PC 回灌从 **CANFD 或已适配的 UDP** 收集算法输入，两路在同一个录制会话中保存。当前严格对比覆盖点位、线段及其属性。
+
+#### 连接和录制
+
+1. 在实车 ECU 上运行与程序配套、启用 `SUPPORT_REPLAY_COMPARE` 的 S20 固件。在 CS+ 打开对应工程和调试符号，让 ECU 保持运行。在上位机选「RENESAS CS+ → 在线连接」，先确认主画面持续更新。
+2. 打开「录制设置」，项目选 `S20`，依赖 ID 配置选 `s20`。依赖 DBC 使用内置的 `assets/dbc/E541_PAS_20260609_FS21.dbc`，也可点「选择 DBC」指定同名文件。
+3. 根据实车发出的依赖设置采集入口。
+   - **CANFD**：选择实际设备厂商和通道。以 ZLG USBCANFD-200U 单台接线为例，设备索引为 `0`，若接 CAN1 则通道索引为 `0`。先核对速率、终端和接线。
+   - **UDP**：填写本机监听 IP、端口和可选的来源 IP，封装按发送端选 `can68` 或 `ussd`。严格对比还要求收到带 S20 周期标识的完整依赖输入。选 `raw` 可以保存未适配的原始数据报。
+4. 勾选「启用实时回灌及严格同周期对比」，使用内置 S20 回灌程序，或点「选择程序」指定支持 `--stream` 且握手版本为 2 的 `dataReplay_main.exe`。需要另存位置时设置「自动保存根目录」。可先点「检查连接」观察临时收包结果，再点「保存」。
+5. 点「开始录制」。对比窗口左侧为「实车 · CS+」，右侧为「回灌 · S20 PC」。观察「依赖完整周期」「回灌」「同周期配对」是否持续增加。录制结束在主窗口点「停止录制」，等待状态提示保存完成。
+
+#### 查看与复查
+
+- 「冻结画面」保留当前配对供检查，「继续实时」回到实时结果。可以用滑块、「上一周期 / 下一周期」和「播放」检查已保存的配对。「叠加」用粉色在实车图上画出回灌的点线。
+- 实车和回灌点线统一使用 X 向前、Y 向左的毫米坐标。旧版 S20 对比会话打开后会按该坐标显示。
+- 「点位标注」「线段标注」默认关闭，勾选后两侧同步显示该类对象的坐标和属性。用「字段对照」分别选择两侧的对象查看字段差值，用「标记问题」记录当前配对。
+- 会话目录内的 `manifest.json` 保存设备、DBC、算法和计数，`session.db` 保存原始依赖、快照和配对。停止后可查看 `real_vehicle.txt`、`replay.txt`、前后探头 CSV 和 `differences.csv`。「对比 → 选择录制会话目录」或对比窗口内「打开会话」可重新查看。
+- 「导出依赖」将 CANFD 或已适配的 UDP CAN 帧导出为 ASC / BLF，原始 UDP 数据报可导出为 JSONL。「新版本重跑」在停止录制后可用，以原始完整输入重跑，输出另存子会话。
+- 每组结果使用同一个 **启动号 / 输入周期 / 输出序号** 配对。CS+ 采样频率、两侧输出节奏和录制边界会影响配对数量。PC 以自己的算法初始状态运行，算法版本也可能不同，应逐周期核对差异。
+
+#### 常见问题
+
+- **有实车画面，完整周期为 0**：从「录制设置」检查 CANFD 通道和速率，或 UDP 端口、来源 IP、封装。确认 ECU 在实际发出 S20 回灌输入，ID 配置为 `s20`。
+- **完整周期有增长，回灌为 0**：检查回灌程序路径、`--stream` 版本及会话目录内的 `replay.log`。
+- **回灌有增长，配对为 0**：确认实车固件带 `sf_Upper_Compare*` 符号和 `SCP2` 快照格式，CS+ 加载的是同一版调试符号。刷写后重新连接上位机，再开始新的会话。
+- **中间出现缺帧、异常或 ECU 重启**：停止并保存会话，检查接线或数据源后开启新会话，以免用不连续输入继续算法状态。
+
+更多协议和固件要求见 [S20 录制与回灌说明](docs/S20_REPLAY_RECORDING.md)。
+
 ## 4. 视图、轨迹和测距
 
 - **跟随车辆**：默认视角，以后轴中心为视图参考，车辆方向固定。
@@ -150,7 +182,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v4.7.1.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v4.7.2.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -158,7 +190,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 
 ```powershell
 uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v4.7.1.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+.\dist\COLIGEN_USS_UPPER_v4.7.2.exe --self-test .\recordings\S20test.asc .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
@@ -194,7 +226,7 @@ SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、REA
 
 [变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.7.1；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.7.2；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
 
 4.5.2 进一步优化“设备与显示”：展开/收起时复用原生控件，保留滚动位置和输入值，收起时跳过隐藏控件的键盘焦点。此前的弹窗与串口响应优化一并保留。改动与回归说明见 [界面响应说明](docs/UI_RESPONSIVENESS.md)。
 
@@ -205,7 +237,3 @@ S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧�
 TOSUN（同星 TC1018）支持 CAN1～CAN12 选择，使用同星原生 SDK；S20 新增 UC CAN FD 报文解析详见 [协议说明](docs/S20_UPPER_CAN_V1.md) 与 [硬件配置](docs/CAN_HARDWARE.md)。
 
 TOSUN 和 VECTOR 可选择常见设备型号并联动可用 CAN 通道。ZLG 型号显示对应通道数量，硬件索引由后台检测实际接入设备后提供，可点击「刷新设备」更新。
-
-## S20 同步录制与回灌
-
-主界面“录制设置”可配置 CANFD / UDP 依赖输入。开始录制后自动存储实车快照和原始依赖，支持 S20 PC 实时回灌、同周期对比和新版本重跑。配置及固件要求见 [S20 录制与回灌说明](docs/S20_REPLAY_RECORDING.md)。

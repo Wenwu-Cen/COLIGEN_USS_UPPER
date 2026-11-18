@@ -38,7 +38,9 @@ More Data / 线段标签里的 `(sx,sy)`、点标签里的 `(x,y)` 都是 **demo
 |---|---|---|---|---|
 | **TXT 新格式**（泊车3.txt 的 `[sf_Upper_PointOutSignal]` / `[sf_Upper_LineOutSignal]`） | `log_parser.LogParser` | mm | **原样** `wx=x, wy=y` | **原样** `wx=wStartx, wy=wStarty` |
 | **TXT 旧格式**（`stPointOut_Upper` / `stOneOutSi_Upper`） | 同上 | mm | `wx=Y, wy=-X` | `wx=Y, wy=-X` |
-| **劳特巴赫 / CS+** | `debugger_source.build_frame` | mm | `wx=X, wy=-Y` | `wx=X, wy=-Y` |
+| **旧 CS+** | `debugger_source.build_frame` | mm | `wx=X, wy=-Y` | `wx=X, wy=-Y` |
+| **S20 实车 CS+ / UPPER CAN v1** | `debugger_source` / `upper_can_protocol.build_can_snapshot` | mm | `wx=X, wy=Y` | `wx=X, wy=Y` |
+| **J6B TRACE32 / S20 PC 回灌** | `debugger_source` / `serial_source.build_serial_snapshot` | mm | `wx=X, wy=Y` | `wx=X, wy=Y` |
 | **ASC / 周立功 / CANoe** | `can_source.VisualizationModel` | DBC 原始 cm（offset −3276）→ mm | `wx=X_mm, wy=Y_mm`（不互换、不取反） | `wx=Ay_mm, wy=Ax_mm`（只互换，不再取反） |
 
 引入周立功之后：**只新增了 ASC/CAN 这一列**。泊车3.txt 仍走 TXT 列，坐标规则没有改。
@@ -142,9 +144,11 @@ CS+/TXT 车位仍走原来的 `wx = X, wy = -Y`。
 
 ---
 
-## 5. 劳特巴赫 / CS+（main / C 结构体）
+## 5. 调试器（main / C 结构体）
 
-`sf_Upper_PointOutSignal` / `sf_Upper_LineOutSignal` 在板端是：
+S20 对比固件以 `sf_Upper_CompareBuffer` 符号识别。S20 实车及 J6B TRACE32 的点线使用 X 向前、Y 向左。旧 S20 同周期会话在读取时校正已保存的实车点线。
+
+旧 CS+ 工程的 `sf_Upper_PointOutSignal` / `sf_Upper_LineOutSignal` 在板端是：
 
 ```text
 X = +前, Y = +右

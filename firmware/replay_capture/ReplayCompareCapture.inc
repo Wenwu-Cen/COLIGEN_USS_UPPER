@@ -45,15 +45,24 @@ void ReplayCompare_Latch(void)
 void ReplayCompare_Publish(const uint8_t *packet, uint32_t size, uint64_t task_us)
 {
     unsigned i;
+    uint32_t crc=0xffffffffu;
+    volatile uint8_t *trailer;
     (void)task_us; /* Wall time remains in USSV; it is not a pairing key. */
-    if(!compare_latched_boot || size+16u>sizeof(sf_Upper_CompareBuffer)) return;
+    if(!compare_latched_boot || size<4u || size>sizeof(sf_Upper_CompareBuffer)-24u) return;
     ++sf_Upper_CompareGeneration; /* odd: producer owns the frozen buffer */
     compare_put32(sf_Upper_CompareBuffer,compare_latched_boot);
     compare_put32(sf_Upper_CompareBuffer+4u,compare_latched_cycle);
     compare_put32(sf_Upper_CompareBuffer+8u,compare_output_ordinal);
     compare_put32(sf_Upper_CompareBuffer+12u,0u);
     for(i=0u;i<size;i++) sf_Upper_CompareBuffer[16u+i]=packet[i];
-    sf_Upper_CompareLength=size+16u;
+    /* USSV already checks its own data. Bind its stored CRC to all identity
+     * bytes so a debugger read across two writes cannot pair the wrong cycle. */
+    for(i=0u;i<16u;i++) crc=compare_crc_byte(crc,sf_Upper_CompareBuffer[i]);
+    for(i=size-4u;i<size;i++) crc=compare_crc_byte(crc,packet[i]);
+    trailer=sf_Upper_CompareBuffer+16u+size;
+    trailer[0]='S'; trailer[1]='C'; trailer[2]='P'; trailer[3]='2';
+    compare_put32(trailer+4u,~crc);
+    sf_Upper_CompareLength=size+24u;
     ++sf_Upper_CompareGeneration; /* even: CS+ must verify before/after equality */
 }
 #define CtCdUSS_STOP_SEC_CODE

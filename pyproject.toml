@@ -1,6 +1,6 @@
 [project]
 name = "coligen-uss-upper"
-version = "4.7.1"
+version = "4.7.2"
 description = "COLIGEN USS UPPER with CAN, Ethernet, UART and replay sources"
 requires-python = ">=3.10,<3.13"
 dependencies = [
