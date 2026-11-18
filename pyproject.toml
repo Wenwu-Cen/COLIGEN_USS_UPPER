@@ -1,6 +1,6 @@
 [project]
 name = "coligen-uss-upper"
-version = "4.8.0"
+version = "4.9.1"
 description = "COLIGEN USS UPPER with CAN, Ethernet, UART and replay sources"
 requires-python = ">=3.10,<3.13"
 dependencies = [
@@ -10,6 +10,7 @@ dependencies = [
     "numpy==2.2.6",
     "lauterbach-trace32-rcl==1.0.8",
     "customtkinter==6.0.0",
+    "pyelftools==0.33",
 ]
 
 [dependency-groups]

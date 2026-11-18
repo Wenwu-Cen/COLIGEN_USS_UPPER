@@ -1,0 +1,13 @@
+{
+  "byte_order": "little",
+  "variables": {
+    "sf_Upper_StatusOutSignal": {"address": "0x00000000", "size": 16},
+    "sf_Upper_OdoOutSignal": {"address": "0x00000000", "size": 12},
+    "sf_Upper_VehicleOutSignal": {"address": "0x00000000", "size": 52},
+    "sf_Upper_RawDataOutSignal": {"address": "0x00000000", "size": 248},
+    "sf_Upper_PDCOutSignal": {"address": "0x00000000", "size": 52},
+    "sf_Upper_PointOutSignal": {"address": "0x00000000", "size": 800},
+    "sf_Upper_LineOutSignal": {"address": "0x00000000", "size": 280},
+    "sf_Upper_SlotOutSignal": {"address": "0x00000000", "size": 268}
+  }
+}

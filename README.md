@@ -1,13 +1,13 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **4.8.0**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **4.9.1**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.8.0.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v4.9.1.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
 
 ## 1. 直接使用 Windows 程序
 
 1. 从 GitHub、Gitea 对应版本 Release，或 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 下载 EXE。
-2. 双击运行；展开「设备与显示」，选择数据源；CAN 设备先选 **CAN**，再选 **ZLG / TOSUN / VECTOR** 及对应通道。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
+2. 双击运行；「设备与显示」默认展开，可点击「收起设置」折叠；选择数据源；CAN 设备先选 **CAN**，再选 **ZLG / TOSUN / VECTOR** 及对应通道。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
 3. 在线采集先设置设备参数，再点击「在线连接」；离线 TXT / ASC / BLF 点击「打开日志」。
 4. 根据项目选择车型、探头方案和显示图层。默认车型仅作显示占位，实车使用前应确认安装参数。
 5. 需要检查字段时打开「数据详情」；需要世界地图或轨迹时展开「视角与轨迹」。
@@ -50,6 +50,12 @@
 安装 Vector 驱动，选择 `CAN → VECTOR`、设备型号及对应 CAN 通道。具体型号按驱动检测的 CAN 接口连接；旧配置可选择 `CANoe 应用映射`，使用 Vector Hardware Configuration 的 `CANoe` 应用通道 CAN1～CAN10。
 
 应用名、速率、FD 和监听模式在 `[canoe]` 配置。应用名必须与 Vector 通道映射一致；显示名称统一大写不会改动配置中的厂商应用名 `CANoe`。
+
+### XCP（待实车验证）
+
+在 Hardware 选 **CAN**，采集协议选 **XCP（待实车验证）**，再选 **ZLG / TOSUN / VECTOR** 的型号、设备与物理通道。打开「XCP 设置」，填写 ECU 请求/响应 CAN ID、速率、CAN/CAN FD 及地址扩展，选择与当前固件匹配的 ELF（含无后缀 mca）、GHS MAP 或变量地址 JSON，保存后在线连接。
+
+使用 `LAUTERBACH_UPPER_DEBUG` 下八类 `sf_Upper_*` 原生变量，复用车辆、80 点、20 线、RAW/PDC、6 车位、世界视角、轨迹、详情快照及 PDC 静音。第一版只读顺序轮询，可能跨 ECU 周期，状态栏保留待实车验证标识。底软须已启用 XCP 服务；实体设备收发、性能和实车画面由后续现场验证确认。配置、变量布局和使用步骤见 [XCP 说明](docs/XCP.md)。
 
 ### TCP/IP
 
@@ -143,8 +149,8 @@ S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析
 - **固定世界坐标**：首次有效后轴中心为地图原点，车辆随位姿移动/旋转，镜头和网格固定。TXT 回放会一次容纳整段车辆行程，播放时镜头保持不动。
 - **显示行车轨迹**：将后轴中心走过的世界位置连成轨迹。关闭开关仅隐藏；「清空行车轨迹」清除历史，后续继续记录。
 - 拖动画布平移，滚轮以鼠标位置为中心缩放；右键或「适应视图」重新取景。
-- 可分别开关扇区、PDC、点、线、车位和标注。开启测距后选择位置，「清除测距」清除标记。
-- 顶部「PDC 静音」可立即关闭警报声，静音时显示「PDC 已静音」，再次点击恢复。在线采集与日志播放共用开关，切换数据源时保持当前选择；每次启动默认开启声音。静音期间 PDC 图形、数据和录制继续更新。
+- 可分别开关扇区、PDC、点、线、车位和标注。点位、线段、车位标注默认关闭，连接或切换数据源不自动开启，可在「标注」栏手动打开。开启测距后选择位置，「清除测距」清除标记。
+- 「设备与显示」下方「标注」栏内的「PDC 静音」可立即关闭警报声，静音时显示「PDC 已静音」，再次点击恢复。在线采集与日志播放共用开关，切换数据源时保持当前选择；每次启动默认开启声音。静音期间 PDC 图形、数据和录制继续更新。
 
 轨迹需要有效位置与航向，不通过车速积分伪造。缺后轴参数时沿用数据原点即后轴中心的约定，有车型参数时换算后轴中心。跳帧、回退、切换源或明显位姿跳变会按规则断开/重置轨迹。[世界坐标与轨迹](docs/WORLD_MAP.md)、[坐标转换](docs/COORDINATE_SYSTEMS.md)
 
@@ -183,7 +189,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v4.8.0.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v4.9.1.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -191,7 +197,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 
 ```powershell
 uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v4.8.0.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+.\dist\COLIGEN_USS_UPPER_v4.9.1.exe --self-test .\recordings\S20test.asc .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
@@ -227,7 +233,7 @@ SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、REA
 
 [变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.8.0；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v4.9.1；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
 
 4.5.2 进一步优化“设备与显示”：展开/收起时复用原生控件，保留滚动位置和输入值，收起时跳过隐藏控件的键盘焦点。此前的弹窗与串口响应优化一并保留。改动与回归说明见 [界面响应说明](docs/UI_RESPONSIVENESS.md)。
 
