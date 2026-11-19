@@ -1,6 +1,6 @@
 # V3.5 UDP 接入
 
-在「设备与显示」的 Hardware 下拉框选择「UDP」，点击「UDP 设置」编辑本机监听 IP、监听端口和接收来源设备 IP，保存后点击「在线连接」。当前工程的统一入口仍为 `src/app.py`，可运行 `scripts/run_viewer.ps1` 启动。
+在「设备与显示」的 Hardware 下拉框选择「UDP」，将采集协议设为「USSD / IPC DBC」，点击「UDP 设置」编辑本机监听 IP、监听端口和接收来源设备 IP，保存后点击「在线连接」。可运行 `scripts/run_viewer.ps1` 启动。需要主动轮询 ECU 变量时，可选择「XCP」并按 [XCP 设置说明](XCP.md) 填写 ECU 地址和端口。
 
 ## 网络配置
 
