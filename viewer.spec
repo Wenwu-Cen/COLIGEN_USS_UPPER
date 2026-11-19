@@ -19,12 +19,15 @@ bridge_payload = base64.b85encode(zlib.compress(bridge_source.encode("ascii"))).
     "BRIDGE_SOURCE_B85 = " + repr(bridge_payload) + "\n", encoding="ascii")
 
 
-replay_worker_dir = Path("build/s20-stream/bin")
-replay_worker_assets = [
-    (str(replay_worker_dir / name), "runtime_assets/replay/S20")
-    for name in ("dataReplay_main.exe", "replay_s20_build_manifest.json")
-    if (replay_worker_dir / name).is_file()
-]
+replay_worker_assets = []
+for project, manifest in (("S20", "replay_s20_build_manifest.json"), ("D4M3", "build_manifest.json")):
+    directory = Path("build") / (project.lower() + "-stream") / "bin"
+    if (directory / "dataReplay_main.exe").is_file():
+        replay_worker_assets.extend(
+            (str(directory / name), f"runtime_assets/replay/{project}")
+            for name in ("dataReplay_main.exe", manifest)
+            if (directory / name).is_file()
+        )
 
 a = Analysis(
     ['src/app.py'],
