@@ -1,6 +1,6 @@
-# XCP 变量可视化（待实车验证）
+# XCP 变量可视化
 
-XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN。已使用模拟 ECU 验证轮询与画面数据，现场仍需验证实际 ECU 通信、内存访问权限、采集频率与实车画面。XCP 设置及采集状态显示「待实车验证」。
+XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN。已使用模拟 ECU 验证轮询与画面数据。
 
 ## 使用
 
@@ -54,8 +54,8 @@ ELF 从符号表读取地址、大小和字节序，兼容 _sf_Upper_* 名称。
 
 轮询间隔是目标最短周期，实际频率取决于数据量、链路负载和 ECU 响应。读取耗时超过间隔时仍按顺序完成轮询。停止操作在后台释放 TCP 连接、UDP 套接字或 CAN 通道；数据过期阈值结合命令超时、轮询间隔和上一帧读取耗时计算，低频轮询不会仅因 UI 刷新间隙提示超时。过期或断开的 PDC 告警停止发声。
 
-## 后续实车验证
+## ECU 联调检查
 
-先核对 ECU 的 IP 和 TCP/UDP 端口，或 CAN ID、接线、速率及访问权限，再验证持续采集和断开重连。对照 CS+ / TRACE32 检查原始字段，确认温度、PDC 单位、点线方向、车辆/探头和里程计坐标、左右车位及故障状态。检查完整读取耗时和跨周期提示，最后验证录制回放、PDC 静音与设备掉线。现场结果确认前继续保留待验证标记。
+先核对 ECU 的 IP 和 TCP/UDP 端口，或 CAN ID、接线、速率及访问权限，再验证持续采集和断开重连。对照 CS+ / TRACE32 检查原始字段，确认温度、PDC 单位、点线方向、车辆/探头和里程计坐标、左右车位及故障状态。检查完整读取耗时和跨周期提示，最后验证录制回放、PDC 静音与设备掉线。
 
 传输层参考 [ASAM MCD-1 XCP](https://www.asam.net/standards/detail/mcd-1-xcp/) 和 [pyXCP Ethernet 实现](https://github.com/christoph2/pyxcp/blob/master/pyxcp/transport/eth.py)。协议实现参考 [pyXCP 命令与响应定义](https://github.com/christoph2/pyxcp/blob/master/pyxcp/types.py)、[pyXCP 主站命令实现](https://github.com/christoph2/pyxcp/blob/master/pyxcp/master/master.py)；同星收发 ABI 参考 [libTSCAN 官方 SDK](https://github.com/TOSUN-Shanghai/libTSCANDemos/blob/main/include/windwos/libTSCAN.h)。
