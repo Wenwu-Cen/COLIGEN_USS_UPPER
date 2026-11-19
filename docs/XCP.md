@@ -31,6 +31,8 @@ S20 Chassis CAN 固件如果启用了 64 字节的 XCP 请求长度检查，在�
 
 每次录制创建独立会话，实车画面保存在 `real_vehicle.txt`，前后探头数据同时导出 CSV，PDC 功能输出保存在 `e211_pdc_result.csv`。选择 **xcp** 时，同一目录下的 `replay_dependency.bin` 保存每个 1800 字节的 `USSXCPOfflineReplayData_t`，包含运行时间、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。`replay_dependency.jsonl` 记下偏移、大小、ECU 时间戳、原始周期号、前后两次采样中间跳过的周期数和上位机单调接收时间。SQLite 会话日志也保存原始数据。
 
+使用 **XCP on CAN** 采集时，停止录制会自动生成 `E211_replay_dependency_YYYYMMDD_HHMMSS.asc`，文件名使用开始录制时的本地日期和时间。ASC 包含有效输入快照的 SET_MTA / UPLOAD 实际收发帧。JSONL 的 `asc_first_frame` 和 `asc_frame_count` 给出每份快照在 ASC 中的起始帧序号（从 0 开始）和帧数。ASC 可用 CANoe 查看。读取专用 CAN FD 依赖帧的回灌程序需要适配 E211 的 XCP 快照。
+
 当前经典 CAN 每个 UPLOAD 最多返回 7 字节。固件最短 500 ms 发布一份回灌输入并保留 16 个快照，上位机只保存读取前后序号一致的数据，采样速度取决于 ECU 响应。该录制是采样文件，逐周期连续回灌还需要持续传输全部输入的链路。
 
 ## 变量与原生布局
