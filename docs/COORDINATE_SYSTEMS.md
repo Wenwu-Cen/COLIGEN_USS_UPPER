@@ -73,7 +73,7 @@ Point[0] ObjID = 0 x = 5315 y = 1290 cHight = 0 SNS_Txindex = 10 SNS_Rxindex = 9
 Line[0]  wStartx = 5281 wStarty = 1221 wEndx = 5281 wEndy = 1221
 ```
 
-这两行在录制时已经是 **demo 坐标**（在线路径 `debugger_source` 转完再写入 TXT）。回放时：
+当前 TXT 在文件头声明 `PointLineConvention = x_forward_y_left`：这两行在录制时已转换为 **demo 坐标**。回放时：
 
 ```text
 点:  wx = x = 5315,  wy = y = 1290
@@ -83,6 +83,8 @@ Line[0]  wStartx = 5281 wStarty = 1221 wEndx = 5281 wEndy = 1221
 `SNS_Txindex = 10` 是 FLC（前左角）。`y = 1290` 为正，落在车左，和探头侧别一致。
 
 **不要把 ASC 的线互换/取反套到这种 TXT 上**，否则左右会翻掉。
+
+部分旧版 S20 CS+ TXT 的结构化点线已保存成 X 向前、Y 向右，但没有声明。兼容处理仅对没有点线坐标声明、使用 `mm_right_forward` ODO、且结构化线段还没有 `cDirect` 的旧日志生效。上位机在多个连续转弯区间比较两种解释，检测到点线与绘图 ODO 左右不一致时，以该录制在自车视图中的点线左右为准，只在内存中对齐绘图 ODO 的横向和航向，同时在状态栏提示。车和点线统一按 X 向前、Y 向左显示。原文件、原始 ODO、车位或属性不改写。对已知是 Y 向右但缺少足够转弯数据的短片段，可在文件头明确写入 `PointLineConvention = x_forward_y_right`。
 
 ### 3.3 旧格式点和线（更早的 st* 行）
 
