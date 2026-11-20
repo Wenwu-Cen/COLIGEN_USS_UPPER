@@ -1,8 +1,8 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **5.2.3**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **5.2.4**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v5.2.3.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v5.2.4.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
 
 ## 1. 直接使用 Windows 程序
 
@@ -159,7 +159,7 @@ D4M3 实车画面与 E541 回灌依赖共用 UDP：本机 `192.168.98.123:39001`
 ## 4. 视图、轨迹和测距
 
 - **跟随车辆**：默认视角，以后轴中心为视图参考，车辆方向固定。
-- **固定世界坐标**：首次有效后轴中心为地图原点，车辆随位姿移动/旋转，镜头和网格固定。默认以 **100 m × 100 m** 方框查看地图；TXT 行程能放入方框时以整段行程居中，较长的行程可拖动查看。播放时镜头保持不动。连续采集时识别设备 ODO 回零并接续地图位置和航向；驶过区域的点线按世界坐标保留，历史点线会淡化，持续保留当前车周围 100 m 半径内的观测，再超过范围才按位置淘汰；往返时不按累计里程过期。
+- **固定世界坐标**：首次有效后轴中心为地图原点，车辆随位姿移动/旋转，镜头和网格固定。默认以 **100 m × 100 m** 方框查看地图；TXT 行程能放入方框时以整段行程居中，较长的行程可拖动查看。播放时镜头保持不动。连续采集时识别设备 ODO 回零并接续地图位置和航向；车辆周围 100 m 半径内已观测的点、线和车位按世界坐标保留。历史点线以可辨认的灰蓝色显示，已记录的车位轮廓保持在地图原位。TXT 跳帧后会恢复截至目标帧的地图历史。
 - **显示行车轨迹**：将后轴中心走过的世界位置连成轨迹。关闭开关仅隐藏；「清空行车轨迹」清除历史，后续继续记录。
 - **ODO 与转向**：顶栏显示统一为 X 向前、Y 向左的 ODO 坐标（m）和车身航向（°，左转为正）。车图用连续 ODO 表示前轮偏转和胎纹滚动。顶栏的「方向盘模拟」和车图内方向盘均按默认 16:1 转向比换算，即方向盘模拟角 = 前轮估算角 × 16（例如前轮左转 10°，方向盘模拟左转 160°）。两者均来自 ODO；短暂掉帧或单次估算为零时保留上一轮向，之后平滑过渡。没有有效 ODO 时坐标和航向显示 `—`。若要提高前轮角估算的准确性，在「车型配置」填写实车轴距。
 - **后刹车灯**：在线和回放均按连续车速变化估算；明显减速时，车图两侧尾灯亮红约 250 ms，持续减速会续亮。前进和倒车都按速度大小判断。缺少车速、跳帧或在线数据中断时清除估算；该显示无法确认实际刹车踏板或灯具状态。
@@ -204,7 +204,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v5.2.3.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v5.2.4.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -212,7 +212,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 
 ```powershell
 uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v5.2.3.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+.\dist\COLIGEN_USS_UPPER_v5.2.4.exe --self-test .\recordings\S20test.asc .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
@@ -248,7 +248,7 @@ SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、REA
 
 [变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v5.2.3；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
+S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v5.2.4；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
 
 4.5.2 进一步优化“设备与显示”：展开/收起时复用原生控件，保留滚动位置和输入值，收起时跳过隐藏控件的键盘焦点。此前的弹窗与串口响应优化一并保留。改动与回归说明见 [界面响应说明](docs/UI_RESPONSIVENESS.md)。
 
