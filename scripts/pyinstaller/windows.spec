@@ -21,7 +21,7 @@ bridge_payload = base64.b85encode(zlib.compress(bridge_source.encode("ascii"))).
 
 replay_worker_assets = []
 for project, manifest in (("S20", "replay_s20_build_manifest.json"), ("D4M3", "build_manifest.json")):
-    directory = Path("build") / (project.lower() + "-stream") / "bin"
+    directory = Path("build").resolve() / (project.lower() + "-stream") / "bin"
     if (directory / "dataReplay_main.exe").is_file():
         replay_worker_assets.extend(
             (str(directory / name), f"runtime_assets/replay/{project}")
@@ -30,28 +30,29 @@ for project, manifest in (("S20", "replay_s20_build_manifest.json"), ("D4M3", "b
         )
 
 a = Analysis(
-    ['src/app.py'],
-    pathex=['src', str(bridge_payload_dir)],
+    ['../../src/app.py'],
+    pathex=[str(Path('src').resolve()), str(bridge_payload_dir)],
     binaries=[
-        ('library/windows/x86_64/zlgcan.dll', 'runtime_assets/library/windows/x86_64'),
-        ('library/vxlapi64.dll', 'runtime_assets/library'),
-        ('library/windows/x86_64/tosun/libTSCAN.dll', 'runtime_assets/library/windows/x86_64/tosun'),
-        ('library/windows/x86_64/tosun/libTSH.dll', 'runtime_assets/library/windows/x86_64/tosun'),
+        ('../../library/windows/x86_64/zlgcan.dll', 'runtime_assets/library/windows/x86_64'),
+        ('../../library/vxlapi64.dll', 'runtime_assets/library'),
+        ('../../library/windows/x86_64/tosun/libTSCAN.dll', 'runtime_assets/library/windows/x86_64/tosun'),
+        ('../../library/windows/x86_64/tosun/libTSH.dll', 'runtime_assets/library/windows/x86_64/tosun'),
     ],
     # Include CTk themes and fonts in the single-file Windows release.
     datas=collect_data_files("customtkinter") + replay_worker_assets + [
-        ('assets/car.ico', '.'),
-        ('assets/car.png', '.'),
-        ('config/viewer.toml', '.'),
+        ('../../assets/car.ico', '.'),
+        ('../../assets/car.png', '.'),
+        ('../../config/viewer.toml', '.'),
         (
-            'library/windows/x86_64/kerneldlls',
+            '../../library/windows/x86_64/kerneldlls',
             'runtime_assets/library/windows/x86_64/kerneldlls',
         ),
-        ('assets/dbc/M18_Upper_Interface_241113.dbc', 'runtime_assets/Database'),
-        ('assets/dbc/ObstacleTrack_M20251104.dbc', 'runtime_assets/Database'),
-        ('assets/dbc/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc', 'runtime_assets/Database'),
-        ('assets/dbc/E541_PAS_20260609_FS21.dbc', 'runtime_assets/Database'),
-        ('assets/dbc/S20_Replay_Capture_v1.dbc', 'runtime_assets/Database'),
+        ('../../assets/dbc/M18_Upper_Interface_241113.dbc', 'runtime_assets/Database'),
+        ('../../assets/dbc/ObstacleTrack_M20251104.dbc', 'runtime_assets/Database'),
+        ('../../assets/dbc/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc', 'runtime_assets/Database'),
+        ('../../assets/dbc/E541_PAS_20260609_FS21.dbc', 'runtime_assets/Database'),
+        ('../../assets/dbc/S20_Replay_Capture_v1.dbc', 'runtime_assets/Database'),
+        ('../../assets/dbc/S20_Upper_CAN_UC_v1_20261117.dbc', 'runtime_assets/Database'),
     ],
     hiddenimports=[
         'csplus_bridge_payload', 'can', 'can.io.blf', 'can.interfaces.vector',
@@ -88,5 +89,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['assets/car.ico'],
+    icon=['../../assets/car.ico'],
 )

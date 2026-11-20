@@ -1,4 +1,4 @@
-# 项目维护说明（4.4.0）
+# 项目维护说明
 
 唯一入口 `src/app.py` 组合数据源、车型控制、界面和共用控制器。已删除旧演示程序和第二套经典 Tk 界面，维护功能时直接修改所属模块。
 
@@ -31,12 +31,17 @@ POINT/LINE 高光跟随选定下标；点击快照存点击时字段与几何，
 
 ## 构建与发布
 
-Windows：`viewer.spec` / `scripts/build_windows.ps1`；Ubuntu：`viewer_linux.spec` / `scripts/build_ubuntu.sh`。DBC 来自项目内 `assets/dbc/`，运行库来自 `library/`，不依赖外部项目路径。
+Windows 运行 `scripts/build_windows.ps1`，Ubuntu 运行 `scripts/build_ubuntu.sh`。两套 PyInstaller 配置都在 `scripts/pyinstaller/`，使用同一入口和项目内的 DBC。Windows 通过 `scripts/check_runtime.ps1` 检查厂商 DLL。构建脚本从当前仓库定位资源，可在独立解压的源码包中运行。
 
-版本在 `app_version.py`，依赖在 `pyproject.toml`、`uv.lock`。发布需版本一致、适当回归、EXE 自检、源码包可独立构建和 SHA256 校验。实体硬件及实车效果须另行验证。
+Windows 配置可选内置两个回灌 worker。S20 使用 `build/s20-stream/bin/dataReplay_main.exe` 和 `replay_s20_build_manifest.json`，D4M3 使用 `build/d4m3-stream/bin/dataReplay_main.exe` 和 `build_manifest.json`。每个清单与对应 EXE 放在同一目录。单机联调可在「录制设置」指定独立 EXE。
 
-Git 保留源码和示例日志，精简源码 ZIP 省略历史日志。SVN 当前树仅放当前 Windows EXE、Ubuntu TAR.GZ、源码 ZIP、README、CHANGELOG 和校验文件，历史版通过版本控制查询。
+发布步骤
 
-受保护文件沿用现有存储策略，差异查看使用 [textconv](GIT_DECRYPT_DIFF.md)。`build/`、`dist/`、`.venv/` 和个人设置不提交。
+1. 同步 `src/app_version.py`、`pyproject.toml`、`uv.lock` 与 [变更日志](CHANGELOG.md)。用 `uv lock --check` 核对依赖锁文件。
+2. 运行源码回归和 Windows EXE 自检。历史日志测试可通过 `COLIGEN_TEST_RECORDINGS` 指向解压出的 `recordings/` 目录。实体硬件及实车效果在相应设备上验证。
+3. 从当前提交归档源码 ZIP。发布附件包括当前 Windows EXE、源码 ZIP、README、变更日志和 SHA-256 清单，以及明确标注自身版本的 Ubuntu 包和 S20 worker。
+4. GitHub 和 Gitea 发布同一提交、版本标签与 Release。SVN 固定目录保持一套发布物，将该目录的已提交版本复制到 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`。回读附件名、大小和校验值。
 
-SVN 版本标签使用服务器端目录复制，路径为 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`。提交说明只描述本次软件变更、发布物和验证结果，不写 Git 仓库同步或 Git 提交信息。
+历史采集日志保留在 v5.2.6 及更早标签的 `recordings/`。当前仓库的 `tests/fixtures/` 用于小型、可随源码复现的协议夹具。构建输出、虚拟环境、录制和个人设置均由忽略规则排除。
+
+受保护文件的差异查看使用 [textconv](GIT_DECRYPT_DIFF.md)。SVN 提交说明记录软件变更、发布物与验证结果。

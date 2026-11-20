@@ -1,12 +1,18 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **5.2.6**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **5.2.7**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v5.2.6.exe`。项目及 SVN 外层目录统一为 `COLIGEN_USS_UPPER`，版本记录在程序、变更说明和 Git tag 中。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v5.2.7.exe`。
+
+## 阅读导航
+
+- [下载与首次使用](#1-直接使用-windows-程序) · [在线数据源](#2-数据源与连接操作) · [日志回放、录制与时间](#3-日志回放录制与时间)
+- [视图、轨迹和测距](#4-视图轨迹和测距) · [点击快照](#5-点线高光与点击快照) · [车型与设置](#6-车型探头和本机设置)
+- [源码运行与构建](#7-源码运行与构建) · [目录与发布](#8-目录与发布) · [常见问题](#9-常见问题)
 
 ## 1. 直接使用 Windows 程序
 
-1. 从 GitHub、Gitea 对应版本 Release，或 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 下载 EXE。
+1. 从 Gitea 的 v5.2.7 Release、内网 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 或 [GitHub Release](https://github.com/Wenwu-Cen/COLIGEN_USS_UPPER/releases/tag/v5.2.7) 下载 EXE 和 `SHA256SUMS.txt`。
 2. 双击运行；「设备与显示」默认展开，可点击「收起设置」折叠；选择数据源；CAN 设备先选 **CAN**，再选 **ZLG / TOSUN / VECTOR** 及对应通道。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
 3. 在线采集先设置设备参数，再点击「在线连接」；离线 TXT / ASC / BLF 点击「打开日志」。
 4. 根据项目选择车型、探头方案和显示图层。默认车型仅作显示占位，实车使用前应确认安装参数。
@@ -184,7 +190,7 @@ D4M3 实车画面与 E541 回灌依赖共用 UDP：本机 `192.168.98.123:39001`
 
 「车型配置」支持车长/车宽、轴距/悬长、数据原点、探头位置/角度/FOV/启用状态，多车型及 JSON 导入导出。「跟随在线 / 日志数据」使用源中的车型，手动选定车型用于指定安装参数。[车型说明](docs/VEHICLE_PROFILES.md)
 
-设置按用户保存：Windows `%APPDATA%/COLIGEN_USS_UPPER/`；Ubuntu `~/.config/coligen-uss-upper/`。`COLIGEN_CONFIG_DIR` 可隔离车型、探头方案、UDP、串口和硬件设置。数据详情另存显示布局。个人设置无需放入源码或 SVN。
+Windows 设置位于 `%APPDATA%/COLIGEN_USS_UPPER/`，Ubuntu 设置位于 `$XDG_CONFIG_HOME/coligen-uss-upper/`，未设 XDG 路径时使用 `~/.config/coligen-uss-upper/`。`COLIGEN_CONFIG_DIR` 可隔离车型、网络、串口、硬件和数据详情布局。用户目录还保存 `more_panel_state.json`，记录详情面板的可见性与树节点展开状态。已有的源码目录布局文件会在用户目录尚无布局时读取，并在下次保存时写入用户目录。
 
 ## 7. 源码运行与构建
 
@@ -206,58 +212,56 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v5.2.6.exe`，使用 `viewer.spec` 和统一入口 `src/app.py`。旧演示入口、CAN 专用启动脚本和闲置 Python ZLG 包已移除。
+输出 `dist/COLIGEN_USS_UPPER_v5.2.7.exe`，打包配置位于 `scripts/pyinstaller/windows.spec`。如需内置回灌程序，构建前将匹配的 Windows worker 和清单放到对应的 `build/*-stream/bin/` 目录。也可在界面指定独立 worker。详见[维护说明](docs/PROJECT_DOCUMENTATION.md)。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
 源码回归与 EXE 自检：
 
 ```powershell
-uv run python -m pytest -q
-.\dist\COLIGEN_USS_UPPER_v5.2.6.exe --self-test .\recordings\S20test.asc .\build\self-test.json
+uv run --locked python -m pytest -q
+$sample = "D:\logs\S20test.asc"
+$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.2.7.exe `
+    -ArgumentList "--self-test `"$sample`" `"$PWD\build\self-test.json`"" -Wait -PassThru
+$test.ExitCode
+Get-Content .\build\self-test.json
 ```
 
 部分 Windows Tk 环境不支持同一进程反复创建根窗口；若批量 GUI 测试出现 Tcl 图标/主题错误，将相应用例分别在新进程运行。实体收包和实车坐标/轨迹效果需用对应设备及数据验证。
 
-## 8. 维护与发布约定
+## 8. 目录与发布
 
 ```text
-src/app.py                    唯一入口和数据源选择
-src/viewer_controller.py      采集生命周期、回放、录制
-src/viewer_models.py           独立数据模型
-src/log_parser.py              TXT 解析
-src/viewer_canvas.py           地图、轨迹、高光、冻结几何
-src/data_details.py            实时字段和点击快照
-src/modern_ui.py               统一界面
-src/*_source.py                各数据源适配
-src/*_transport.py             TRACE32 / CS+ 读取
-assets/dbc/                   项目内 DBC
-config/                       Windows / Ubuntu 默认配置
-firmware/upper_serial/        配套 C 发送和回灌适配
-library/                      Windows SDK 运行库
-scripts/                      启动、构建、桥接、诊断
-tests/                        回归和协议夹具
-docs/                         当前专题说明
-recordings/                   Git 示例日志（精简源码包不含）
-build/、dist/、.venv/          本机生成，不提交
+README.md              使用、联调与维护入口
+pyproject.toml         Python 版本、依赖与测试配置
+uv.lock                固定依赖版本
+assets/                图标和 DBC
+config/                Windows、Ubuntu 与 XCP 配置模板
+src/                   上位机代码，统一入口为 src/app.py
+firmware/              CAN、串口和回灌采集的 C 端适配
+library/               Windows 厂商运行库及配套资源
+scripts/               构建、诊断、回灌验证和 PyInstaller 配置
+tests/                 回归用例与小型协议夹具
+docs/                  专题说明、维护与变更记录
 ```
 
-详见 [维护说明](docs/PROJECT_DOCUMENTATION.md)。协议名称中的 CAN 保留实际含义，软件整体名称和入口统一为 COLIGEN USS UPPER。
+开发生成的 `.venv/`、`build/` 和 `dist/` 已加入忽略规则。录制设置中的「自动保存根目录」可指定项目外的目录。历史示例日志可从 v5.2.6 及更早标签取回。下例将 EXE 自检样本解到项目外。
 
-发布时同步 `app_version.py`、`pyproject.toml`、`uv.lock` 和变更说明，创建 `v版本号` tag。GitHub、Gitea 保存源码提交、tag 和 Release。精简源码包包含构建资源和测试代码，省略历史采集日志；需要全部示例日志时使用完整 Git 仓库。
+```powershell
+$sampleDir = Join-Path (Get-Item ..).FullName 'upper-test-data'
+$sampleZip = Join-Path $sampleDir 's20test.zip'
+New-Item -ItemType Directory -Force $sampleDir | Out-Null
+git archive --format=zip --output=$sampleZip v5.2.6 recordings/
+Expand-Archive -LiteralPath $sampleZip -DestinationPath $sampleDir -Force
+$env:COLIGEN_TEST_RECORDINGS = Join-Path $sampleDir 'recordings'
+```
 
-SVN 固定目录只放当前版 **Windows EXE、Ubuntu TAR.GZ、源码 ZIP、README.md、CHANGELOG.md、SHA256SUMS.txt**。不再重复铺开源码树、保存多套 EXE、缓存、虚拟环境或个人采集数据，版本标签位于 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`，固定发布目录保留最新版本。旧版通过标签、SVN 历史及 Release 查询。下载后按 `SHA256SUMS.txt` 校验。
+GitHub 和 Gitea 发布源码提交、`v版本号` 标签及 Release 附件。SVN 固定发布目录提供当前 Windows EXE、源码 ZIP、README、变更记录、校验清单，以及文件名标明版本的 Ubuntu 原生包和 S20 回灌 worker。SVN 历史快照位于 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`。已发布的 Ubuntu 原生包为 **v4.5.0**，新版本源码可按上文流程构建 Ubuntu 包。
 
-[变更说明](CHANGELOG.md) · [受保护源码的 Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
+下载后用 `Get-FileHash .\COLIGEN_USS_UPPER_v5.2.7.exe -Algorithm SHA256` 计算校验值，与 `SHA256SUMS.txt` 的对应项比较。模块职责、打包输入和发布检查见[维护说明](docs/PROJECT_DOCUMENTATION.md)。[变更日志](docs/CHANGELOG.md) · [Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
-S20 CS+ 里程计使用底软原生毫米与右/前轴向，4.4.1 修正了旧版误乘 1000 导致车体驶出画面的错误。打开可识别的旧 CS+ 录制会自动修正绘图位姿，原始字段保留；具体条件见 [世界坐标说明](docs/WORLD_MAP.md)。当前 Windows 与源码版本为 v5.2.6；Ubuntu 原生包保留已验证的 v4.5.0，归档文件名明确标注版本。Ubuntu 解压目录为 `COLIGEN_USS_UPPER`，验证环境为 Ubuntu 22.04 x86_64。
+## 9. 常见问题
 
-4.5.2 进一步优化“设备与显示”：展开/收起时复用原生控件，保留滚动位置和输入值，收起时跳过隐藏控件的键盘焦点。此前的弹窗与串口响应优化一并保留。改动与回归说明见 [界面响应说明](docs/UI_RESPONSIVENESS.md)。
-
-4.5.3 将主窗口与设置弹窗左上角统一为 `assets/car.png` 图标，Windows 与 Ubuntu 源码使用同一入口。
-
-4.6.1 在固定世界坐标下点击「适应视图」或右键，以当前车身中心取景，预留两侧各四个库位、距车身 1.5m 的参考范围；实际库位仍按输入坐标绘制，镜头在取景后保持固定。
-
-TOSUN（同星 TC1018）支持 CAN1～CAN12 选择，使用同星原生 SDK；S20 新增 UC CAN FD 报文解析详见 [协议说明](docs/S20_UPPER_CAN_V1.md) 与 [硬件配置](docs/CAN_HARDWARE.md)。
-
-TOSUN 和 VECTOR 可选择常见设备型号并联动可用 CAN 通道。ZLG 型号显示对应通道数量，硬件索引由后台检测实际接入设备后提供，可点击「刷新设备」更新。
+- **设备可选但收不到数据**。按对应章节检查通道索引、速率、端口绑定、来源 IP 和接线。UDP 与 USS 以太网分别使用各自的协议和设置。
+- **实车和回灌都在刷新，同周期配对数为零**。先看「依赖完整周期」是否增加，再核对项目、依赖 ID、发送端周期标识和 worker 握手版本。[S20 录制](docs/S20_REPLAY_RECORDING.md) · [D4M3 回灌](docs/D4M3_UDP_REPLAY.md)
+- **车体或点线位置异常**。先检查车型原点、后轴参数及发送端坐标。程序识别到旧版 S20 CS+ 录制时会按兼容规则修正绘图位姿，原始字段可在详情里核对。[坐标转换](docs/COORDINATE_SYSTEMS.md) · [世界地图](docs/WORLD_MAP.md)

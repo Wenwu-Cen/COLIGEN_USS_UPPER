@@ -43,7 +43,7 @@ CustomTkinter 控件提供 `.config()` 兼容入口；下拉框把原生选择�
 
 `pyproject.toml` 和 `uv.lock` 固定 CustomTkinter 版本。更新依赖后执行 `uv sync`。
 
-`viewer.spec` 使用 `collect_data_files("customtkinter")` 收集主题和字体，
+`scripts/pyinstaller/windows.spec` 使用 `collect_data_files("customtkinter")` 收集主题和字体，
 保证单文件 EXE 在未安装 Python 的电脑上也具备界面资源。
 应用自己的图标继续由 `assets/car.ico` 提供。
 

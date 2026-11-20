@@ -10,4 +10,4 @@ __pycache__/
 more_panel_state.json
 *.log
 
-recordings/sessions/
+/recordings/

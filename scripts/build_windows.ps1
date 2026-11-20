@@ -17,13 +17,13 @@ if (-not (Test-Path -LiteralPath $vectorDll -PathType Leaf)) {
     throw "CANoe/Vector runtime not found: $vectorDll"
 }
 
-uv sync
-Assert-LastExitCode 'uv sync'
+uv sync --locked
+Assert-LastExitCode 'uv sync --locked'
 
 # Use `python -m PyInstaller` instead of the `pyinstaller` console-script
 # trampoline. After the project folder is moved, uv's trampoline may still
 # point at the old path and fail to canonicalize it.
-uv run python -m PyInstaller --clean --noconfirm viewer.spec
+uv run python -m PyInstaller --clean --noconfirm --workpath build/windows scripts/pyinstaller/windows.spec
 Assert-LastExitCode 'uv run python -m PyInstaller'
 
 $exeStem = (

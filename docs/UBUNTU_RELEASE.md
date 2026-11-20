@@ -1,6 +1,6 @@
 # Ubuntu 原生使用与构建
 
-当前 Ubuntu 原生包为 4.5.0，提供 Ubuntu 22.04 x86_64 单文件程序。Windows 与源码已更新至 4.6.1，本次保留已验证的 Ubuntu 4.5.0；下载时按文件名区分平台与版本。
+已发布的 Ubuntu 原生包为 v4.5.0，面向 Ubuntu 22.04 x86_64。本文保留该包的下载示例。从当前源码构建时，脚本使用源码版本生成文件名。
 
 ## 从源码使用
 
@@ -11,7 +11,7 @@ uv sync --locked
 uv run python src/app.py
 ```
 
-Linux 界面支持 LAUTERBACH TRACE32、TCP/IP、SERIES、REPLAY DEBUG；ASC/BLF 从「打开日志」进入回放。CS+ 和附带的 Windows ZLG/Vector DLL 不用于 Linux。
+当前源码的 Linux 界面支持 LAUTERBACH TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG。ASC/BLF 从「打开日志」进入回放。CS+ 与 Windows 厂商 DLL 需要 Windows。
 
 TRACE32 默认 host 为 `127.0.0.1`、TCP RCL 端口 20000、17 PROBE；实际端口和探头方案须与目标一致。用 `config/ubuntu_config.toml` 作为 Linux 配置模板，发布包内文件名为 `viewer.toml`。串口默认 921600 8N1，访问 `/dev/ttyUSB*` 可能需加入 dialout 组后重新登录。
 
@@ -21,13 +21,13 @@ TRACE32 默认 host 为 `127.0.0.1`、TCP RCL 端口 20000、17 PROBE；实际�
 bash scripts/build_ubuntu.sh
 ```
 
-脚本使用 `viewer_linux.spec`，从本项目 `assets/dbc/` 获取 DBC；不依赖外部项目或历史验证报告。输出：
+脚本使用 `scripts/pyinstaller/ubuntu.spec` 和本项目的 `assets/dbc/`。输出文件名格式如下。
 
 ```text
-dist/COLIGEN_USS_UPPER_v4.5.0_Ubuntu_x86_64.tar.gz
+dist/COLIGEN_USS_UPPER_v<源码版本>_Ubuntu_x86_64.tar.gz
 ```
 
-使用 `tar -xzf COLIGEN_USS_UPPER_v4.5.0_Ubuntu_x86_64.tar.gz` 解压，进入不带版本号的 `COLIGEN_USS_UPPER` 目录，再运行其中 `COLIGEN_USS_UPPER_v4.5.0_Ubuntu_x86_64`。可执行 `bash install-desktop.sh` 安装当前用户快捷方式；配置文件 `viewer.toml` 保持在程序旁边。包内不携带历史采集日志，可使用自己的 TXT/ASC/BLF 或从完整 Git 仓库取得示例。
+解压后进入 `COLIGEN_USS_UPPER`，运行带版本号的程序。可执行 `bash install-desktop.sh` 安装当前用户快捷方式，`viewer.toml` 与程序放在同一目录。回放可使用自己的 TXT/ASC/BLF，也可从 Git 的 v5.2.6 历史标签获取示例。
 
 ## 验证
 

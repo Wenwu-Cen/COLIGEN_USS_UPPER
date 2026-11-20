@@ -12,7 +12,7 @@ subprocess.check_call([sys.executable, "-m", "pip", "install",
     *project["project"]["dependencies"], *project["dependency-groups"]["dev"]])
 PY
 "$python" -m PyInstaller --clean --noconfirm \
-    --workpath build/ubuntu/work --distpath build/ubuntu/dist viewer_linux.spec
+    --workpath build/ubuntu/work --distpath build/ubuntu/dist scripts/pyinstaller/ubuntu.spec
 version=$("$python" -c 'import sys; sys.path.insert(0,"src"); from app_version import APP_VERSION; print(APP_VERSION)')
 release="COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
 package="dist/ubuntu/COLIGEN_USS_UPPER"
@@ -28,7 +28,7 @@ install -m 755 "build/ubuntu/dist/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64" "
 mv -f "$package/.application.new" "$package/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
 cp config/ubuntu_config.toml "$package/viewer.toml"
 cp docs/UBUNTU_RELEASE.md "$package/README.md"
-cp CHANGELOG.md "$package/"
+cp docs/CHANGELOG.md "$package/"
 cp docs/VEHICLE_PROFILES.md "$package/"
 cp docs/GIT_DECRYPT_DIFF.md "$package/"
 cp assets/car.png "$package/"
