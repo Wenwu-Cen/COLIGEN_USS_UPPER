@@ -61,7 +61,7 @@ CAN 的数值采用 S20 原生变量口径，各类字段按下列轴向处理�
 不需要切换 SLOT 来区分新协议的数据类型。旧 DBC 格式 ASC/BLF 仍可回放；
 识别到 UC 后，该次连接/回放会话内不会再把残片按旧 DBC 解释。
 
-源码运行：`uv run python src/app.py`。Windows 程序为 `dist/release460/COLIGEN_USS_UPPER_v4.6.0.exe`。
+源码运行：`uv run python src/app.py`。Windows 程序见 [项目下载页](../../README.md#下载与开始)。
 固件与上位机需成对使用。实车尚未验证，完成本地编译/协议测试不等同于总线硬件实测通过。
 
 `firmware/upper_can/UpperCanDebug.c` 是实车内嵌编码器的测试镜像，

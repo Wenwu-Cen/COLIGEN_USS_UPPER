@@ -1,6 +1,6 @@
 # 配套 C 串口发送接口
 
-本目录镜像已合入 `D:/Cenww_work/SF26195_Geely_KX21/replay/Replay_SourceFile/src` 的代码。接入步骤和协议见 [串口说明](../../docs/SERIAL_PROTOCOL.md)。
+本目录镜像已合入 `D:/Cenww_work/SF26195_Geely_KX21/replay/Replay_SourceFile/src` 的代码。接入步骤和协议见 [串口说明](../../docs/interfaces/SERIAL_PROTOCOL.md)。
 
 实车已有 `Lauterbach_Var.c/.h` 时保留原文件，编译 `UpperSerialDebug.c` 和 `UpperSerialVariables.c`，注册 `UpperSerialDebug_SetWriter()`，在完整一轮 `OutputSignalRead_*` 之后调用 `UpperSerialDebug_SendVariables()`。发送回调需在返回前复制整帧。
 

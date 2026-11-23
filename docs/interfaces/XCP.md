@@ -1,6 +1,6 @@
 # XCP 变量可视化
 
-日常操作按 [README · 录制与回灌](../README.md#录制与回灌) 执行。
+录制流程见 [录制与回灌手册](../RECORDING.md#开始录制)。
 
 XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN。已使用模拟 ECU 验证轮询与画面数据。
 

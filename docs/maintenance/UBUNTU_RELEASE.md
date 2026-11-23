@@ -38,7 +38,7 @@ dist/COLIGEN_USS_UPPER_v<源码版本>_Ubuntu_x86_64.tar.gz
 
 音频自检依次播放远、中、近提示。EXE 自检验证解析、界面和打包资源；真实设备连接、声音设备与实车轨迹需在运行环境验证。
 
-车型、探头、串口和硬件设置默认保存在 `~/.config/coligen-uss-upper/`，支持 `COLIGEN_CONFIG_DIR` 隔离。功能操作见项目 [README](../README.md)。
+车型、探头、串口和硬件设置默认保存在 `~/.config/coligen-uss-upper/`，支持 `COLIGEN_CONFIG_DIR` 隔离。功能操作见项目 [使用手册](https://github.com/Wenwu-Cen/COLIGEN_USS_UPPER/blob/v5.2.9/docs/USER_GUIDE.md)。
 
 ## 下载与包内容
 
