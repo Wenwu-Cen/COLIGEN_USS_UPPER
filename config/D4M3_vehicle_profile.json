@@ -1,0 +1,166 @@
+{
+  "format": "COLIGEN_vehicle_profile",
+  "schema_version": 1,
+  "profile": {
+    "name": "D4M3",
+    "length_mm": 3730.613,
+    "width_mm": 1440,
+    "origin_from_rear_mm": 767.9601,
+    "wheelbase_mm": 2200.703,
+    "front_overhang_mm": 761.9501,
+    "rear_overhang_mm": 767.9601,
+    "custom_body": true,
+    "probes": [
+      {
+        "name": "RRS",
+        "x_mm": -409.297,
+        "y_mm": -702.0,
+        "z_mm": 595,
+        "yaw_deg": -92.5,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RRC",
+        "x_mm": -708.297,
+        "y_mm": -624.0,
+        "z_mm": 625,
+        "yaw_deg": -150.1,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RRM",
+        "x_mm": -741.297,
+        "y_mm": -310.0,
+        "z_mm": 565,
+        "yaw_deg": -180.0,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RLM",
+        "x_mm": -741.297,
+        "y_mm": 310.0,
+        "z_mm": 560,
+        "yaw_deg": -180.0,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RLC",
+        "x_mm": -708.297,
+        "y_mm": 624.0,
+        "z_mm": 625,
+        "yaw_deg": 150.1,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RLS",
+        "x_mm": -409.297,
+        "y_mm": 702.0,
+        "z_mm": 600,
+        "yaw_deg": 92.5,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "FRS",
+        "x_mm": 2570.703,
+        "y_mm": -706.0,
+        "z_mm": 540,
+        "yaw_deg": -87.5,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FRC",
+        "x_mm": 2897.703,
+        "y_mm": -644.0,
+        "z_mm": 510,
+        "yaw_deg": -29.9,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FRM",
+        "x_mm": 2921.203,
+        "y_mm": -302.0,
+        "z_mm": 585,
+        "yaw_deg": 0.0,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FLM",
+        "x_mm": 2921.203,
+        "y_mm": 302.0,
+        "z_mm": 585,
+        "yaw_deg": 0.0,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FLC",
+        "x_mm": 2897.703,
+        "y_mm": 644.0,
+        "z_mm": 515,
+        "yaw_deg": 29.9,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FLS",
+        "x_mm": 2570.703,
+        "y_mm": 708.0,
+        "z_mm": 540,
+        "yaw_deg": 87.5,
+        "fov_deg": 120,
+        "pdc_fov_deg": 60,
+        "enabled": true,
+        "group": "front"
+      }
+    ]
+  },
+  "metadata": {
+    "vehicle": "D4M3",
+    "units": "mm; yaw in degrees",
+    "origin": "rear axle midpoint",
+    "axes": "X forward; Y left; Z up",
+    "source_header": "src/VehicleProjects/D4M3/Native/uss_sensor/VehicleCalPara/VehicleCommonPara_T60.h",
+    "source_header_sha256": "57c713b5f7a598f012d5ad3ed8887141a5df8601eb1232b8f77b7ceadc43efeb",
+    "source_svn_base_revision": 80590,
+    "source_macro_prefix": "T60_",
+    "yaw_conversion": "viewer_yaw_deg = native_angle_deg - 90, normalized to [-180,180)",
+    "display_defaults": {
+      "fov_deg": 120,
+      "pdc_fov_deg": 60,
+      "note": "Viewer rendering defaults only; not calibrated detection apertures"
+    },
+    "scope": "Viewer vehicle import; does not overwrite algorithm C calibration",
+    "wire_quantization": "Existing uint16/int16 upper mirrors truncate dimensions/positions to integer mm"
+  }
+}

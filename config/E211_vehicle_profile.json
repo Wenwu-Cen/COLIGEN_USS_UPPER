@@ -1,0 +1,148 @@
+{
+  "format": "COLIGEN_vehicle_profile",
+  "schema_version": 1,
+  "profile": {
+    "name": "E211",
+    "length_mm": 3827.0,
+    "width_mm": 1703.0,
+    "origin_from_rear_mm": 634.0,
+    "wheelbase_mm": 2497.0,
+    "front_overhang_mm": 696.0,
+    "rear_overhang_mm": 634.0,
+    "probes": [
+      {
+        "name": "RRS",
+        "x_mm": -369.0,
+        "y_mm": -821.0,
+        "z_mm": 538.0,
+        "yaw_deg": -101.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RRC",
+        "x_mm": -530.0,
+        "y_mm": -683.0,
+        "z_mm": 493.0,
+        "yaw_deg": -152.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RRM",
+        "x_mm": -613.0,
+        "y_mm": -289.0,
+        "z_mm": 572.0,
+        "yaw_deg": -170.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RLM",
+        "x_mm": -613.0,
+        "y_mm": 289.0,
+        "z_mm": 572.0,
+        "yaw_deg": 170.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RLC",
+        "x_mm": -530.0,
+        "y_mm": 683.0,
+        "z_mm": 493.0,
+        "yaw_deg": 152.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "RLS",
+        "x_mm": -369.0,
+        "y_mm": 821.0,
+        "z_mm": 538.0,
+        "yaw_deg": 100.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "rear"
+      },
+      {
+        "name": "FRS",
+        "x_mm": 2860.0,
+        "y_mm": -824.0,
+        "z_mm": 541.0,
+        "yaw_deg": -80.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FRC",
+        "x_mm": 3042.0,
+        "y_mm": -658.0,
+        "z_mm": 538.0,
+        "yaw_deg": -25.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FRM",
+        "x_mm": 3154.0,
+        "y_mm": -315.0,
+        "z_mm": 546.0,
+        "yaw_deg": -6.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FLM",
+        "x_mm": 3154.0,
+        "y_mm": 315.0,
+        "z_mm": 546.0,
+        "yaw_deg": 6.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FLC",
+        "x_mm": 3042.0,
+        "y_mm": 658.0,
+        "z_mm": 538.0,
+        "yaw_deg": 25.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "front"
+      },
+      {
+        "name": "FLS",
+        "x_mm": 2860.0,
+        "y_mm": 824.0,
+        "z_mm": 541.0,
+        "yaw_deg": 80.0,
+        "fov_deg": 120.0,
+        "pdc_fov_deg": 60.0,
+        "enabled": true,
+        "group": "front"
+      }
+    ],
+    "custom_body": true
+  }
+}
