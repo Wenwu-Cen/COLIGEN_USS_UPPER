@@ -1,5 +1,7 @@
 # XCP 变量可视化
 
+日常操作按 [README · 录制与回灌](../README.md#录制与回灌) 执行。
+
 XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN。已使用模拟 ECU 验证轮询与画面数据。
 
 ## 使用
@@ -13,7 +15,7 @@ XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN。已使用模�
 4. 选择与**正在运行的固件**匹配的 ELF、GHS/HighTec MAP 或地址 JSON。GHS 的无后缀 ghs/bin/debug/mca 也是 ELF，可通过“所有文件”选择。“检查变量文件”在后台执行，不连接硬件。重新编译或刷写固件后重新选择匹配文件。
 5. 默认点线为 X 前/Y 左；S20 里程计默认毫米、X 右/Y 前。底软约定不同须修改对应选项；里程计约定独立于点线方向。探头安装坐标按这组原生变量的 X 右/Y 前约定转换，PDC 距离保持厘米。
 6. 保存后点击“在线连接”。接收、校验完整的显示变量后发布一幅画面，画面按项目显示车辆、点线、RAW/PDC 和字段详情。固件发布车位时也显示车位。连接中锁定设备及协议参数，断开后可修改。
-7. 可视化录制沿用通用录制功能。XCP 轮询结果不作为 S20 / D4M3 严格同周期比较源；原始 CAN 依赖采集和实时回灌对比仍使用各自已有的配置。
+7. 打开「录制设置」，选择「仅采集」或「实时回灌比对」。实车结果使用主窗口当前的 XCP 连接。S20 实时比对可用 CAN FD、TCP/IP 或 UDP/IP 读取固件的冻结结果，回灌输入另选原始 CAN FD 或已适配的 UDP。D4M3 实时比对使用其配套 UDP。
 
 CAN、TCP/IP 和 UDP/IP 的 XCP 设置分别保存在用户配置目录的 xcp.json、xcp_tcp.json 和 xcp_udp.json，均支持 COLIGEN_CONFIG_DIR 隔离。启动时 CAN 默认使用「CANFD」，TCP/IP 默认使用「USS 以太网」，UDP 默认使用「USSD / IPC DBC」。XCP 设置会保留上次保存的参数。
 
@@ -21,17 +23,23 @@ CAN、TCP/IP 和 UDP/IP 的 XCP 设置分别保存在用户配置目录的 xcp.j
 
 S20 Chassis CAN 固件如果启用了 64 字节的 XCP 请求长度检查，在「XCP 设置」中选 CAN FD、标准帧、请求 ID 0x7FE、响应 ID 0x7FF 和 64 字节请求帧。按底软配置核对 BRS 和两段速率。CONNECT、内存读取和 DISCONNECT 请求均补零到所选长度。经典 CAN 使用 8 字节，已有 XCP 配置默认使用 8 字节。
 
+## S20 采集与实时比对
+
+- **仅采集**保存 XCP 显示变量解码出的实车结果，并同步录制所选输入。可以使用旧固件。
+- **实时回灌比对**需要启用了 `SUPPORT_REPLAY_COMPARE` 的 S20 固件与配套 ELF、MAP 或变量地址 JSON。变量文件应包含 `sf_Upper_CompareGeneration`、`sf_Upper_CompareLength`、`sf_Upper_CompareBuffer`。比对以冻结结果中的周期键为准。XCP 轮询会采样部分实车周期，完整回灌输入由独立的原始 CAN FD 或 UDP 数据源提供。
+- XCP on CAN FD 与原始 CAN FD 输入使用同一设备与通道时，共用该在线通道和 XCP 设置中的总线速率。
+
 ## E211 联调与录制
 
 1. 在「设备与显示」选择 VECTOR（VN1640A）或 ZLG（USBCANFD-200U），选中接到 ECU XCP 总线的物理通道，再把「采集协议」设为 **XCP**。
 2. 打开「XCP 设置」。E211 的当前编译产物使用标准 CAN 帧、请求 ID **0x580**、响应 ID **0x581**、8 字节请求。地址扩展从 0 开始，仲裁速率按实际接入的 ECU 总线配置填写。VN1640A 如果使用 CANoe 应用映射，通道须与 Vector Hardware Configuration 对应。
 3. 在变量文件直接选择与当前运行固件匹配的 `autosaros_r5f.elf`。点击「检查变量文件」，应识别出 **E211** 和 7 类显示变量。已确认 E211 布局为 80 个点、24 条线，单位毫米，线段结构体第 4 字节为填充，没有车位数组。匹配的 HighTec `autosaros_r5f.map` 也可导入。
 4. 保存后点击「在线连接」。握手时上位机用 0x580 发送 XCP CONNECT，ECU 用 0x581 返回首字节为 `FF` 的响应。连接完成后，用 SET_MTA / UPLOAD 读取变量。除点线、车身、12 路回波及 PDC 测距外，在「数据详情 → PDC」查看 `sf_USS_IPCData` 中的 PDC 状态、AVM 请求、前后停车请求、前后最小距离、故障和静音。
-5. 「录制设置」选项目 **E211**。已编译的旧 ELF 可用依赖来源 **none** 录制实车结果。要同时取回灌输入，使用带 `sf_Upper_E211ReplaySequence`、`sf_Upper_E211ReplaySlots` 的新固件及其 ELF，依赖来源选 **xcp**。点击录制，确认状态栏的回灌输入计数增加后停止录制。
+5. 「录制设置」选项目 **E211** 和「仅采集」。使用带 `sf_Upper_E211ReplaySequence`、`sf_Upper_E211ReplaySlots` 的固件及其 ELF，选择与主窗口连接一致的 XCP 传输，或选择「XCP（跟随在线连接）」。点「开始录制」后可在状态栏查看回灌输入计数。旧固件可以选择 **none** 单独保存实车结果。
 
-每次录制创建独立会话，实车画面保存在 `real_vehicle.txt`，前后探头数据同时导出 CSV，PDC 功能输出保存在 `e211_pdc_result.csv`。选择 **xcp** 时，同一目录下的 `replay_dependency.bin` 保存每个 1800 字节的 `USSXCPOfflineReplayData_t`，包含运行时间、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。`replay_dependency.jsonl` 记下偏移、大小、ECU 时间戳、原始周期号、前后两次采样中间跳过的周期数和上位机单调接收时间。SQLite 会话日志也保存原始数据。
+每次录制创建独立会话，实车画面保存在 `real_vehicle.txt`，前后探头数据同时导出 CSV，PDC 功能输出保存在 `e211_pdc_result.csv`。选择任一 **XCP** 回灌输入来源时，同一目录下的 `replay_dependency.bin` 保存每个 1800 字节的 `USSXCPOfflineReplayData_t`，包含运行时间、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。`replay_dependency.jsonl` 记下偏移、大小、ECU 时间戳、原始周期号、前后两次采样中间跳过的周期数和上位机单调接收时间。SQLite 会话日志也保存原始数据。
 
-使用 **XCP on CAN** 采集时，停止录制会自动生成 `E211_replay_dependency_YYYYMMDD_HHMMSS.asc`，文件名使用开始录制时的本地日期和时间。ASC 包含有效输入快照的 SET_MTA / UPLOAD 实际收发帧。JSONL 的 `asc_first_frame` 和 `asc_frame_count` 给出每份快照在 ASC 中的起始帧序号（从 0 开始）和帧数。ASC 可用 CANoe 查看。读取专用 CAN FD 依赖帧的回灌程序需要适配 E211 的 XCP 快照。
+使用 **XCP on CAN** 或 **XCP on CAN FD** 采集时，停止录制会自动生成 `E211_replay_dependency_YYYYMMDD_HHMMSS.asc`，文件名使用开始录制时的本地日期和时间。ASC 包含有效输入快照的 SET_MTA / UPLOAD 实际收发帧。JSONL 的 `asc_first_frame` 和 `asc_frame_count` 给出每份快照在 ASC 中的起始帧序号（从 0 开始）和帧数。ASC 可用 CANoe 查看。读取专用 CAN FD 依赖帧的回灌程序需要适配 E211 的 XCP 快照。
 
 当前经典 CAN 每个 UPLOAD 最多返回 7 字节。固件最短 500 ms 发布一份回灌输入并保留 16 个快照，上位机只保存读取前后序号一致的数据，采样速度取决于 ECU 响应。该录制是采样文件，逐周期连续回灌还需要持续传输全部输入的链路。
 

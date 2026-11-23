@@ -1,18 +1,19 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **5.2.7**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
+超声波上位机，当前版本 **5.2.8**。用于实时采集、日志回放、点线与车位可视化、后轴中心行车轨迹和异常快照对比。
 
-统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v5.2.7.exe`。
+统一启动入口为 `src/app.py`，Windows 程序为 `COLIGEN_USS_UPPER_v5.2.8.exe`。
 
-## 阅读导航
+## 从这里开始
 
-- [下载与首次使用](#1-直接使用-windows-程序) · [在线数据源](#2-数据源与连接操作) · [日志回放、录制与时间](#3-日志回放录制与时间)
-- [视图、轨迹和测距](#4-视图轨迹和测距) · [点击快照](#5-点线高光与点击快照) · [车型与设置](#6-车型探头和本机设置)
-- [源码运行与构建](#7-源码运行与构建) · [目录与发布](#8-目录与发布) · [常见问题](#9-常见问题)
+- **第一次使用**：[下载和启动 EXE](#1-直接使用-windows-程序)。按实车接口查 [数据源与连接操作](#2-数据源与连接操作)。
+- **采集或回灌比对**：[录制与回灌](#录制与回灌)。这里集中列出 S20、D4M3、E211 的模式、输入来源和输出文件。
+- **回看日志和定位问题**：[日志与时间](#3-日志回放录制与时间) · [视图和轨迹](#4-视图轨迹和测距) · [点线快照](#5-点线高光与点击快照) · [常见问题](#9-常见问题)。
+- **修改源码或发布**：[源码运行和构建](#7-源码运行与构建) · [维护手册](docs/PROJECT_DOCUMENTATION.md) · [版本变更](docs/CHANGELOG.md)。
 
 ## 1. 直接使用 Windows 程序
 
-1. 从 Gitea 的 v5.2.7 Release、内网 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 或 [GitHub Release](https://github.com/Wenwu-Cen/COLIGEN_USS_UPPER/releases/tag/v5.2.7) 下载 EXE 和 `SHA256SUMS.txt`。
+1. 从 Gitea 的 v5.2.8 Release、内网 SVN `Algo/可视化工具/COLIGEN_USS_UPPER` 或 [GitHub Release](https://github.com/Wenwu-Cen/COLIGEN_USS_UPPER/releases/tag/v5.2.8) 下载 EXE 和 `SHA256SUMS.txt`。
 2. 双击运行；「设备与显示」默认展开，可点击「收起设置」折叠；选择数据源；CAN 设备先选 **CAN**，再选 **ZLG / TOSUN / VECTOR** 及对应通道。英文选项统一大写，串口按界面约定命名为 **SERIES**，回灌快照命名为 **REPLAY DEBUG**。
 3. 在线采集先设置设备参数，再点击「在线连接」；离线 TXT / ASC / BLF 点击「打开日志」。
 4. 根据项目选择车型、探头方案和显示图层。默认车型仅作显示占位，实车使用前应确认安装参数。
@@ -59,13 +60,9 @@
 
 ### XCP
 
-- 在 **TCP/IP** 下，将采集协议设为 **XCP**。打开「XCP 设置」，填写 ECU 的 IP 地址或主机名、TCP 端口及地址扩展。端口预填 5555，可按 ECU 配置修改。
-- 在 **UDP** 下，将采集协议设为 **XCP**。在「XCP 设置」填写 ECU 的 IP 地址或主机名、UDP 服务端口及地址扩展。端口预填 5555，可按 ECU 配置修改。
-- 在 **CAN** 下，将采集协议设为 **XCP**，再选 **ZLG / TOSUN / VECTOR** 的型号、设备及通道。在「XCP 设置」填写 ECU 的请求/响应 CAN ID、CAN/CAN FD 类型、请求帧长度、速率及地址扩展。
+在「设备与显示」选择 **CAN、TCP/IP 或 UDP**，将「采集协议」设为 **XCP**。进入「XCP 设置」，按 ECU 配置填写请求/响应 CAN ID 或 IP 和服务端口，导入与运行固件匹配的 ELF、MAP 或变量地址 JSON，保存后点击「在线连接」。
 
-使用上述方式时，均需在「XCP 设置」选择与当前固件匹配的 ELF（含无后缀 mca）、GHS/HighTec MAP 或变量地址 JSON，保存后点击「在线连接」。
-
-上位机读取 `LAUTERBACH_UPPER_DEBUG` 原生变量并识别 S20 或 E211 布局。E211 支持 80 点、24 条线、12 路探头和 PDC 功能输出。录制时可导出实车结果，并从支持采集的 E211 固件读取回灌输入快照。XCP on CAN 录制同时导出带录制日期和时间的 ASC。只读顺序轮询可能跨 ECU 周期。ECU 须开启对应传输的 XCP 服务。配置、变量布局和使用步骤见 [XCP 说明](docs/XCP.md)。
+CAN FD 请求长度、地址扩展、符号布局和 E211 固件要求见 [XCP 连接与变量说明](docs/XCP.md)。录制和比对见下方 [录制与回灌](#录制与回灌)。
 
 ### TCP/IP 下的 USS 以太网
 
@@ -119,50 +116,28 @@ UDP 的「原始数据」按报文索引显示。0–5 为 RRS 到 RLS，6–11 
 
 「打开日志」支持 TXT、ASC、BLF。ASC/BLF 自动进入报文回放，可播放/暂停、调倍率和拖动进度；TXT 支持逐帧、首尾跳转和播放。日志采样时间优先保留；没有绝对日期时显示相对时间，不推测日期。
 
-「开始录制」记录显示的完整帧，停止后保存 TXT，并按保存流程导出前后探头 RAW CSV。TXT 包含点、线、车位、原始数据、车型/安装参数、可用位姿和采样时间，便于再次打开对照。切换源前先停止录制。
-
 顶部显示时间戳、挡位、车速和温度；在线显示电脑当前北京时间，回放显示采样时间。温度原始值编码为 `(℃ + 40) × 2`，在线和回放均按 `原始值 / 2.0 - 40` 显示，保留一位小数；TXT 录制保留原始编码值。无数据或协议未提供的字段需结合数据详情确认。[时间说明](docs/TIME_DISPLAY.md)
 
 S20 部分 CAN ID 在车位与点云/PDC 格式间复用，默认按车位解析；「图层与测距」关闭车位图层后切换到点云/PDC 解析。当前支持附带 DBC 和约定接口，其他项目协议需要适配。
 
-### S20 实车与回灌同周期对比
+### 录制与回灌
 
-实车画面由 **RENESAS CS+** 读取。S20 PC 回灌从 **CANFD 或已适配的 UDP** 收集算法输入，两路在同一个录制会话中保存。当前严格对比覆盖点位、线段及其属性。
+1. 先在主窗口连接实车结果源，确认画面持续更新。
+2. 打开「录制设置」，选择项目和回灌输入来源。选 ZLG、TOSUN 或 Vector 时只显示对应设备和通道。选 UDP 时填写监听 IP、端口、来源 IP 和封装。XCP 使用主窗口的在线连接。
+3. 选择录制模式，点「保存」和「开始录制」。对比前可点「检查连接」，确认硬件或端口可用。
+4. 结束后点「停止录制」。会话默认位于程序目录的 `recordings/sessions`，也可在录制设置中指定保存根目录。
 
-#### 连接和录制
+#### 录制模式和输出
 
-1. 在实车 ECU 上运行与程序配套、启用 `SUPPORT_REPLAY_COMPARE` 的 S20 固件。在 CS+ 打开对应工程和调试符号，让 ECU 保持运行。在上位机选「RENESAS CS+ → 在线连接」，先确认主画面持续更新。
-2. 打开「录制设置」，项目选 `S20`，依赖 ID 配置选 `s20`。依赖 DBC 使用内置的 `assets/dbc/E541_PAS_20260609_FS21.dbc`，也可点「选择 DBC」指定同名文件。
-3. 根据实车发出的依赖设置采集入口。
-   - **CANFD**：选择实际设备厂商和通道。以 ZLG USBCANFD-200U 单台接线为例，设备索引为 `0`，若接 CAN1 则通道索引为 `0`。先核对速率、终端和接线。
-   - **UDP**：填写本机监听 IP、端口和可选的来源 IP，封装按发送端选 `can68` 或 `ussd`。严格对比还要求收到带 S20 周期标识的完整依赖输入。选 `raw` 可以保存未适配的原始数据报。
-4. 勾选「启用实时回灌及严格同周期对比」，使用内置 S20 回灌程序，或点「选择程序」指定支持 `--stream` 且握手版本为 2 的 `dataReplay_main.exe`。需要另存位置时设置「自动保存根目录」。可先点「检查连接」观察临时收包结果，再点「保存」。
-5. 点「开始录制」。对比窗口左侧为「实车 · CS+」，右侧为「回灌 · S20 PC」。观察「依赖完整周期」「回灌」「同周期配对」是否持续增加。录制结束在主窗口点「停止录制」，等待状态提示保存完成。
+- **仅采集**同步保存实车结果和所选输入。实车输出为 `real_vehicle.txt` 和前后探头 CSV。原始 CAN 输入自动导出 ASC，UDP 输入自动导出 JSONL。依赖来源选 `none` 可单独保存实车结果。
+- **实时回灌比对**为 S20 和 D4M3 启动支持 `--stream` 的 RCP1 v2 回灌程序，按启动号、输入周期和输出序号配对。会话同时保存 `replay.txt`、回灌探头 CSV 和 `differences.csv`。
+- `session.db` 保存采集数据，`manifest.json` 记录设置和计数。停止后可从「对比」重新打开会话，导出原始依赖或 `comparison_timeline.csv`。对比窗口支持叠加、逐周期播放、字段对照、问题标记及使用新版本程序重跑完整输入。
 
-#### 查看与复查
+#### 按项目设置
 
-- 「冻结画面」保留当前配对供检查，「继续实时」回到实时结果。可以用滑块、「上一周期 / 下一周期」和「播放」检查已保存的配对。「叠加」用粉色在实车图上画出回灌的点线。
-- 实车和回灌点线统一使用 X 向前、Y 向左的毫米坐标。旧版 S20 对比会话打开后会按该坐标显示。
-- 「点位标注」「线段标注」默认关闭，勾选后两侧同步显示该类对象的坐标和属性。用「字段对照」分别选择两侧的对象查看字段差值，用「标记问题」记录当前配对。
-- 会话目录内的 `manifest.json` 保存设备、DBC、算法和计数，`session.db` 保存原始依赖、快照和配对。停止后可查看 `real_vehicle.txt`、`replay.txt`、前后探头 CSV 和 `differences.csv`。「对比 → 选择录制会话目录」或对比窗口内「打开会话」可重新查看。
-- 「导出依赖」将 CANFD 或已适配的 UDP CAN 帧导出为 ASC / BLF，原始 UDP 数据报可导出为 JSONL。「新版本重跑」在停止录制后可用，以原始完整输入重跑，输出另存子会话。
-- 停止录制后，从对比窗口点「导出对比」保存 `comparison_timeline.csv`。每个严格配对一行，列出输入、实车输出、回灌输出的微秒时间戳、有效点线数量，以及两侧的完整点线坐标和属性（JSON 列）。缺少一侧时保留单侧记录并标记 `real_only` 或 `replay_only`；未取得周期键时对应列留空。旧会话可打开后导出。两侧输出时钟起点可能不同，请以启动号、输入周期、输出序号对齐，不能直接用时间戳相减当作延迟。
-- 每组结果使用同一个 **启动号 / 输入周期 / 输出序号** 配对。CS+ 采样频率、两侧输出节奏和录制边界会影响配对数量。PC 以自己的算法初始状态运行，算法版本也可能不同，应逐周期核对差异。
-
-#### 常见问题
-
-- **有实车画面，完整周期为 0**：从「录制设置」检查 CANFD 通道和速率，或 UDP 端口、来源 IP、封装。确认 ECU 在实际发出 S20 回灌输入，ID 配置为 `s20`。
-- **完整周期有增长，回灌为 0**：检查回灌程序路径、`--stream` 版本及会话目录内的 `replay.log`。
-- **回灌有增长，配对为 0**：确认实车固件带 `sf_Upper_Compare*` 符号和 `SCP2` 快照格式，CS+ 加载的是同一版调试符号。刷写后重新连接上位机，再开始新的会话。
-- **中间出现缺帧、异常或 ECU 重启**：停止并保存会话，检查接线或数据源后开启新会话，以免用不连续输入继续算法状态。
-
-更多协议和固件要求见 [S20 录制与回灌说明](docs/S20_REPLAY_RECORDING.md)。
-
-### D4M3 实车与回灌同周期对比
-
-D4M3 实车画面与 E541 回灌依赖共用 UDP：本机 `192.168.98.123:39001`，来源设备 `192.168.98.233`。在「录制设置」选 `D4M3`、`UDP / can68 / legacy`，使用 E541 DBC 和内置 D4M3 回灌程序；如需自定义，可选择支持 RCP1 v2 的 D4M3 worker。勾选实时回灌后开始录制。
-
-停止录制后，「导出依赖 → ASC」将依赖还原为 CAN FD 帧，保留报文 ID 和原始负载；完整 UDP 数据报可另存 JSONL。「导出对比」记录输入和两侧输出的微秒时间戳、点线坐标及属性、PDC 系统状态与各探头结果；D4M3 不提供车位对比。详见 [D4M3 UDP 回灌说明](docs/D4M3_UDP_REPLAY.md)。
+- **S20**：实车选 CS+ 或 XCP on CAN FD / TCP/IP / UDP/IP，回灌输入选原始 CAN FD 或已适配的 UDP，依赖 ID 选 `s20`。实时比对需要启用 `SUPPORT_REPLAY_COMPARE` 的固件；通过 XCP 比对时导入带 `sf_Upper_Compare*` 的变量文件。[S20 依赖、固件与排查](docs/S20_REPLAY_RECORDING.md)
+- **D4M3**：实时比对使用 UDP 实车结果和 `UDP / can68 / legacy` 回灌输入。仅采集还支持原始 CAN FD 和其他 UDP 封装。[D4M3 网卡、端口与协议设置](docs/D4M3_UDP_REPLAY.md)
+- **E211**：在线连接 XCP，选择「仅采集」。固件发布回灌输入快照时，依赖选对应的 XCP 传输或「XCP（跟随在线连接）」，另存 `replay_dependency.bin`、周期索引 JSONL 和 PDC 结果 CSV。CAN/CAN FD 链路还会导出 XCP 收发帧 ASC。[E211 符号与导出格式](docs/XCP.md#e211-联调与录制)
 
 ## 4. 视图、轨迹和测距
 
@@ -212,7 +187,7 @@ Windows 构建：
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v5.2.7.exe`，打包配置位于 `scripts/pyinstaller/windows.spec`。如需内置回灌程序，构建前将匹配的 Windows worker 和清单放到对应的 `build/*-stream/bin/` 目录。也可在界面指定独立 worker。详见[维护说明](docs/PROJECT_DOCUMENTATION.md)。
+输出 `dist/COLIGEN_USS_UPPER_v5.2.8.exe`，打包配置位于 `scripts/pyinstaller/windows.spec`。如需内置回灌程序，构建前将匹配的 Windows worker 和清单放到对应的 `build/*-stream/bin/` 目录。也可在界面指定独立 worker。详见[维护说明](docs/PROJECT_DOCUMENTATION.md)。
 
 Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可用音频播放器，再执行 `uv sync --locked`、`uv run python src/app.py`。串口可能需加入 `dialout` 组并重新登录。原生打包用 `bash scripts/build_ubuntu.sh`，见 [Ubuntu 说明](docs/UBUNTU_RELEASE.md)。Windows DLL 和 CS+ 不适用于 Linux；Linux 显示 TRACE32、TCP/IP、UDP、SERIES、REPLAY DEBUG，ASC/BLF 仍可通过打开日志回放。
 
@@ -221,7 +196,7 @@ Ubuntu 需要系统 Tk 库，例如安装 `python3-tk`、`python3-venv` 和可�
 ```powershell
 uv run --locked python -m pytest -q
 $sample = "D:\logs\S20test.asc"
-$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.2.7.exe `
+$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.2.8.exe `
     -ArgumentList "--self-test `"$sample`" `"$PWD\build\self-test.json`"" -Wait -PassThru
 $test.ExitCode
 Get-Content .\build\self-test.json
@@ -258,7 +233,7 @@ $env:COLIGEN_TEST_RECORDINGS = Join-Path $sampleDir 'recordings'
 
 GitHub 和 Gitea 发布源码提交、`v版本号` 标签及 Release 附件。SVN 固定发布目录提供当前 Windows EXE、源码 ZIP、README、变更记录、校验清单，以及文件名标明版本的 Ubuntu 原生包和 S20 回灌 worker。SVN 历史快照位于 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`。已发布的 Ubuntu 原生包为 **v4.5.0**，新版本源码可按上文流程构建 Ubuntu 包。
 
-下载后用 `Get-FileHash .\COLIGEN_USS_UPPER_v5.2.7.exe -Algorithm SHA256` 计算校验值，与 `SHA256SUMS.txt` 的对应项比较。模块职责、打包输入和发布检查见[维护说明](docs/PROJECT_DOCUMENTATION.md)。[变更日志](docs/CHANGELOG.md) · [Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
+下载后用 `Get-FileHash .\COLIGEN_USS_UPPER_v5.2.8.exe -Algorithm SHA256` 计算校验值，与 `SHA256SUMS.txt` 的对应项比较。模块职责、打包输入和发布检查见[维护说明](docs/PROJECT_DOCUMENTATION.md)。[变更日志](docs/CHANGELOG.md) · [Git 解密差异配置](docs/GIT_DECRYPT_DIFF.md)
 
 ## 9. 常见问题
 
