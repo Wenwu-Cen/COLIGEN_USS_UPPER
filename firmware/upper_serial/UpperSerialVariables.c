@@ -2,7 +2,7 @@
 #include "UpperSerialDebug.h"
 #include <string.h>
 
-#ifdef LAUTERBACH_UPPER_DEBUG
+#if defined(LAUTERBACH_UPPER_DEBUG) && !defined(UPPER_SERIAL_E211)
 /* Native Lauterbach_Var.h versions may declare only their OutputSignalRead_*
  * functions. These compatible externs allow retaining that MCU header. */
 extern Upper_PointOutSignal sf_Upper_PointOutSignal[80];

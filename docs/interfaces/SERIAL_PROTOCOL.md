@@ -70,3 +70,7 @@ USSV v1 保留 tag 7 的 13 字节线段记录，新增可选 tag 9：每个字�
 串口编码器在至少一个方向非零时发送此块，全零时省略，接收端每帧重新赋值，避免残留。
 S20 CAN 编码器始终发送完整 20 字节方向块。方向来自 `IlPutTx_ObjPt_Direct` 的原始枚举，
 0 为车辆在线段左侧，1 为右侧；画布箭头始终为起点 → 终点。
+
+## E211 counted output adapter (v5.2.13)
+
+`E211UpperSerialVariables.c` is the E211 adapter. Build it and `UpperSerialDebug.c` with `UPPER_SERIAL_E211`, use the E211 `Lauterbach_Var.h`, and register the UART writer. Do not build the legacy S20 adapter for E211. Capacities follow `Rte_Type_SF.h`. Geometry TLVs retain uint16 counts and explicit wire fields. Optional tag 10 is 10 bytes (`<BBBBHHBB`) in the order eState, pdcRequestAvm, frontStopReq, rearStopReq, frontMinDst, rearMinDst, SnsrFltOfPrkgDstCtrl, PdcMuteBtnSts. Old v1 frames without tag 10 remain supported. Serial and USSV-over-CAN-FD share this payload. Frames remain bounded by the protocol's 8192-byte payload limit, and oversized frames fail validation instead of being truncated.

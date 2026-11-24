@@ -8,8 +8,18 @@
  * firmware glue. The wire encoder never sends C padding, so the same bytes
  * are decoded on Windows, Linux and the target MCU.
  */
+#ifdef UPPER_SERIAL_E211
+#include "Rte_Type_SF.h"
+#define UPPER_SERIAL_POINT_MAX USS_INTERNAL_POINT_CAPACITY
+#define UPPER_SERIAL_LINE_MAX USS_INTERNAL_LINE_CAPACITY
+#else
+#ifndef UPPER_SERIAL_POINT_MAX
 #define UPPER_SERIAL_POINT_MAX 80u
+#endif
+#ifndef UPPER_SERIAL_LINE_MAX
 #define UPPER_SERIAL_LINE_MAX 20u
+#endif
+#endif
 #define UPPER_SERIAL_SENSOR_COUNT 12u
 #define UPPER_SERIAL_SLOT_SIDE_MAX 4u
 #define UPPER_SERIAL_SLOT_MAX (2u * UPPER_SERIAL_SLOT_SIDE_MAX)
@@ -109,6 +119,10 @@ typedef struct {
     uint8_t pdc_front_status;
     uint8_t pdc_rear_status;
     UpperSerialPdc pdc[UPPER_SERIAL_SENSOR_COUNT];
+    uint8_t pdc_function_present;
+    uint8_t pdc_state, pdc_request_avm, front_stop_request, rear_stop_request;
+    uint16_t front_min_distance, rear_min_distance;
+    uint8_t pdc_sensor_fault, pdc_mute;
     UpperSerialPoint points[UPPER_SERIAL_POINT_MAX];
     uint16_t point_count;
     UpperSerialLine lines[UPPER_SERIAL_LINE_MAX];

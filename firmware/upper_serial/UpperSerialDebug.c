@@ -18,8 +18,12 @@
 #define UPPER_SERIAL_TAG_LINE 7u
 #define UPPER_SERIAL_TAG_SLOT 8u
 #define UPPER_SERIAL_TAG_LINE_DIRECT 9u
-#define UPPER_SERIAL_BLOCK_LIMIT 1024u
-#define UPPER_SERIAL_PACKET_LIMIT 2048u
+#define UPPER_SERIAL_POINT_BYTES (2u + 9u * UPPER_SERIAL_POINT_MAX)
+#define UPPER_SERIAL_LINE_BYTES (2u + 13u * UPPER_SERIAL_LINE_MAX)
+#define UPPER_SERIAL_GEOMETRY_BYTES ((UPPER_SERIAL_POINT_BYTES > UPPER_SERIAL_LINE_BYTES) ? UPPER_SERIAL_POINT_BYTES : UPPER_SERIAL_LINE_BYTES)
+#define UPPER_SERIAL_BLOCK_LIMIT ((UPPER_SERIAL_GEOMETRY_BYTES > 324u) ? UPPER_SERIAL_GEOMETRY_BYTES : 324u)
+#define UPPER_SERIAL_CAPACITY_BYTES (1024u + 9u * UPPER_SERIAL_POINT_MAX + 14u * UPPER_SERIAL_LINE_MAX)
+#define UPPER_SERIAL_PACKET_LIMIT ((UPPER_SERIAL_CAPACITY_BYTES < UPPER_SERIAL_MAX_PAYLOAD + 16u) ? UPPER_SERIAL_CAPACITY_BYTES : UPPER_SERIAL_MAX_PAYLOAD + 16u)
 
 static UpperSerialWriteFn s_writer;
 static void *s_writer_context;
@@ -257,6 +261,9 @@ int UpperSerialDebug_SendFrame(const UpperSerialFrame *frame)
         return frame == NULL ? UPPER_SERIAL_ERR_ARGUMENT :
                (s_writer == NULL ? UPPER_SERIAL_ERR_NO_WRITER : UPPER_SERIAL_ERR_ARGUMENT);
     }
+    if (2u + 9u * frame->point_count > UPPER_SERIAL_BLOCK_LIMIT ||
+        2u + 13u * frame->line_count > UPPER_SERIAL_BLOCK_LIMIT)
+        return UPPER_SERIAL_ERR_TOO_LARGE;
     if (s_sending) return UPPER_SERIAL_ERR_BUSY;
     body_size = encode_status(body, &frame->status);
     result = append_tlv(packet + UPPER_SERIAL_HEADER_SIZE, &payload_size,
@@ -315,6 +322,18 @@ int UpperSerialDebug_SendFrame(const UpperSerialFrame *frame)
                                 UPPER_SERIAL_TAG_LINE_DIRECT, body, frame->line_count);
             if (result != UPPER_SERIAL_OK) return result;
         }
+    }
+    if (frame->pdc_function_present) {
+        body[0] = frame->pdc_state;
+        body[1] = frame->pdc_request_avm;
+        body[2] = frame->front_stop_request;
+        body[3] = frame->rear_stop_request;
+        put_u16(body + 4u, frame->front_min_distance);
+        put_u16(body + 6u, frame->rear_min_distance);
+        body[8] = frame->pdc_sensor_fault;
+        body[9] = frame->pdc_mute;
+        result = append_tlv(packet + UPPER_SERIAL_HEADER_SIZE, &payload_size, 10u, body, 10u);
+        if (result != UPPER_SERIAL_OK) return result;
     }
     sequence = frame->sequence != 0u ? frame->sequence : UpperSerialDebug_NextSequence();
     packet[0] = UPPER_SERIAL_MAGIC_0;
