@@ -2,7 +2,7 @@
 
 录制流程见 [录制与回灌手册](../RECORDING.md#开始录制)。
 
-XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN。已使用模拟 ECU 验证轮询与画面数据。
+XCP 变量可视化支持 TCP/IP、UDP/IP 和 Windows 下的 CAN、CAN FD。E211 画面使用动态 DAQ。
 
 ## 使用
 
@@ -40,16 +40,27 @@ S20 Chassis CAN 固件如果启用了 64 字节的 XCP 请求长度检查，在�
 1. 在「设备与显示」选择 VECTOR（VN1640A）或 ZLG（USBCANFD-200U），选中接到 ECU XCP 总线的物理通道，再把「采集协议」设为 **XCP**。
 2. 打开「XCP 设置」。E211 的当前编译产物使用标准 CAN 帧、请求 ID **0x580**、响应 ID **0x581**、8 字节请求。地址扩展从 0 开始，仲裁速率按实际接入的 ECU 总线配置填写。VN1640A 如果使用 CANoe 应用映射，通道须与 Vector Hardware Configuration 对应。
 3. 在变量文件直接选择与当前运行固件匹配的 `autosaros_r5f.elf`。点击「检查变量文件」，应识别出 **E211** 和 7 类显示变量。已确认 E211 布局为 80 个点、24 条线，单位毫米，线段结构体第 4 字节为填充，没有车位数组。匹配的 HighTec `autosaros_r5f.map` 也可导入。
-4. 保存后点击「在线连接」。握手时上位机用 0x580 发送 XCP CONNECT，ECU 用 0x581 返回首字节为 `FF` 的响应。连接完成后，用 SET_MTA / UPLOAD 读取变量。除点线、车身、12 路回波及 PDC 测距外，配套固件在 `sf_Upper_PDCOutSignal` 内提供功能字段时（兼容旧版独立 `sf_Upper_PDCFunctionOutSignal`），在「数据详情 → PDC」查看其中的 PDC 状态、AVM 请求、前后停车请求、前后最小距离、故障和静音。
-5. 「录制设置」选项目 **E211** 和「仅采集」。使用带 `sf_Upper_E211ReplaySequence`、`sf_Upper_E211ReplaySlots` 的固件及其 ELF，选择与主窗口连接一致的 XCP 传输，或选择「XCP（跟随在线连接）」。点「开始录制」后可在状态栏查看回灌输入计数。旧固件可以选择 **none** 单独保存实车结果。
+4. 保存后点击「在线连接」。握手时上位机用 0x580 发送 XCP CONNECT，ECU 用 0x581 返回首字节为 `FF` 的响应。握手成功后，上位机配置画面 DAQ。完整画面包括点线、车身、12 路回波和 PDC 测距。配套固件在 `sf_Upper_PDCOutSignal` 内提供功能字段时（兼容旧版独立 `sf_Upper_PDCFunctionOutSignal`），可在「数据详情 → PDC」查看 PDC 状态、AVM 请求、前后停车请求、前后最小距离、故障和静音。
+5. 「录制设置」选项目 **E211** 和「仅采集」，回灌输入选与主窗口一致的 XCP 传输，或选「XCP（跟随在线连接）」。点「开始录制」后可在状态栏查看回灌输入计数。只录实车结果时选择 **none**。
 
-每次录制创建独立会话，实车画面保存在 `real_vehicle.txt`，前后探头数据同时导出 CSV，PDC 功能输出保存在 `e211_pdc_result.csv`。选择任一 **XCP** 回灌输入来源时，同一目录下的 `replay_dependency.bin` 保存每个 1800 字节的 `USSXCPOfflineReplayData_t`，包含运行时间、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。`replay_dependency.jsonl` 记下偏移、大小、ECU 时间戳、原始周期号、前后两次采样中间跳过的周期数和上位机单调接收时间。SQLite 会话日志也保存原始数据。
+每次录制创建独立会话，实车画面保存在 `real_vehicle.txt`，前后探头数据同时导出 CSV，PDC 功能输出保存在 `e211_pdc_result.csv`。选择任一 **XCP** 回灌输入来源时，`replay_dependency.bin` 按 1800 字节的 `USSXCPOfflineReplayData_t` 保存每份记录，包含运行时间、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。`replay_dependency.jsonl` 记录偏移、大小、时间戳、采样编号、跳采数和上位机单调接收时间。SQLite 会话日志也保存采集数据。
 
-使用 **XCP on CAN** 或 **XCP on CAN FD** 采集时，停止录制会自动生成 `E211_replay_dependency_YYYYMMDD_HHMMSS.asc`，文件名使用开始录制时的本地日期和时间。ASC 包含有效输入快照的 SET_MTA / UPLOAD 实际收发帧。JSONL 的 `asc_first_frame` 和 `asc_frame_count` 给出每份快照在 ASC 中的起始帧序号（从 0 开始）和帧数。ASC 可用 CANoe 查看。读取专用 CAN FD 依赖帧的回灌程序需要适配 E211 的 XCP 快照。
+使用 **XCP on CAN** 或 **XCP on CAN FD** 采集时，停止录制会生成 `E211_replay_dependency_YYYYMMDD_HHMMSS.asc`，文件名使用录制开始时的日期时间。经典 CAN 的 ASC 保存成功快照的 SET_MTA / UPLOAD 收发帧，CAN FD 的 ASC 保存组装成功的 DAQ DTO 接收帧。JSONL 的 `asc_first_frame` 和 `asc_frame_count` 给出每份记录在 ASC 中的起始帧序号（从 0 开始）和帧数。DAQ 的 ASC 需要按对应 DAQ 配置解释，回灌程序可直接使用按固定 ABI 编码的 BIN。
 
-经典 CAN 每个 UPLOAD 响应帧最多携带 7 字节。固件最短 500 ms 发布一份回灌输入并保留 16 个快照，上位机只保存读取前后序号一致的数据，采样速度取决于 ECU 响应。该录制是采样文件，逐周期连续回灌还需要持续传输全部输入的链路。
+### E211 画面 DAQ
 
-E211 通过 CAN FD 仅在线完整显示时，新版点线结构分别携带 `point_count` / `line_count`，只读取 ECU 实际发布的记录，兼容旧版独立计数。PDC 测距和车辆状态每轮更新，RAW 与 PDC 功能输出约每 100 ms 更新，车辆尺寸和探头位置每 2 秒更新。在「XCP 设置」可将轮询周期间隔设为 0.05 秒，实际刷新率取决于总线与 ECU 负载。
+- **CAN、CAN FD、TCP/IP、UDP/IP** 共用 E211 显示变量布局。匹配的 ELF、MAP 或地址 JSON 提供变量地址和大小。TCP/IP 与 UDP/IP 还需填写 ECU 对应的服务地址和端口。
+- 「E211 画面 DAQ 事件编号」默认 **1**，分频 **1**。E211 当前固件的事件 1 周期为 **100 ms**。点线、PDC、状态和 `sf_Upper_OdoOutSignal` 按此事件采样。车辆尺寸和探头安装位置在连接时读取一次。完整画面的 RAW 每秒读取一次。
+- 经典 CAN 的画面 DAQ 保留线段、状态、ODO 和 PDC 故障所需数据。CAN FD 和以太网同时显示点线和 PDC。按 ECU 实际结构体大小配置测量列表，并按结构体内计数或旧版独立计数显示已发布的点线。
+- ECU 须支持动态 DAQ 并开放所选事件及所需的 DTO 容量。CAN 和 CAN FD 的 DTO 使用配置的响应 CAN ID。画面状态栏显示 DAQ 事件编号。
+
+### E211 回灌 DAQ
+
+- **CAN FD、TCP/IP、UDP/IP** 的回灌录制使用同版且含 DWARF 调试类型的 ELF。画面与回灌共用一个 XCP 会话，各配置一条 DAQ 列表。ECU 须支持两个列表及对应事件。开始和停止回灌录制期间，上位机会重新配置列表。若 ECU 拒绝回灌列表，上位机恢复仅画面 DAQ，并显示回灌错误。
+- 「E211 回灌 DAQ 事件编号」默认 **2**，分频 **2**。E211 当前固件的事件 2 周期为 25 ms。支持分频的 ECU 每两次触发采一份，目标间隔 **50 ms**。按对应底软事件配置修改参数。
+- 回灌 DAQ 直接采集 `Uss_OsTime_us`、`cAutoDrv_CarCenterPt`、`AsdmPrivateCan_Input_Info` 的车速/温度/挡位字段、探头模式及完整 `sensorData`。经典 CAN 的回灌录制读取 `sf_Upper_E211ReplaySequence` 和 `sf_Upper_E211ReplaySlots`，固件快照发布间隔至少 500 ms。
+- 上位机只保存从首个 ODT 开始且分片完整的样本。UDP 根据报文计数丢弃重复、乱序或缺片影响的半帧。`source_cycle_kind=daq_sample` 表示索引与 BIN 的 `cnt_u8` 使用上位机 DAQ 样本编号。跳采数根据丢弃分片组和 ECU 时间间隔估计。`daq_receive_ms` 表示上位机收到首末分片的间隔。
+- 画面与回灌各按配置事件采样。若要对齐到同一算法周期，ECU 需在输入与输出准备完成时提供对应采样事件及同周期标识。实车刷新率和回灌 50 ms 目标需在实际 ECU 上测量。
 
 ## 显示变量接口
 
@@ -96,13 +107,13 @@ ELF 从符号表读取地址、大小和字节序，兼容 _sf_Upper_* 名称。
 
 ## 轮询与故障行为
 
-使用 CONNECT → SET_MTA → 分段 UPLOAD 顺序读取，正常断开时发送 DISCONNECT。支持 BYTE 地址粒度，并按 ECU 声明的 MAX_CTO 分段。经典 CAN 每帧最多返回 7 字节。ECU 声明支持从站块上传时，上位机可用一次 UPLOAD 请求连续接收多帧，8 字节 MAX_CTO 下每块最多 252 字节。其他设备仍按单帧请求读取。两种以太网传输均使用小端 LEN/CTR 帧头。TCP 按长度从字节流恢复报文边界。一个 UDP 数据报可包含多个完整 XCP 报文，格式不完整的数据报会被丢弃。当前实现支持只读轮询，ECU 拒绝读取时会显示具体错误。
+使用 CONNECT → SET_MTA → 分段 UPLOAD 顺序读取，正常断开时发送 DISCONNECT。支持 BYTE 地址粒度，并按 ECU 声明的 MAX_CTO 分段。经典 CAN 每帧最多返回 7 字节。ECU 声明支持从站块上传时，上位机可用一次 UPLOAD 请求连续接收多帧，8 字节 MAX_CTO 下每块最多 252 字节。其他设备仍按单帧请求读取。两种以太网传输均使用小端 LEN/CTR 帧头。TCP 按长度从字节流恢复报文边界。一个 UDP 数据报可包含多个完整 XCP 报文，格式不完整的数据报会被丢弃。ECU 拒绝读命令或 DAQ 配置时显示具体错误。
 
-同一 ECU 上应由此实例单独执行 XCP 主站命令。CAN 采集按响应 ID 和帧类型筛选，并忽略发送回显。各传输均跳过事件及 DAQ 包。UDP/IP 根据 ECU 的响应计数器丢弃重复或较旧的响应。CAN 在线读超时会丢弃当前未完成的读取，并通过 SYNCH 与 ECU 重新同步后重读。同步失败或连续超时会显示错误。以太网命令超时后结束会话，已建立的 UDP 会话会尽力发送 DISCONNECT。重新点击「在线连接」可建立新会话。
+同一 ECU 上应由此实例单独执行 XCP 主站命令。CAN 采集按响应 ID 和帧类型筛选，并忽略发送回显。E211 会话按 DAQ 列表组装 DTO。S20 轮询跳过事件及 DAQ 包。UDP/IP 根据 ECU 的响应计数器丢弃重复或较旧的响应。S20 CAN 轮询超时会丢弃当前未完成的读取，并通过 SYNCH 与 ECU 重新同步后重读。同步失败或连续超时会显示错误。以太网命令超时后结束会话，已建立的 UDP 会话会尽力发送 DISCONNECT。重新点击「在线连接」可建立新会话。
 
-显示变量采用**顺序轮询**，不保证 ECU 同周期原子快照。读取状态时间戳后，再取其他变量，最后复读状态时间戳；两次不一致时状态栏显示“轮询（跨周期）”。即使时间戳一致，也不能代替 ECU 提供的原子发布机制。画面在所有块完整读取、长度和基础数值检查通过后才更新，错误或不完整数据不会拼入下一幅画面。
+S20 显示变量采用**顺序轮询**。读取状态时间戳后，再取其他变量，最后复读状态时间戳；两次不一致时状态栏显示“轮询（跨周期）”。即使时间戳一致，也不能代替 ECU 提供的原子发布机制。画面在所有块完整读取、长度和基础数值检查通过后才更新，错误或不完整数据不会拼入下一幅画面。
 
-轮询间隔是目标最短周期，实际频率取决于数据量、链路负载和 ECU 响应。读取耗时超过间隔时仍按顺序完成轮询。停止操作在后台释放 TCP 连接、UDP 套接字或 CAN 通道；数据过期阈值结合命令超时、轮询间隔和上一帧读取耗时计算，低频轮询不会仅因 UI 刷新间隙提示超时。过期或断开的 PDC 告警停止发声。
+S20 轮询间隔是目标最短周期，实际频率取决于数据量、链路负载和 ECU 响应。读取耗时超过间隔时仍按顺序完成轮询。停止操作在后台释放 TCP 连接、UDP 套接字或 CAN 通道；数据过期阈值结合命令超时、轮询间隔和上一帧读取耗时计算，低频轮询不会仅因 UI 刷新间隙提示超时。过期或断开的 PDC 告警停止发声。
 
 ## ECU 联调检查
 

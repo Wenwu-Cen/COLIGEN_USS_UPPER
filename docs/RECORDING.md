@@ -17,7 +17,7 @@
 - 每次录制创建独立会话。`session.db` 保存采集数据，`manifest.json` 记录设置、状态和计数。
 - 实车结果保存在 `real_vehicle.txt` 和前后探头 CSV。仅采集时，原始 CAN 输入自动导出 ASC，UDP 数据报自动导出 JSONL。
 - 实时比对同时保存 `replay.txt`、回灌探头 CSV 和 `differences.csv`。配对键为启动号、输入周期和输出序号。
-- E211 的 XCP 回灌输入保存为 `replay_dependency.bin` 和周期索引 JSONL，实车 PDC 另存 CSV。XCP on CAN / CAN FD 同时保存实际收发帧 ASC。
+- E211 的 XCP 回灌输入保存为 `replay_dependency.bin` 和周期索引 JSONL，实车 PDC 另存 CSV。XCP on CAN 同时保存轮询收发帧 ASC，XCP on CAN FD 同时保存完整样本的 DAQ DTO ASC。
 
 ## 回看与导出
 
@@ -103,7 +103,7 @@ D4M3 在此处对比 PDC、点、线和属性。
 
 主窗口连接 E211 XCP，录制项目选 E211，模式选「仅采集」。回灌输入选与在线连接一致的 XCP 传输，或选「XCP（跟随在线连接）」。
 
-输入读取固件发布的 `sf_Upper_E211ReplaySequence` 和 `sf_Upper_E211ReplaySlots`。支持的快照为 1800 字节 `USSXCPOfflineReplayData_t`，包含时间戳、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。[E211 连接参数、变量与导出字段](interfaces/XCP.md#e211-联调与录制)
+E211 实车画面在四种 XCP 传输上均使用 DAQ。CAN FD、TCP/IP 和 UDP/IP 的回灌输入也使用独立 DAQ 列表，需使用带调试类型信息的同版 ELF。经典 CAN 的回灌输入读取固件发布的 `sf_Upper_E211ReplaySequence` 和 `sf_Upper_E211ReplaySlots`。两路均导出 1800 字节一条的 `USSXCPOfflineReplayData_t` 记录，包含时间戳、里程计、车速、温度、挡位、工作模式及 12 路原始传感器输入。[E211 连接参数、变量与导出字段](interfaces/XCP.md#e211-联调与录制)
 
 ## PC 回灌单步调试
 
