@@ -60,14 +60,14 @@ Windows 配置可内置两个回灌 worker。S20 使用 `build/s20-stream/bin/da
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v5.3.1.exe`。下载版可用 `Get-FileHash -Algorithm SHA256` 校验，同 `SHA256SUMS.txt` 中的对应值比较。
+输出 `dist/COLIGEN_USS_UPPER_v5.3.2.exe`。下载版可用 `Get-FileHash -Algorithm SHA256` 校验，同 `SHA256SUMS.txt` 中的对应值比较。
 
 源码回归与 EXE 自检：
 
 ```powershell
 uv run --locked python -m pytest -q
 $sample = "D:\logs\S20test.asc"
-$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.3.1.exe `
+$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.3.2.exe `
     -ArgumentList "--self-test `"$sample`" `"$PWD\build\self-test.json`"" -WindowStyle Hidden -Wait -PassThru
 $test.ExitCode
 Get-Content .\build\self-test.json
