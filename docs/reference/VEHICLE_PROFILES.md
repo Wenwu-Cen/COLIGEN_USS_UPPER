@@ -1,4 +1,4 @@
-# 车型与探头安装配置（v3.10.0）
+# 车型与探头安装配置
 
 Windows 11 与 Ubuntu 使用同一套配置界面。点击顶部「车型配置」打开编辑器；打开「设备与显示」后，可在「车型与探头」中快速切换已保存车型。
 
@@ -13,7 +13,7 @@ Windows 11 与 Ubuntu 使用同一套配置界面。点击顶部「车型配置�
 
 接收通道通过探头名称匹配。FLS / FLC / FLM / FRM / FRC / FRS 和 RLS / RLC / RLM / RRM / RRC / RRS 对应现有回波与 PDC 调试通道；额外名称用于显示安装点。物理探头方案不等于导出的调试通道数，17 探头固件当前导出 12 路回波 / PDC。
 
-手动选定车型后，在线车辆参数和打开日志不会覆盖它。切换回「跟随在线 / 日志数据」后恢复最新数据车型。安装参数只影响上位机显示和告警筛选，不写入 ECU，不改变接收报文的坐标原点。停用探头后隐藏安装点及其回波 / PDC，并过滤该通道的声音。
+非 CAN 输入可手动选定显示车型，在在线与日志间使用同一套安装参数。切换回「跟随在线 / 日志数据」后恢复最新数据车型。安装参数只影响上位机显示和告警筛选，不写入 ECU，不改变接收报文的坐标原点。停用探头后隐藏安装点及其回波 / PDC，并过滤该通道的声音。
 
 ## 车身外观（v4.9.2）
 
@@ -27,15 +27,25 @@ Windows 11 与 Ubuntu 使用同一套配置界面。点击顶部「车型配置�
 
 「导出 JSON」保存当前编辑内容；「导入 JSON」载入待编辑内容，点击「保存并使用」后生效。同名导入需改名，避免覆盖已有车型。取消或 Esc 不保存草稿。
 
-车型库与程序版本分开存放：
-
-- Windows：`%APPDATA%\COLIGEN_USS_UPPER\vehicle_profiles.json`
-- Ubuntu：`~/.config/coligen-uss-upper/vehicle_profiles.json`（遵循 XDG_CONFIG_HOME）
-- 验证环境可用 `COLIGEN_CONFIG_DIR` 指定独立目录。
+Windows 保存到 EXE 旁的 `config/vehicle_profiles.json`。升级时可将旧版 `%APPDATA%\COLIGEN_USS_UPPER` 中需要保留的设置 JSON 复制到新包的 `config`，以目标已有文件为准。Ubuntu 使用 XDG 配置目录，默认路径为 `~/.config/coligen-uss-upper/vehicle_profiles.json`。源码和测试可通过 `COLIGEN_CONFIG_DIR` 隔离设置。
 
 原子写入避免保存中断破坏原文件。损坏的车型库在下一次成功保存时备份为 `vehicle_profiles.invalid-<时间>.json`。
 
 TXT 录制保存完整车型和探头参数；录制过程中切换车型也会逐帧保存。自动模式回放按帧恢复安装参数，手动模式保留操作者选择。旧日志仍可读取。
+
+## CAN 车型档案
+
+每个 CAN 车型目录包含 `vehicleinfo.json` 及配套 DBC。Windows EXE 从同目录的 `profile/<车型>` 读取，源码运行从项目下的同名目录读取。在「设备与显示」选 CAN FD 并选择「CAN 车型」。打开 ASC/BLF 时若有多份档案，先为这段录制选车型。连接或回放期间以所选档案的几何和映射为准，断开后可切换。
+
+- `schema_version` 为 `1`。`profile` 使用车型编辑器导出的几何格式。将编辑器导出的 `profile` 对象复制到文件时，保留原文件的 `can` 对象。
+- `can.dbc` 列出车型目录内的 DBC 相对路径。`can.messages` 的键为程序支持的报文用途，如 `CarInfo`、`PDC` 或 `ObjPointInfo_0_9`。可省略 `messages` 以匹配 DBC 中的同名报文。
+- 每条映射可用 `name` 指定 DBC 报文名，默认使用用途同名报文。`ids` 覆盖 DBC 帧 ID 列表，沿用 DBC 的标准帧或扩展帧标记。`short_frames` 是旧报文兼容配置，键为 CAN ID，值为允许的帧长，解码取最短版本的有效前缀。
+- `signals` 的键为上位机使用的字段名，值可为 DBC 信号名，也可为包含 `name`、`physical`、`factor`、`offset` 的对象。默认使用 DBC 原始值。设置 `physical` 为 `true` 时使用 DBC 的物理值，再计算 `value * factor + offset`。S20 旧 `CarInfo` 的位置以原始毫米字段和原点 32767 为准。
+- `can.uc` 用于 UC 分片。它包含分片 DBC 的相对路径 `dbc`，以及按固件分片顺序排列的报文名 `fragments`。程序从 DBC 取 CAN ID，收齐后按 UC v1 协议校验 CRC 并解析数据。
+
+支持实时回灌的录制项目也可在同名车型目录放置 `dataReplay_main.exe` 和构建清单。「录制设置」的回灌程序留空时优先读取该文件。CAN 车型列表只显示带 `vehicleinfo.json` 的目录。
+
+随包的 S20 支持旧 DBC 可视化和 UC 分片。新增同协议车型时，参考现有档案替换几何、报文和信号定义。[S20 档案](../../profile/S20/vehicleinfo.json) · [UC 协议](../interfaces/S20_UPPER_CAN_V1.md)
 
 ## 17 / 20 探头数据方案
 

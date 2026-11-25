@@ -9,7 +9,7 @@
 
 1. 在主窗口连接实车结果源，确认画面持续更新。
 2. 打开「录制设置」，选择项目和回灌输入来源。选 ZLG、TOSUN 或 Vector 时填写对应设备与通道。选 UDP 时填写本机监听地址、来源 IP 和封装。选 XCP 时复用主窗口连接。
-3. 选「仅采集」同步保存实车结果与所选输入。回灌输入选「无（仅实车结果）」可单独保存实车结果。选「实时回灌比对」时，指定该项目支持 `--stream` 的 RCP1 v2 worker，再点「检查连接」核对链路。
+3. 选「仅采集」同步保存实车结果与所选输入。回灌输入选「无（仅实车结果）」可单独保存实车结果。选「实时回灌比对」时，回灌程序留空会优先使用 EXE 旁的 `profile/<项目>/dataReplay_main.exe`，也可点击「选择程序」指定其他支持 `--stream` 的 RCP1 v2 程序。点「检查连接」核对链路。
 4. 保存设置后点「开始录制」，结束时点「停止录制」。会话默认在程序目录的 `recordings/sessions`，也可指定保存根目录。
 
 ## 保存文件
@@ -41,7 +41,7 @@ CAN/UDP 的原始接收时间、通道、帧 ID、FD/扩展帧标志和字节数
 
 启用“实时回灌”后，程序启动 `dataReplay_main.exe --stream` 常驻进程，以 RCP1 帧协议传输完整 S20 输入周期。一个周期包含 20 个 CAN FD 输入帧；周期号、启动号、时间戳和 CRC 会写入保留元数据区，并保留车辆信息帧原有的滚动计数。回灌程序返回 USSV 输出后，按 `(boot, input_cycle, output_ordinal)` 与 CS+ 或 XCP 读取的冻结实车结果严格配对。输出序号在每个输入周期内从 1 开始，因此不依赖实车与 PC 的墙钟时间相等；真实任务时间仍保留在 USSV 快照中。工作进程握手能力版本为 2。
 
-回灌算法文件和构建清单会复制到会话目录。默认可执行文件为 `build/s20-stream/bin/dataReplay_main.exe`，发布包中的路径为 `runtime_assets/replay/S20/dataReplay_main.exe`。构建输入 DBC 同时打包为 `runtime_assets/Database/E541_PAS_20260609_FS21.dbc` 和 `S20_Replay_Capture_v1.dbc`。
+S20 的便携包默认从 `profile/S20/dataReplay_main.exe` 查找回灌程序。将构建清单 `replay_s20_build_manifest.json` 与 EXE 放在一起，录制会将两者复制到会话目录。已有旧版包内程序和源码构建目录可作为备用查找位置。构建输入 DBC 打包为 `runtime_assets/Database/E541_PAS_20260609_FS21.dbc` 和 `S20_Replay_Capture_v1.dbc`。
 
 ### S20 录制排查
 
@@ -73,7 +73,7 @@ D4M3 的实时比对使用 UDP CAN68。仅采集也可保存原始 CAN FD 和其
 
 1. 在 Windows 上给接收网卡配置 `192.168.98.123`。上位机选择 **UDP**，在「UDP 设置」填本机 `192.168.98.123:39001` 和来源 `192.168.98.233`，连接后确认实车画面持续更新。
 2. 在「录制设置」选择 **D4M3**。回灌依赖使用 **UDP / can68 / legacy**，使用相同地址和端口，依赖 DBC 选择 `E541_PAS_20260609_FS21.dbc`。
-3. 选择支持 `D4M3 / RCP1 v2 / --stream` 的 D4M3 native 回灌程序，将「录制模式」设为「实时回灌比对」，保存并开始录制。上位机从同一个 UDP 接收器读取实车可视化与回灌依赖。
+3. 将支持 `D4M3 / RCP1 v2 / --stream` 的 D4M3 native 回灌程序放到 `profile/D4M3/dataReplay_main.exe`，或在设置中单独指定。配套 `build_manifest.json` 与 EXE 同目录。将「录制模式」设为「实时回灌比对」，保存并开始录制。上位机从同一个 UDP 接收器读取实车可视化与回灌依赖。
 4. 在「字段对照」选择 PDC、POINT 或 LINE。PDC 可看系统状态以及同一探头的距离、范围等级、故障；点线可看坐标和高低属性。停止录制后从「对比」重新打开会话。
 
 ### 数据合同

@@ -1,5 +1,11 @@
 # 变更日志
 
+## 5.4.0 · 2026-11-25 · Windows 便携目录与 CAN 车型档案
+
+- Windows 改用目录版 ZIP，设置、车型和默认录制目录随 EXE 搬移。连接设置保存在 `config/`，录制默认保存在 `recordings/sessions/`。
+- 直接 CAN 在线与 ASC/BLF 回放共用 `profile/<车型>/vehicleinfo.json` 和配套 DBC。随包的 S20 档案支持旧 DBC 报文和 UC 分片。
+- 实时回灌按录制项目优先使用 `profile/<项目>/dataReplay_main.exe`，也可在录制设置中指定程序。随包提供 S20 流式程序及构建清单。
+
 ## 5.3.2 · 2026-11-25 · XCP 采集方式可独立设置
 
 - E211 的画面与回灌可分别选择轮询或 DAQ。CAN FD、TCP/IP、UDP/IP 支持混合搭配。经典 CAN 的画面支持两种方式，完整回灌使用固件快照轮询。

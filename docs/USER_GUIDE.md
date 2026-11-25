@@ -4,11 +4,11 @@
 
 ## 安装和连接
 
-Windows x64 EXE 包含 Python、界面资源、DBC 及厂商用户态 DLL。连接 CAN 设备时安装相应的 USB 驱动。若需自定义底层默认参数，可把 [viewer.toml](../config/viewer.toml) 放到 EXE 同目录。界面保存的用户设置优先。
+将 Windows x64 便携 ZIP 解压到可写目录，启动其中的 EXE。整个目录包含 Python、界面资源、DBC 和厂商用户态 DLL。连接 CAN 设备时安装对应的 USB 驱动。设置保存在 EXE 旁的 `config`，底层默认参数见 `config/viewer.toml`。录制默认保存在 `recordings/sessions`，复制整个便携目录可保留设置和录制。
 
 在「设备与显示」按实车接口选硬件与协议。选好车型和探头方案，在连接后查看实车画面及状态计数。
 
-- **CAN FD**。选「CAN」和 ZLG、TOSUN 或 VECTOR，设置实际设备、通道并匹配速率。Vector 可按设备型号选择，或使用 `CANoe 应用映射`。[型号、通道与驱动](interfaces/CAN_HARDWARE.md)
+- **CAN FD**。选「CAN」和 ZLG、TOSUN 或 VECTOR，设置实际设备、通道和速率，再选「CAN 车型」。在线和 ASC/BLF 回放都读取所选车型目录中的 `vehicleinfo.json` 与 DBC。[型号、通道与驱动](interfaces/CAN_HARDWARE.md) · [CAN 车型档案](reference/VEHICLE_PROFILES.md#can-车型档案)
 - **XCP**。选 CAN、TCP/IP 或 UDP，将「采集协议」设为 XCP。填写 CAN 请求/响应 ID 或 ECU 网络地址，导入当前固件的 ELF、MAP 或地址 JSON。[XCP 设置与变量](interfaces/XCP.md)
 - **UDP / USSD**。选 UDP 和「USSD / IPC DBC」，在「UDP 设置」填写本机监听和来源 IP。默认监听 `192.168.98.123:39001`，来源 `192.168.98.233`。[UDP 接口](interfaces/UDP_INTERFACE.md)
 - **17 探头 USS 以太网**。选 TCP/IP 和「USS 以太网」。在「网络设置」按发送端填写 UDP 监听或 TCP 服务地址、字节序和结构体对齐。[USS 以太网](interfaces/ETHERNET_INTERFACE.md)

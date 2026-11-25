@@ -11,3 +11,11 @@ more_panel_state.json
 *.log
 
 /recordings/
+/config/*.json
+!/config/*_vehicle_profile.json
+!/config/*.example.json
+/config/*.tmp
+/cache/
+/profile/*/dataReplay_main.exe
+/profile/*/replay_s20_build_manifest.json
+/profile/*/build_manifest.json

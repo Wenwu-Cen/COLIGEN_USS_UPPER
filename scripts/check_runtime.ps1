@@ -7,8 +7,10 @@ $required = @(
     'library\windows\x86_64\zlgcan.dll',
     'library\windows\x86_64\kerneldlls\USBCANFD.dll',
     'library\windows\x86_64\kerneldlls\USBCANFD800U.dll',
-    'assets\dbc\M18_Upper_Interface_241113.dbc',
-    'assets\dbc\ObstacleTrack_M20251104.dbc'
+    'profile\S20\vehicleinfo.json',
+    'profile\S20\M18_Upper_Interface_241113.dbc',
+    'profile\S20\ObstacleTrack_M20251104.dbc',
+    'profile\S20\S20_Upper_CAN_UC_v1_20261117.dbc'
 )
 foreach ($relativePath in $required) {
     $runtimeFile = Join-Path $projectRoot $relativePath

@@ -27,6 +27,8 @@ done
 install -m 755 "build/ubuntu/dist/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64" "$package/.application.new"
 mv -f "$package/.application.new" "$package/COLIGEN_USS_UPPER_v${version}_Ubuntu_x86_64"
 cp config/ubuntu_config.toml "$package/viewer.toml"
+mkdir -p "$package/profile"
+cp -a profile/. "$package/profile/"
 cp docs/maintenance/UBUNTU_RELEASE.md "$package/README.md"
 cp docs/CHANGELOG.md "$package/"
 cp docs/reference/VEHICLE_PROFILES.md "$package/"

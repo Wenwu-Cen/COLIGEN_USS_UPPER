@@ -19,16 +19,6 @@ bridge_payload = base64.b85encode(zlib.compress(bridge_source.encode("ascii"))).
     "BRIDGE_SOURCE_B85 = " + repr(bridge_payload) + "\n", encoding="ascii")
 
 
-replay_worker_assets = []
-for project, manifest in (("S20", "replay_s20_build_manifest.json"), ("D4M3", "build_manifest.json")):
-    directory = Path("build").resolve() / (project.lower() + "-stream") / "bin"
-    if (directory / "dataReplay_main.exe").is_file():
-        replay_worker_assets.extend(
-            (str(directory / name), f"runtime_assets/replay/{project}")
-            for name in ("dataReplay_main.exe", manifest)
-            if (directory / name).is_file()
-        )
-
 a = Analysis(
     ['../../src/app.py'],
     pathex=[str(Path('src').resolve()), str(bridge_payload_dir)],
@@ -38,8 +28,8 @@ a = Analysis(
         ('../../library/windows/x86_64/tosun/libTSCAN.dll', 'runtime_assets/library/windows/x86_64/tosun'),
         ('../../library/windows/x86_64/tosun/libTSH.dll', 'runtime_assets/library/windows/x86_64/tosun'),
     ],
-    # Include CTk themes and fonts in the single-file Windows release.
-    datas=collect_data_files("customtkinter") + replay_worker_assets + [
+    # Include CTk themes and fonts in the portable Windows directory.
+    datas=collect_data_files("customtkinter") + [
         ('../../assets/car.ico', '.'),
         ('../../assets/car.png', '.'),
         ('../../config/viewer.toml', '.'),
@@ -47,12 +37,9 @@ a = Analysis(
             '../../library/windows/x86_64/kerneldlls',
             'runtime_assets/library/windows/x86_64/kerneldlls',
         ),
-        ('../../assets/dbc/M18_Upper_Interface_241113.dbc', 'runtime_assets/Database'),
-        ('../../assets/dbc/ObstacleTrack_M20251104.dbc', 'runtime_assets/Database'),
         ('../../assets/dbc/IPC_matrix_UssDebugDataMCUtoSOC_V1.0_20261019_D4M6.dbc', 'runtime_assets/Database'),
         ('../../assets/dbc/E541_PAS_20260609_FS21.dbc', 'runtime_assets/Database'),
         ('../../assets/dbc/S20_Replay_Capture_v1.dbc', 'runtime_assets/Database'),
-        ('../../assets/dbc/S20_Upper_CAN_UC_v1_20261117.dbc', 'runtime_assets/Database'),
     ],
     hiddenimports=[
         'csplus_bridge_payload', 'can', 'can.io.blf', 'can.interfaces.vector',
@@ -73,16 +60,14 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
+    exclude_binaries=True,
     name=EXE_STEM,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
-    runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
@@ -91,3 +76,4 @@ exe = EXE(
     entitlements_file=None,
     icon=['../../assets/car.ico'],
 )
+dist = COLLECT(exe, a.binaries, a.datas, name=EXE_STEM, strip=False, upx=True)

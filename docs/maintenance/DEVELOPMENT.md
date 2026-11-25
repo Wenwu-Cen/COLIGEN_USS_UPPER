@@ -52,7 +52,7 @@ POINT/LINE 高光跟随选定下标；点击快照存点击时字段与几何，
 
 Windows 和 Ubuntu 的 PyInstaller 配置位于 `scripts/pyinstaller/`，使用同一入口和项目内的 DBC。Windows 通过 `scripts/check_runtime.ps1` 检查厂商 DLL。构建脚本从当前仓库定位资源，可在独立解压的源码包中运行。
 
-Windows 配置可内置两个回灌 worker。S20 使用 `build/s20-stream/bin/dataReplay_main.exe` 和 `replay_s20_build_manifest.json`，D4M3 使用 `build/d4m3-stream/bin/dataReplay_main.exe` 和 `build_manifest.json`。每个清单与对应 EXE 放在同一目录。单机联调可在「录制设置」指定独立 EXE。
+Windows 便携包把回灌程序和构建清单放在 `profile/<项目>/`，优先使用源码同名目录中已有的程序。若该目录缺少程序，脚本从 `build/s20-stream/bin` 或 `build/d4m3-stream/bin` 复制已有的 `dataReplay_main.exe` 及同目录构建清单。S20 清单名为 `replay_s20_build_manifest.json`，D4M3 清单名为 `build_manifest.json`。也可在「录制设置」指定独立 EXE。
 
 ### Windows 构建与自检
 
@@ -60,14 +60,14 @@ Windows 配置可内置两个回灌 worker。S20 使用 `build/s20-stream/bin/da
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v5.3.2.exe`。下载版可用 `Get-FileHash -Algorithm SHA256` 校验，同 `SHA256SUMS.txt` 中的对应值比较。
+输出 `dist/COLIGEN_USS_UPPER_v5.4.0-Windows-Portable.zip`。解压后在同一目录保留 EXE、`_internal`、`config` 和 `profile`。下载版可用 `Get-FileHash -Algorithm SHA256` 核对发布清单。
 
 源码回归与 EXE 自检：
 
 ```powershell
 uv run --locked python -m pytest -q
 $sample = "D:\logs\S20test.asc"
-$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.3.2.exe `
+$test = Start-Process -FilePath .\build\windows\dist\COLIGEN_USS_UPPER_v5.4.0\COLIGEN_USS_UPPER_v5.4.0.exe `
     -ArgumentList "--self-test `"$sample`" `"$PWD\build\self-test.json`"" -WindowStyle Hidden -Wait -PassThru
 $test.ExitCode
 Get-Content .\build\self-test.json
@@ -90,7 +90,7 @@ $env:COLIGEN_TEST_RECORDINGS = Join-Path $sampleDir 'recordings'
 
 1. 同步 `src/app_version.py`、`pyproject.toml`、`uv.lock` 与 [变更日志](../CHANGELOG.md)。用 `uv lock --check` 核对依赖锁文件。
 2. 运行源码回归和 Windows EXE 自检。历史日志测试可通过 `COLIGEN_TEST_RECORDINGS` 指向解压出的 `recordings/` 目录。实体硬件及实车效果在相应设备上验证。
-3. 从当前提交归档源码 ZIP。发布附件包括当前 Windows EXE、源码 ZIP、README、变更日志和 SHA-256 清单，以及明确标注自身版本的 Ubuntu 包和 S20 worker。
+3. 从当前提交归档源码 ZIP。发布附件包括当前 Windows 便携 ZIP、源码 ZIP、README、变更日志和 SHA-256 清单，以及明确标注自身版本的 Ubuntu 包和 S20 worker。
 4. GitHub 和 Gitea 发布同一提交、版本标签与 Release。SVN 固定目录保持一套发布物，将该目录的已提交版本复制到 `Algo/可视化工具/tags/COLIGEN_USS_UPPER/v版本号`。回读附件名、大小和校验值。
 
 历史采集日志保留在 v5.2.6 及更早标签的 `recordings/`。当前仓库的 `tests/fixtures/` 用于小型、可随源码复现的协议夹具。构建输出、虚拟环境、录制和个人设置均由忽略规则排除。
