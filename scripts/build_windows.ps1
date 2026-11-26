@@ -29,7 +29,21 @@ Assert-LastExitCode 'uv run python -m PyInstaller'
 $exeStem = (
     uv run python -c "import sys; sys.path.insert(0, 'src'); from app_version import EXE_STEM; print(EXE_STEM)"
 ).Trim()
+$builtExe = Join-Path 'build/windows/dist' "$exeStem.exe"
+if (-not (Test-Path -LiteralPath $builtExe -PathType Leaf)) {
+    throw "Built standalone EXE not found: $builtExe"
+}
+
+New-Item -ItemType Directory -Path 'dist' -Force | Out-Null
+$standaloneExe = Join-Path 'dist' "$exeStem.exe"
+Copy-Item -LiteralPath $builtExe -Destination $standaloneExe -Force
+
 $package = Join-Path 'build/windows/dist' $exeStem
+if (Test-Path -LiteralPath $package) {
+    Remove-Item -LiteralPath $package -Recurse -Force
+}
+New-Item -ItemType Directory -Path $package -Force | Out-Null
+Copy-Item -LiteralPath $builtExe -Destination $package
 $settingsDirectory = Join-Path $package 'config'
 New-Item -ItemType Directory -Path $settingsDirectory -Force | Out-Null
 Copy-Item -LiteralPath 'config/viewer.toml' -Destination $settingsDirectory
@@ -56,7 +70,6 @@ foreach ($project in $workerManifests.Keys) {
     }
 }
 
-New-Item -ItemType Directory -Path 'dist' -Force | Out-Null
 $archive = Join-Path 'dist' "$exeStem-Windows-Portable.zip"
 Compress-Archive -LiteralPath $package -DestinationPath $archive -Force
-Write-Host "Build complete: $archive"
+Write-Host "Build complete: $standaloneExe and $archive"

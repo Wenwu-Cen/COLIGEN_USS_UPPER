@@ -1,5 +1,11 @@
 # 变更日志
 
+## 5.4.1 · 2026-11-26 · Windows 单文件独立打包与内置车型兜底
+
+- Windows 恢复单文件独立打包（`COLIGEN_USS_UPPER_v5.4.1.exe`），同步输出便携包 `COLIGEN_USS_UPPER_v5.4.1-Windows-Portable.zip`，单文件 EXE 可脱离外部 `_internal/`、配置和车型目录直接独立运行。
+- `can_profile` 新增 `_MEIPASS/runtime_assets/profile` 内置车型兜底；EXE 同级存在外部 `profile/` 时仍以同级同名车型与新增车型优先覆盖。
+- 打包脚本默认内嵌 `profile/` 与已有 S20 流式回灌程序 `dataReplay_main.exe`，并在空白独立目录完成 `--self-test` 及界面启动验证。
+
 ## 5.4.0 · 2026-11-25 · Windows 便携目录与 CAN 车型档案
 
 - Windows 改用目录版 ZIP，设置、车型和默认录制目录随 EXE 搬移。连接设置保存在 `config/`，录制默认保存在 `recordings/sessions/`。

@@ -60,14 +60,14 @@ Windows 便携包把回灌程序和构建清单放在 `profile/<项目>/`，优�
 .\scripts\build_windows.ps1
 ```
 
-输出 `dist/COLIGEN_USS_UPPER_v5.4.0-Windows-Portable.zip`。解压后在同一目录保留 EXE、`_internal`、`config` 和 `profile`。下载版可用 `Get-FileHash -Algorithm SHA256` 核对发布清单。
+输出独立单文件 `dist/COLIGEN_USS_UPPER_v5.4.1.exe` 及便携包 `dist/COLIGEN_USS_UPPER_v5.4.1-Windows-Portable.zip`（内含单文件 EXE、`config` 和 `profile`）。下载版可用 `Get-FileHash -Algorithm SHA256` 核对发布清单。
 
 源码回归与 EXE 自检：
 
 ```powershell
 uv run --locked python -m pytest -q
 $sample = "D:\logs\S20test.asc"
-$test = Start-Process -FilePath .\build\windows\dist\COLIGEN_USS_UPPER_v5.4.0\COLIGEN_USS_UPPER_v5.4.0.exe `
+$test = Start-Process -FilePath .\dist\COLIGEN_USS_UPPER_v5.4.1.exe `
     -ArgumentList "--self-test `"$sample`" `"$PWD\build\self-test.json`"" -WindowStyle Hidden -Wait -PassThru
 $test.ExitCode
 Get-Content .\build\self-test.json

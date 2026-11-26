@@ -19,6 +19,17 @@ bridge_payload = base64.b85encode(zlib.compress(bridge_source.encode("ascii"))).
     "BRIDGE_SOURCE_B85 = " + repr(bridge_payload) + "\n", encoding="ascii")
 
 
+replay_worker_assets = []
+for project, manifest in (("S20", "replay_s20_build_manifest.json"), ("D4M3", "build_manifest.json")):
+    directory = Path("build").resolve() / (project.lower() + "-stream") / "bin"
+    if (directory / "dataReplay_main.exe").is_file():
+        replay_worker_assets.extend(
+            (str(directory / name), f"runtime_assets/replay/{project}")
+            for name in ("dataReplay_main.exe", manifest)
+            if (directory / name).is_file()
+        )
+
+
 a = Analysis(
     ['../../src/app.py'],
     pathex=[str(Path('src').resolve()), str(bridge_payload_dir)],
@@ -28,11 +39,12 @@ a = Analysis(
         ('../../library/windows/x86_64/tosun/libTSCAN.dll', 'runtime_assets/library/windows/x86_64/tosun'),
         ('../../library/windows/x86_64/tosun/libTSH.dll', 'runtime_assets/library/windows/x86_64/tosun'),
     ],
-    # Include CTk themes and fonts in the portable Windows directory.
-    datas=collect_data_files("customtkinter") + [
+    # Include CTk themes, fonts, CAN profiles and replay workers in the single-file Windows EXE.
+    datas=collect_data_files("customtkinter") + replay_worker_assets + [
         ('../../assets/car.ico', '.'),
         ('../../assets/car.png', '.'),
         ('../../config/viewer.toml', '.'),
+        ('../../profile', 'runtime_assets/profile'),
         (
             '../../library/windows/x86_64/kerneldlls',
             'runtime_assets/library/windows/x86_64/kerneldlls',
@@ -60,14 +72,16 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
+    a.binaries,
+    a.datas,
     [],
-    exclude_binaries=True,
     name=EXE_STEM,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
+    runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
@@ -76,4 +90,3 @@ exe = EXE(
     entitlements_file=None,
     icon=['../../assets/car.ico'],
 )
-dist = COLLECT(exe, a.binaries, a.datas, name=EXE_STEM, strip=False, upx=True)

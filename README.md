@@ -1,11 +1,11 @@
 # COLIGEN USS UPPER
 
-超声波上位机，当前版本 **v5.4.0**。支持实车采集、TXT / ASC / BLF 回放、点线和车位可视化，以及回灌比对。
+超声波上位机，当前版本 **v5.4.1**。支持实车采集、TXT / ASC / BLF 回放、点线和车位可视化，以及回灌比对。
 
 ## 下载与开始
 
-1. 下载 `COLIGEN_USS_UPPER_v5.4.0-Windows-Portable.zip` 和 `SHA256SUMS.txt`。[内网 Gitea v5.4.0 发布页](http://192.168.10.45:3000/Wenwu-Cen/COLIGEN_USS_UPPER/releases/tag/v5.4.0) · [GitHub 历史版本](https://github.com/Wenwu-Cen/COLIGEN_USS_UPPER/releases)。
-2. 将 Windows x64 便携包解压到可写目录，运行其中的 EXE。回看日志时点击「打开日志」。采集实车时在「设备与显示」选数据源、配置接口，再点「在线连接」。
+1. 下载独立单文件 `COLIGEN_USS_UPPER_v5.4.1.exe`（可直接双击运行），或下载 `COLIGEN_USS_UPPER_v5.4.1-Windows-Portable.zip` 和 `SHA256SUMS.txt`。[内网 Gitea v5.4.1 发布页](http://192.168.10.45:3000/Wenwu-Cen/COLIGEN_USS_UPPER/releases/tag/v5.4.1) · [GitHub 历史版本](https://github.com/Wenwu-Cen/COLIGEN_USS_UPPER/releases)。
+2. 若使用便携包，将其解压到可写目录并运行其中的 EXE；独立单文件 EXE 可直接放置于任意可写目录运行。回看日志时点击「打开日志」。采集实车时在「设备与显示」选数据源、配置接口，再点「在线连接」。
 3. 实车画面更新后，在「录制设置」选择项目、回灌输入来源和「仅采集」或「实时回灌比对」。停止后在状态栏查看保存目录。[录制操作](docs/RECORDING.md#开始录制)
 
 ## 按任务查文档
